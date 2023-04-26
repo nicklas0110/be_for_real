@@ -1,0 +1,35 @@
+{
+    "name": "be_for_real",
+    "short_name": "be_for_real",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "Vi vil gerne lave en app der kan sende et dagligt billede af dig selv og omverden til et socialt netværk af venner/grupper man selv vælger, i gruppen/vennekredsen skal man også kunne skrive til hinanden. Det skal ske på et tilfældigt tidspunkt af dagen",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
