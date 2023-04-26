@@ -1,4 +1,7 @@
+import 'package:be_for_real/friendTab.dart';
 import 'package:flutter/material.dart';
+
+import 'groupTab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +19,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: blackMaterialColor,
       ),
-      home: const MyHomePage(title: 'BeForReal'),
+      home: MyHomePage(
+        title: 'BeForReal',
+        friendTab: 'Friends',
+        groupTab: 'Groups',
+      ),
     );
   }
 }
@@ -27,79 +34,79 @@ MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
 });
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage(
+      {super.key,
+      required this.title,
+      required this.friendTab,
+      required this.groupTab});
 
   final String title;
+  final String friendTab;
+  final String groupTab;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  late TabController _tabController;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: IconButton(
-                icon: const Icon(Icons.supervisor_account),
-                iconSize: 30,
-                color: Colors.white,
-                tooltip: 'Friends',
-                onPressed: () {
-                  // do something when the button is pressed
-                },
-              ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(Icons.supervisor_account),
+              iconSize: 30,
+              color: Colors.white,
+              tooltip: 'Friends',
+              onPressed: () {
+                // do something when the button is pressed
+              },
             ),
-            Expanded(
-              child: Center(
-                child: Text(
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    widget.title),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: IconButton(
-                icon: const Icon(Icons.account_circle),
-                iconSize: 30,
-                color: Colors.white,
-                tooltip: 'Profile',
-                onPressed: () {
-                  // do something when the button is pressed
-                },
-              ),
-            ),
-          ],
           ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          Expanded(
+            child: Center(
+              child: Text(
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  widget.title),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: IconButton(
+              icon: const Icon(Icons.account_circle),
+              iconSize: 30,
+              color: Colors.white,
+              tooltip: 'Profile',
+              onPressed: () {
+                // do something when the button is pressed
+              },
             ),
+          ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(child: Text(widget.friendTab)),
+            Tab(child: Text(widget.groupTab)),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: TabBarView(
+        children: [FriendTab(), GroupTab()],
+        controller: _tabController,
       ),
     );
   }
