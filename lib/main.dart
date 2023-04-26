@@ -12,17 +12,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BeForReal',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: blackMaterialColor,
       ),
-      home: const MyHomePage(title: 'BeForReal main page'),
+      home: const MyHomePage(title: 'BeForReal'),
     );
   }
 }
 
+MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
+  50: Colors.black,
+  for (int i = 100; i <= 900; i += 100) i: Colors.black,
+});
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-  
+
   final String title;
 
   @override
@@ -40,11 +46,42 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: IconButton(
+                icon: const Icon(Icons.supervisor_account),
+                iconSize: 30,
+                color: Colors.white,
+                tooltip: 'Friends',
+                onPressed: () {
+                  // do something when the button is pressed
+                },
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    widget.title),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: IconButton(
+                icon: const Icon(Icons.account_circle),
+                iconSize: 30,
+                color: Colors.white,
+                tooltip: 'Profile',
+                onPressed: () {
+                  // do something when the button is pressed
+                },
+              ),
+            ),
+          ],
+          ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
