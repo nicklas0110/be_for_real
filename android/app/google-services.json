@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113731870223",
+    "project_id": "be-for-real",
+    "storage_bucket": "be-for-real.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113731870223:android:23dbe0348058eae339cd7a",
+        "android_client_info": {
+          "package_name": "com.example.be_for_real"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113731870223-72qnd7b55jug60hqh6p6ikm400r3o0ol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM1_Hd69EloTSSNKkT8gRYPUSfj0K9Mzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113731870223-72qnd7b55jug60hqh6p6ikm400r3o0ol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

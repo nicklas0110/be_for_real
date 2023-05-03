@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>113731870223-0aftb78ai86dg0mfv9cthvcl1jdap1lr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.113731870223-0aftb78ai86dg0mfv9cthvcl1jdap1lr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCNcbcVrTRO-r4ET8g_TCqWPBOvSeh8AMI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>113731870223</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.beForReal</string>
+	<key>PROJECT_ID</key>
+	<string>be-for-real</string>
+	<key>STORAGE_BUCKET</key>
+	<string>be-for-real.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:113731870223:ios:079a7e524d625b5139cd7a</string>
+</dict>
+</plist>
