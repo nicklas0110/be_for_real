@@ -15,6 +15,15 @@ class FriendTab extends StatelessWidget {
         child: Center(child: Text('$index')),
       );
 
+  Widget buildCardPic(int index) => Container(
+    width: 100,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.grey,
+    ),
+    child: Center(child: Text('$index')),
+  );
+
   getCurrentPlaceName() async {
     final position = await determinePosition();
     List<Placemark> placemarks =
@@ -66,6 +75,22 @@ class FriendTab extends StatelessWidget {
           ),
         ),
       ),
+          SizedBox(
+              height: 569,
+              child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      padding:  EdgeInsets.only(left: 2, right: 5, top: 12, bottom: 12),
+                      itemCount: 9,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(width: 12, height: 20,);
+                      },
+                      itemBuilder: (context, index) {
+                        return buildCardPic(index);
+                      },
+                    );
+                  })),
     ]));
   }
 }

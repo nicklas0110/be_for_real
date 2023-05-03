@@ -11,10 +11,10 @@ class LogoutButton extends StatelessWidget {
     return IconButton(
       onPressed: () {
         FirebaseAuth.instance.signOut();
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-              (route) => false,
-        );
+        //Navigator.of(context).pushAndRemoveUntil(
+          //MaterialPageRoute(builder: (context) => const LoginScreen()),
+            //  (route) => false,
+        //);
       },
       icon: const Icon(Icons.logout),
     );
