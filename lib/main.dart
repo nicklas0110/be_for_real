@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
     builder: (context, child) {
       final user = Provider.of<User?>(context);
 
-      return MaterialApp(
-        title: 'BeForReal',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: blackMaterialColor,
-        ),
-        home: MyHomePage(
+    return MaterialApp(
+      title: 'BeForReal',
+      debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData.from(
+        colorScheme: ColorScheme.dark(background: Colors.black)),
+      themeMode: ThemeMode.dark,
+      home: MyHomePage(
           title: 'BeForReal',
           friendTab: 'Friends',
           groupTab: 'Groups',
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
