@@ -38,59 +38,63 @@ class FriendTab extends StatelessWidget {
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
 
     return Scaffold(
-        body: Column(children: [
+        body: ListView   (
+          children: [
+            Column(children: [
       SizedBox(
-          height: 160,
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final pad = (constraints.maxWidth - 100) / 2;
-            return ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding:  EdgeInsets.only(left: pad, top: 12, bottom: 12),
-              itemCount: 3,
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 12);
-              },
-              itemBuilder: (context, index) {
-                return buildCardOwnPic(index);
-              },
-            );
-          })),
-      Center(
-        child: SelectionArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Add a caption'),
-              FutureBuilder(
-                  future: getCurrentPlaceName(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData == false) {
-                      return Text('Getting location...');
-                    }
-                    return Text(
-                        '${snapshot.data.toString()} • ${formattedDate}🕒');
-                  }),
-            ],
-          ),
-        ),
-      ),
-          SizedBox(
-              height: 569,
+              height: 160,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    return ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      padding:  EdgeInsets.only(left: 2, right: 5, top: 12, bottom: 12),
-                      itemCount: 9,
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(width: 12, height: 20,);
-                      },
-                      itemBuilder: (context, index) {
-                        return buildCardFriendPic(index);
-                      },
-                    );
-                  })),
-    ]));
+                    final pad = (constraints.maxWidth - 100) / 2;
+                return ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding:  EdgeInsets.only(left: pad, top: 12, bottom: 12),
+                  itemCount: 3,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(width: 12);
+                  },
+                  itemBuilder: (context, index) {
+                    return buildCardOwnPic(index);
+                  },
+                );
+              })),
+      Center(
+            child: SelectionArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Add a caption'),
+                  FutureBuilder(
+                      future: getCurrentPlaceName(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData == false) {
+                          return Text('Getting location...');
+                        }
+                        return Text(
+                            '${snapshot.data.toString()} • ${formattedDate}🕒');
+                      }),
+                ],
+              ),
+            ),
+      ),
+              SizedBox(
+                  height: 569,
+                  child: LayoutBuilder(
+                      builder: (BuildContext context, BoxConstraints constraints) {
+                        return ListView.separated(
+                          scrollDirection: Axis.vertical,
+                          padding:  EdgeInsets.only(left: 2, right: 5, top: 12, bottom: 12),
+                          itemCount: 9,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 12, height: 20,);
+                          },
+                          itemBuilder: (context, index) {
+                            return buildCardFriendPic(index);
+                          },
+                        );
+                      })),
+    ]),
+          ],
+        ));
   }
 }
