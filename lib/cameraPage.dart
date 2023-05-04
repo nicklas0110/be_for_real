@@ -66,7 +66,9 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    throw UnimplementedError();
+     return Container(
+        
+    );
   }
 }
 
