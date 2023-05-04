@@ -6,7 +6,7 @@ import 'package:geocoding/geocoding.dart';
 class FriendTab extends StatelessWidget {
   const FriendTab({Key? key}) : super(key: key);
 
-  Widget buildCard(int index) => Container(
+  Widget buildCardOwnPic(int index) => Container(
         width: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -15,8 +15,8 @@ class FriendTab extends StatelessWidget {
         child: Center(child: Text('$index')),
       );
 
-  Widget buildCardPic(int index) => Container(
-    width: 100,
+  Widget buildCardFriendPic(int index) => Container(
+    width: 100, height: 600,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: Colors.grey,
@@ -52,7 +52,7 @@ class FriendTab extends StatelessWidget {
                 return const SizedBox(width: 12);
               },
               itemBuilder: (context, index) {
-                return buildCard(index);
+                return buildCardOwnPic(index);
               },
             );
           })),
@@ -87,7 +87,7 @@ class FriendTab extends StatelessWidget {
                         return const SizedBox(width: 12, height: 20,);
                       },
                       itemBuilder: (context, index) {
-                        return buildCardPic(index);
+                        return buildCardFriendPic(index);
                       },
                     );
                   })),
