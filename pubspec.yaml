@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.17.0
   geocoding: ^2.1.0
   camera: ^0.10.3+2
+  firebase_storage: ^11.1.1
+
 
 dev_dependencies:
   flutter_test:
