@@ -14,11 +14,22 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   CameraDescription? camera;
 
-/*
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      title: 'Camera',
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: const [
+          Expanded(
+            child: Center(
+              child: Text(
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  "BeForReal"),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           if (camera == null)
@@ -32,7 +43,6 @@ class _CameraPageState extends State<CameraPage> {
       ),
     );
   }
-*/
 
   Future<List<CameraDescription>> _getCameras() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -60,14 +70,6 @@ class _CameraPageState extends State<CameraPage> {
               });
             });
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-     return Container(
-        
     );
   }
 }
