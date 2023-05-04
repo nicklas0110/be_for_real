@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'cameraPage.dart';
 import 'chat/chat_service.dart';
 import 'firebase_options.dart';
 import 'groupTab.dart';
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
@@ -92,7 +93,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                // do something when the button is pressed
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CameraPage(),
+                ));
               },
             ),
           ),
