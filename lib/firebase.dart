@@ -16,6 +16,4 @@ class Firebase {
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     print('Image URL: $downloadUrl');
   }
-
-
 }

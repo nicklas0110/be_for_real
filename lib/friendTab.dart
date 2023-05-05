@@ -1,4 +1,4 @@
-import 'package:be_for_real/assets/locationUtil.dart';
+import 'package:be_for_real/locationUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
