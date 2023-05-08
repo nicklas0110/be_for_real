@@ -15,6 +15,26 @@ class _CameraPageState extends State<CameraPage> {
   CameraDescription? camera;
 
   @override
+  void initState() {
+    super.initState();
+    _getCameras().then((cameras) {
+      setState(() {
+        // Set the camera variable to the first back camera
+        camera = cameras.firstWhere(
+              (camera) => camera.lensDirection == CameraLensDirection.back,
+          orElse: () => cameras.first,
+        );
+      });
+    });
+  }
+
+  Future<List<CameraDescription>> _getCameras() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final cameras = await availableCameras();
+    return cameras;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -44,11 +64,6 @@ class _CameraPageState extends State<CameraPage> {
     );
   }
 
-  Future<List<CameraDescription>> _getCameras() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    final cameras = await availableCameras();
-    return cameras;
-  }
 
   FutureBuilder<List<CameraDescription>> _buildCameraSelection() {
     return FutureBuilder(
