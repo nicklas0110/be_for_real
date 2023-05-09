@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteCamera() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(),
+      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(title: 'Camera',),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
