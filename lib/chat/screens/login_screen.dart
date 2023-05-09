@@ -29,16 +29,16 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Image.asset(
                   "assets/frontLogo.png",
-                  width: 250,
-                  height: 250,
+                  width: 170,
+                  height: 170,
                 ),
                 Text(
                   'Welcome back 😀 !',
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 10),
                 usernameInput(),
                 passwordInput(),
-                const SizedBox(height: 32),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   child: const Text('Login'),
                   onPressed: () async {
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   ElevatedButton newBtn(BuildContext context) {
     return ElevatedButton(
-      child: const Text('register'),
+      child: const Text('Register'),
       onPressed: () async {
         if (!_formKey.currentState!.validate()) {
           setState(() {});

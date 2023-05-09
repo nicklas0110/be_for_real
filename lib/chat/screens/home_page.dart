@@ -1,8 +1,8 @@
+import 'package:be_for_real/chat/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import '../../cameraPage.dart';
 import '../../friendTab.dart';
 import '../../groupTab.dart';
-
 
 
 
@@ -78,6 +78,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
   }
 
+  Route _createRouteProfile() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const ProfileScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Profile',
               onPressed: () {
+                Navigator.of(context).push(_createRouteProfile());
                 // do something when the button is pressed
               },
             ),
