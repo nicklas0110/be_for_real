@@ -1,6 +1,6 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-import '../../cameraPage.dart';
+import 'cameraPage.dart';
 import '../../friendTab.dart';
 import '../../groupTab.dart';
 

@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'chat/screens/home_page.dart';
+import 'home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -54,24 +54,32 @@ class _CameraPageState extends State<CameraPage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[CameraPreview(_controllerBack!)],
+        child: Stack(
+
+          children: <Widget>[Align(
+              alignment: Alignment.center,
+              child: CameraPreview(_controllerBack!)),
+
+             Align(
+               alignment: AlignmentDirectional.bottomCenter,
+               child: FloatingActionButton(
+                onPressed: () async {
+                  final file1 = await _controllerBack!.takePicture();
+                  final file2 = await _controllerFront!.takePicture();
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Column(children: [
+                        Text(file1.path),
+                        Text(file2.path),
+                      ])));
+                },
+                tooltip: 'Take picture',
+                child: const Icon(Icons.camera),
+            ),
+             ), ],
+
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final file1 = await _controllerBack!.takePicture();
-          final file2 = await _controllerFront!.takePicture();
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Column(children: [
-                Text(file1.path),
-                Text(file2.path),
-              ])));
-        },
-        tooltip: 'Take picture',
-        child: const Icon(Icons.camera),
-      ),
+
     );
   }
 }
