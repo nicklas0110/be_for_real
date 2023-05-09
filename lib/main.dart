@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'chat/screens/home_page.dart';
 import 'chat/screens/login_screen.dart';
@@ -13,6 +14,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  if (await Permission.camera.request().isGranted) {
+    // Either the permission was already granted before or the user just granted it.
+  }
+
   runApp(MyApp());
 }
 
@@ -33,6 +38,7 @@ class MyApp extends StatelessWidget {
         final user = Provider.of<User?>(context);
         return MaterialApp(
           title: 'Chat',
+          debugShowCheckedModeBanner: false,
           darkTheme: ThemeData.from(
               colorScheme: ColorScheme.dark(background: Colors.black)),
           themeMode: ThemeMode.dark,
