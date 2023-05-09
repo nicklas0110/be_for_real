@@ -18,8 +18,10 @@ class CollectionNames {
 }
 
 class ChatService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   Stream<Iterable<Channel>> channels(User user) {
-    return FirebaseFirestore.instance
+    return _firestore
         .collection(CollectionNames.channels)
         .where(ChannelKeys.members, arrayContains: user.uid)
         .orderBy(ChannelKeys.name)
@@ -29,11 +31,11 @@ class ChatService {
       toFirestore: (value, options) => value.toMap(),
     )
         .snapshots()
-        .map((querySnapshot) => querySnapshot.docs.map((e) => e.data()));
+        .map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()));
   }
 
   Query<Message> messages(Channel channel) {
-    return FirebaseFirestore.instance
+    return _firestore
         .collection(CollectionNames.channels)
         .doc(channel.id)
         .collection(CollectionNames.messages)
@@ -43,8 +45,6 @@ class ChatService {
           Message.fromMap(snapshot.id, snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
     );
-    // .snapshots()
-    // .map((event) => event.docs.map((e) => e.data()).toList());
   }
 
   Future<void> sendMessage(User user, Channel channel, String message) async {
@@ -52,7 +52,7 @@ class ChatService {
         uid: user.uid,
         displayName: user.displayName ?? '',
         email: user.email ?? 'Unknown');
-    await FirebaseFirestore.instance
+    await _firestore
         .collection(CollectionNames.channels)
         .doc(channel.id)
         .collection(CollectionNames.messages)
@@ -64,14 +64,14 @@ class ChatService {
   }
 
   Future<void> createChannel(User user, String name) async {
-    await FirebaseFirestore.instance.collection(CollectionNames.channels).add({
+    await _firestore.collection(CollectionNames.channels).add({
       ChannelKeys.members: [user.uid],
       ChannelKeys.name: name,
     });
   }
 
   Future<void> addMember(Channel channel, String uid) async {
-    await FirebaseFirestore.instance
+    await _firestore
         .collection(CollectionNames.channels)
         .doc(channel.id)
         .update({
@@ -79,3 +79,4 @@ class ChatService {
     });
   }
 }
+

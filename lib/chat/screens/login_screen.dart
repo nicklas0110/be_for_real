@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
                 usernameInput(),
                 passwordInput(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   child: const Text('Login'),
                   onPressed: () async {
