@@ -46,7 +46,7 @@ dependencies:
   intl: ^0.17.0
   geocoding: ^2.1.0
   camera: ^0.10.3+2
-  firebase_storage: ^11.1.1
+  firebase_storage: ^11.1.2
   snackbar: ^1.0.2
   permission_handler: ^10.2.0
 
