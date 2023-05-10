@@ -25,8 +25,7 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-
-      actions: [
+        actions: [
           PopupMenuButton(
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               PopupMenuItem(
@@ -49,12 +48,42 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              PopupMenuItem(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.info_outline, color: Colors.white),
+                      const SizedBox(width: 10),
+                      Text('About', style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  showAboutDialog(
+                    context: context,
+                    applicationName: 'This is just a prototype and not a real App',
+                    applicationVersion: '1.0.0',
+                    children: [
+                      DefaultTextStyle(
+                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        child: Text('About information goes here.'),
+                      ),
+                    ],
+                  );
+                },
+              ),
+
             ],
             onSelected: (value) {
               // TODO: Handle menu item selection
             },
-          )
+          ),
         ],
+
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -83,7 +112,6 @@ class ProfileScreen extends StatelessWidget {
 
         ],
       ),
-
     );
   }
 }
