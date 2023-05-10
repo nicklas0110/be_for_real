@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
 
+import 'chat/screens/cameraPage.dart';
+
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy/MM/dd - kk.mm').format(now);
 String userPic =
@@ -18,17 +20,43 @@ String ownPicLocation = 'location';
 class FriendTab extends StatelessWidget {
   const FriendTab({Key? key}) : super(key: key);
 
-  Widget buildCardOwnPic(int index) => Container(
-        width: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.blueGrey,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            userPic,
-            fit: BoxFit.cover,
+  Route _createRouteCamera() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(
+        title: 'Camera',
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(_createRouteCamera());
+        },
+        child: Container(
+          width: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.blueGrey,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              userPic,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       );
@@ -60,7 +88,7 @@ class FriendTab extends StatelessWidget {
                       return const SizedBox(width: 12);
                     },
                     itemBuilder: (context, index) {
-                      return buildCardOwnPic(index);
+                      return buildCardOwnPic(context, index);
                     },
                   );
                 }),
@@ -103,7 +131,7 @@ class FriendTab extends StatelessWidget {
             }
 
             return SizedBox(
-              height: 644,
+              height: 661,
               child: Column(
                 children: [
                   Flexible(
@@ -113,7 +141,7 @@ class FriendTab extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(right: 10, left: 10),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
@@ -125,7 +153,10 @@ class FriendTab extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(friendUsername),
-                              Text('$friendPicLocation • $friendPicDateTime')
+                              Text(
+                                '$friendPicLocation • $friendPicDateTime',
+                                style: TextStyle(color: Colors.grey[400],),
+                              )
                             ],
                           )
                         ],
@@ -134,7 +165,7 @@ class FriendTab extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 2, right: 2, top: 12, bottom: 36),
+                        left: 0, right: 0, top: 12),
                     child: Container(
                       height: 550,
                       decoration: BoxDecoration(
@@ -150,6 +181,16 @@ class FriendTab extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 2, top: 6, bottom: 36),
+                      child: Text(
+                        'add a comment...',
+                        style: TextStyle(color: Colors.grey[400],),
+                      ),
+                    ),
+                  )
                 ],
               ),
             );
