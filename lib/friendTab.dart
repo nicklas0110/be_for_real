@@ -3,26 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
 
+DateTime now = DateTime.now();
+String formattedDate = DateFormat('yyyy/MM/dd - kk.mm').format(now);
+String userPic =
+    'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+String friendPic =
+    'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+String friendUsername = 'username';
+String friendPicDateTime = 'time';
+String friendPicLocation = 'location';
+String ownPicDateTime = 'time';
+String ownPicLocation = 'location';
+
 class FriendTab extends StatelessWidget {
   const FriendTab({Key? key}) : super(key: key);
 
   Widget buildCardOwnPic(int index) => Container(
-        width: 100,
+        width: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey,
+          color: Colors.blueGrey,
         ),
-        child: Center(child: Text('$index')),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            userPic,
+            fit: BoxFit.cover,
+          ),
+        ),
       );
-
-  Widget buildCardFriendPic(int index) => Container(
-    width: 100, height: 600,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: Colors.grey,
-    ),
-    child: Center(child: Text('$index')),
-  );
 
   getCurrentPlaceName() async {
     final position = await determinePosition();
@@ -34,67 +43,117 @@ class FriendTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-
     return Scaffold(
-        body: ListView   (
-          children: [
-            Column(children: [
-      SizedBox(
-              height: 160,
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    final pad = (constraints.maxWidth - 100) / 2;
-                return ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding:  EdgeInsets.only(left: pad, top: 12, bottom: 12),
-                  itemCount: 3,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(width: 12);
-                  },
-                  itemBuilder: (context, index) {
-                    return buildCardOwnPic(index);
-                  },
-                );
-              })),
-      Center(
-            child: SelectionArea(
+      body: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return SizedBox(
+                height: 180,
+                child: LayoutBuilder(builder: (context, constraints) {
+                  final pad = (constraints.maxWidth - 120) / 2;
+                  return ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.only(left: pad, top: 12, bottom: 12),
+                    itemCount: 3,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(width: 12);
+                    },
+                    itemBuilder: (context, index) {
+                      return buildCardOwnPic(index);
+                    },
+                  );
+                }),
+              );
+            }
+            if (index == 1) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: SizedBox(
+                  child: SelectionArea(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          'Add a caption',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        FutureBuilder(
+                            future: getCurrentPlaceName(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData == false) {
+                                return Text(
+                                  'Getting location...',
+                                  style: TextStyle(color: Colors.grey[400]),
+                                );
+                              }
+                              return Text(
+                                '${snapshot.data.toString()} • ${formattedDate}🕒',
+                                style: TextStyle(color: Colors.grey[400]),
+                              );
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return SizedBox(
+              height: 644,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Add a caption'),
-                  FutureBuilder(
-                      future: getCurrentPlaceName(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData == false) {
-                          return Text('Getting location...');
-                        }
-                        return Text(
-                            '${snapshot.data.toString()} • ${formattedDate}🕒');
-                      }),
+                children: [
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  friendPic,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(friendUsername),
+                              Text('$friendPicLocation • $friendPicDateTime')
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 2, right: 2, top: 12, bottom: 36),
+                    child: Container(
+                      height: 550,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          friendPic,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-      ),
-              SizedBox(
-                  height: 569,
-                  child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
-                        return ListView.separated(
-                          scrollDirection: Axis.vertical,
-                          padding:  EdgeInsets.only(left: 2, right: 5, top: 12, bottom: 12),
-                          itemCount: 9,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(width: 12, height: 20,);
-                          },
-                          itemBuilder: (context, index) {
-                            return buildCardFriendPic(index);
-                          },
-                        );
-                      })),
-    ]),
-          ],
-        ));
+            );
+          }),
+    );
   }
 }
