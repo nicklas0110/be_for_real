@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^11.1.2
   snackbar: ^1.0.2
   permission_handler: ^10.2.0
+  table_calendar: ^3.0.0
 
 
 dev_dependencies:
