@@ -85,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-
         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
@@ -132,7 +131,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               tooltip: 'Profile',
               onPressed: () {
                 Navigator.of(context).push(_createRouteProfile());
-                // do something when the button is pressed
               },
             ),
           ),
