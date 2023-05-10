@@ -38,8 +38,10 @@ class CameraPage extends StatefulWidget {
 
 class _CameraPageState extends State<CameraPage> {
   final path = "gs://be-for-real.appspot.com/Images";
-  CameraController? _controller;
-  bool waiting = false;
+  CameraController? _controllerBack;
+  CameraController? _controllerFront;
+
+  bool _initialized = false;
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -62,14 +64,17 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   void initState() {
-    availableCameras().then((cameras) async {
-      final camera = cameras
-          .firstWhere((cam) => cam.lensDirection == CameraLensDirection.back);
-      _controller = CameraController(camera, ResolutionPreset.high);
-      await _controller?.initialize();
-      setState(() {});
-    });
     super.initState();
+    getFrontAndBackCamera().then((cameras) async {
+      _controllerBack = CameraController(cameras.back, ResolutionPreset.medium);
+      await _controllerBack?.initialize();
+      _controllerFront =
+          CameraController(cameras.front, ResolutionPreset.medium);
+      await _controllerFront?.initialize();
+      setState(() {
+        _initialized = true;
+      });
+    });
   }
 
   @override
@@ -77,9 +82,7 @@ class _CameraPageState extends State<CameraPage> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy:MM:dd -kk.mm').format(now);
 
-    if (_controller == null || waiting) {
-      return Center(child: CircularProgressIndicator());
-    }
+    if (!_initialized) return Center(child: CircularProgressIndicator());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -89,30 +92,18 @@ class _CameraPageState extends State<CameraPage> {
           children: <Widget>[
             Align(
                 alignment: Alignment.center,
-                child: CameraPreview(_controller!)),
+                child: CameraPreview(_controllerBack!)),
             Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: FloatingActionButton(
                 onPressed: () async {
                   String location = await getCurrentPlaceName();
 
-                  final file1 = await _controller!.takePicture();
-                  setState(() {
-                    waiting = true;
-                  });
-                  final cameras = await availableCameras();
-                  final camera = cameras.firstWhere(
-                          (cam) => cam.lensDirection == CameraLensDirection.front);
-                  _controller = CameraController(camera, ResolutionPreset.high);
-                  await _controller?.initialize();
-                  setState(() {});
-
-                  final file2 = await _controller!.takePicture();
-
+                  final file1 = await _controllerBack!.takePicture();
                   final byte1 = await file1.readAsBytes();
 
+                  final file2 = await _controllerFront!.takePicture();
                   final byte2 = await file2.readAsBytes();
-
 
                   final templateUpload =
                       FirebaseStorage.instance.ref('/Images').child(getUid());
@@ -129,7 +120,6 @@ class _CameraPageState extends State<CameraPage> {
                     Text(file1.path),
                     Text(file2.path),
                   ])));
-                  Navigator.of(context).pop();
                 },
                 tooltip: 'Take picture',
                 child: const Icon(Icons.camera),
