@@ -33,14 +33,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 170,
                 ),
                 Text(
-                  'Welcome back 😀 !',
+                  'Welcome back !',
+                  style: TextStyle(
+                    color: Colors.grey[600], // Replace this with the desired color
+                  ),
                 ),
                 const SizedBox(height: 10),
                 usernameInput(),
                 passwordInput(),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  child: const Text('Login'),
+                  child: const Text('Login', style: TextStyle(color: Colors.white, fontSize: 16),),
                   onPressed: () async {
                     if (!_formKey.currentState!.validate()) {
                       return;
@@ -76,11 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   style: ButtonStyle(
                     fixedSize: MaterialStateProperty.all(const Size(200, 40)),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[400]!),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[900]!),
                   ),
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
 
                 newBtn(context),
 
@@ -94,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   ElevatedButton newBtn(BuildContext context) {
     return ElevatedButton(
-      child: const Text('Register'),
+      child: const Text('Register',style: TextStyle(color: Colors.white, fontSize: 16)),
       onPressed: () async {
         if (!_formKey.currentState!.validate()) {
           setState(() {});
@@ -119,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
       style: ButtonStyle(
         fixedSize: MaterialStateProperty.all(Size(200, 40)),
         backgroundColor:
-        MaterialStateProperty.all<Color>(Colors.grey[400]!),
+        MaterialStateProperty.all<Color>(Colors.grey[900]!),
       ),
     );
   }
