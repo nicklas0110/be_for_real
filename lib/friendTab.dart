@@ -119,7 +119,7 @@ class FriendTab extends StatelessWidget {
                                 );
                               }
                               return Text(
-                                '${snapshot.data.toString()} • ${formattedDate}🕒',
+                                '${snapshot.data.toString()} • $formattedDate🕒',
                                 style: TextStyle(color: Colors.grey[400]),
                               );
                             }),

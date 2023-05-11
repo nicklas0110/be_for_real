@@ -1,14 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
-import 'login_screen.dart';
-final Map<DateTime, List<dynamic>> _events = {
-  DateTime(2022, 5, 10): ['Event 1', 'Event 2'],
-  DateTime(2022, 5, 15): ['Event 3'],
-  DateTime(2022, 5, 20): ['Event 4', 'Event 5', 'Event 6'],
-};
+import 'loginReg/pages/login_page.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -19,8 +14,8 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Center(
-          child: const Text(
+        title: const Center(
+          child: Text(
             'Profile',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -40,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                             (route) => false,
                       );
                     },
@@ -55,9 +50,9 @@ class ProfileScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.info_outline, color: Colors.white),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10),
                       Text('About', style: TextStyle(color: Colors.white)),
                     ],
                   ),
@@ -70,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       DefaultTextStyle(
                         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                        child: Text('About information goes here.'),
+                        child: const Text('About information goes here.'),
                       ),
                     ],
                   );
@@ -109,7 +104,6 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
           const SizedBox(height: 20),
-
         ],
       ),
     );

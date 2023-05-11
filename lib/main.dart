@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'chat/screens/home_page.dart';
-import 'chat/screens/login_screen.dart';
-import 'firebase_options.dart';
+import 'chat/screens/loginReg/pages/startup_screen.dart';
+ import 'firebase_options.dart';
 
 
 
@@ -15,10 +15,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   if (await Permission.camera.request().isGranted) {
-    // Either the permission was already granted before or the user just granted it.
-  }
 
-  runApp(MyApp());
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -40,11 +39,12 @@ class MyApp extends StatelessWidget {
           title: 'Chat',
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData.from(
-              colorScheme: ColorScheme.dark(background: Colors.black)),
+              colorScheme: const ColorScheme.dark(background: Colors.black)),
           themeMode: ThemeMode.dark,
-          home: user == null ? const LoginScreen() : const HomePageScreen(),
+          home: user == null ?  const StartupScreen(title: 'Flutter Login UI'): const HomePageScreen(),
         );
       },
     );
   }
 }
+

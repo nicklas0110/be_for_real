@@ -17,9 +17,9 @@ class HomePageScreen extends StatelessWidget {
       title: 'BeForReal',
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.dark(background: Colors.black)),
+          colorScheme: const ColorScheme.dark(background: Colors.black)),
       themeMode: ThemeMode.dark,
-      home: MyHomePage(
+      home: const MyHomePage(
         title: 'BeForReal',
         friendTab: 'Friends',
         groupTab: 'Groups',
@@ -30,14 +30,13 @@ class HomePageScreen extends StatelessWidget {
 
 
 
-
 MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
   50: Colors.black,
   for (int i = 100; i <= 900; i += 100) i: Colors.black,
 });
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage(
+  const MyHomePage(
       {super.key,
         required this.title,
         required this.friendTab,
@@ -95,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       },
     );
   }
+
+
   
   @override
   Widget build(BuildContext context) {
@@ -145,8 +146,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ),
       ),
       body: TabBarView(
-        children: [FriendTab(), GroupTab()],
         controller: _tabController,
+        children: const [FriendTab(), GroupTab()],
       ),
     );
   }
