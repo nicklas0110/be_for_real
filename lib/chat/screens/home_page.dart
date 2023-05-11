@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'cameraPage.dart';
 import '../../friendTab.dart';
 import '../../groupTab.dart';
+import 'channel_screen.dart';
 
 
 
@@ -60,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  Route _createRouteCamera() {
+  Route _createRouteFriends() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(title: 'Camera',),
+      pageBuilder: (context, animation, secondaryAnimation) => const ChannelsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                Navigator.of(context).push(_createRouteCamera()
+                Navigator.of(context).push(_createRouteFriends()
                 );
               },
             ),
