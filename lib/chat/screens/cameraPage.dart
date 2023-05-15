@@ -91,7 +91,9 @@ class _CameraPageState extends State<CameraPage> {
           children: <Widget>[
             Align(
                 alignment: Alignment.center,
-                child: CameraPreview(_controller!)),
+                child: Transform.scale(
+                    scale: 0.95, // Adjust the scale factor as needed
+                    child: CameraPreview(_controller!))),
             Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: FloatingActionButton(
