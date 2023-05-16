@@ -104,6 +104,7 @@ class _CameraPageState extends State<CameraPage> {
                   setState(() {
                     waiting = true;
                   });
+
                   final cameras = await availableCameras();
                   final camera = cameras.firstWhere(
                           (cam) => cam.lensDirection == CameraLensDirection.front);
@@ -113,17 +114,17 @@ class _CameraPageState extends State<CameraPage> {
 
                   final file2 = await _controller!.takePicture();
                   final templateUpload =
-                      FirebaseStorage.instance.ref('/Images').child(getUid());
+                      FirebaseStorage.instance.ref('/Images').child(getUid()).child(location + '_' + formattedDate);
 
                   final byte1 = await file1.readAsBytes();
                   
                   final byte2 = await file2.readAsBytes();
 
                   templateUpload
-                      .child('back' + '&' + location + '&' + formattedDate)
+                      .child('back')
                       .putData(byte1);
                   templateUpload
-                      .child('front' + '&' + location + '&' + formattedDate)
+                      .child('front')
                       .putData(byte2);
 
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
