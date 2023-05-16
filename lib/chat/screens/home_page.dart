@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'cameraPage.dart';
 import '../../friendTab.dart';
 import '../../groupTab.dart';
+import 'channel_screen.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -17,7 +18,7 @@ class HomePageScreen extends StatelessWidget {
       title: 'BeForReal',
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.dark(background: Colors.black)),
+          colorScheme: const ColorScheme.dark(background: Colors.black)),
       themeMode: ThemeMode.dark,
       home: MyHomePage(
         title: 'BeForReal',
@@ -34,10 +35,12 @@ MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
 });
 
 class MyHomePage extends StatefulWidget {
+
   MyHomePage({super.key,
     required this.title,
     required this.friendTab,
     required this.groupTab});
+
 
   final String title;
   final String friendTab;
@@ -57,14 +60,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  Route _createRouteCamera() {
+  Route _createRouteFriends() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-      const CameraPage(
-        title: 'Camera',
-      ),
+
+      pageBuilder: (context, animation, secondaryAnimation) => const ChannelsScreen(),
+
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
+        const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
 
@@ -103,7 +105,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       pageBuilder: (context, animation, secondaryAnimation) =>
       const ChannelsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+
         const begin = Offset(-1.0, 0.0);
+
         const end = Offset.zero;
         const curve = Curves.ease;
 
@@ -132,7 +136,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                Navigator.of(context).push(_createRouteChannels());
+                Navigator.of(context).push(_createRouteFriends()
+                );
               },
             ),
           ),
@@ -166,8 +171,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ),
       ),
       body: TabBarView(
-        children: [FriendTab(), GroupTab()],
         controller: _tabController,
+        children: const [FriendTab(), GroupTab()],
       ),
     );
   }
