@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../locationUtil.dart';
 import 'home_page.dart';
 
@@ -62,6 +63,19 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
+  getLocationPermitions() async {
+    if (await Permission.contacts.request().isGranted) {
+    // Either the permission was already granted before or the user just granted it.
+    }
+
+// You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+    Permission.location,
+    Permission.storage,
+    ].request();
+    print(statuses[Permission.location]);
+  }
+
   @override
   void initState() {
     availableCameras().then((cameras) async {
@@ -71,6 +85,8 @@ class _CameraPageState extends State<CameraPage> {
       await _controller?.initialize();
       setState(() {});
     });
+    getLocationPermitions();
+
     super.initState();
   }
 
@@ -117,7 +133,7 @@ class _CameraPageState extends State<CameraPage> {
                       FirebaseStorage.instance.ref('/Images').child(getUid()).child(location + '_' + formattedDate);
 
                   final byte1 = await file1.readAsBytes();
-                  
+
                   final byte2 = await file2.readAsBytes();
 
                   templateUpload
