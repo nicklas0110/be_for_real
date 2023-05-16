@@ -24,7 +24,7 @@ class UidButton extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   height: 200,
-                  child: QrImageView(
+                  child: QrImage(
                     data: user.uid,
                     version: QrVersions.auto,
                     size: 200,
