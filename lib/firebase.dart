@@ -1,6 +1,5 @@
-
 import 'dart:io';
-import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,8 +8,10 @@ import 'package:provider/provider.dart';
 
 class Firebase {
 
-  final user = Provider.of<User?>(context as BuildContext);
+  final user = Provider.of<User?>(context!);
   late final String recipientUserId = user!.uid;
+
+  static BuildContext? context;
 
 
  Future<void> uploadImage(File imageFile) async {
@@ -27,6 +28,7 @@ class Firebase {
   }
 
   User? getCurrentUser() {
+
     return FirebaseAuth.instance.currentUser;
   }
 
