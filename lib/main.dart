@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'chat/chat_service.dart';
 import 'chat/screens/home_page.dart';
 import 'chat/screens/login_screen.dart';
 import 'firebase_options.dart';
@@ -28,8 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //Provider(create: (context) => ChatService()),
-        StreamProvider(
+        Provider<ChatService>(create: (context) => ChatService()),
+        StreamProvider<User?>(
           create: (context) => FirebaseAuth.instance.authStateChanges(),
           initialData: null,
         )

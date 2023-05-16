@@ -1,10 +1,11 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
+
+import 'package:be_for_real/chat/screens/channel_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'cameraPage.dart';
 import '../../friendTab.dart';
 import '../../groupTab.dart';
-
-
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -27,20 +28,16 @@ class HomePageScreen extends StatelessWidget {
   }
 }
 
-
-
-
 MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
   50: Colors.black,
   for (int i = 100; i <= 900; i += 100) i: Colors.black,
 });
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage(
-      {super.key,
-        required this.title,
-        required this.friendTab,
-        required this.groupTab});
+  MyHomePage({super.key,
+    required this.title,
+    required this.friendTab,
+    required this.groupTab});
 
   final String title;
   final String friendTab;
@@ -62,13 +59,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteCamera() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(title: 'Camera',),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const CameraPage(
+        title: 'Camera',
+      ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
         const curve = Curves.ease;
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -80,12 +81,34 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteProfile() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const ProfileScreen(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+        const ProfileScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        });
+  }
+
+  Route _createRouteChannels() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const ChannelsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
+        const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -94,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       },
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,8 +132,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                Navigator.of(context).push(_createRouteCamera()
-                );
+                Navigator.of(context).push(_createRouteChannels());
               },
             ),
           ),
