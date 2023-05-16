@@ -95,8 +95,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
   }
 
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

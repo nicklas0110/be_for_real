@@ -1,85 +1,44 @@
- import 'package:firebase_auth/firebase_auth.dart';
+import 'package:be_for_real/chat/screens/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'loginReg/pages/login_page.dart';
+import 'settings.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User?>(context);
-    if (user == null) return Container();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Center(
-          child: Text(
-            'Profile',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              PopupMenuItem(
-                child: Container(
-                  width: 350, // Change this value to adjust the width
-                  height: 55, // Change this value to adjust the height
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
-                            (route) => false,
-                      );
-                    },
-                    icon: const Icon(Icons.logout, color: Colors.red, size: 30),
-                  ),
-                ),
-              ),
-              PopupMenuItem(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: const [
-                      Icon(Icons.info_outline, color: Colors.white),
-                      SizedBox(width: 10),
-                      Text('About', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showAboutDialog(
-                    context: context,
-                    applicationName: 'This is just a prototype and not a real App',
-                    applicationVersion: '1.0.0',
-                    children: [
-                      DefaultTextStyle(
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                        child: const Text('About information goes here.'),
-                      ),
-                    ],
-                  );
-                },
-              ),
-
-            ],
-            onSelected: (value) {
-              // TODO: Handle menu item selection
-            },
-          ),
-        ],
-
+    return MaterialApp(
+      darkTheme: ThemeData.from(
+        colorScheme: const ColorScheme.dark(background: Colors.black),
       ),
+      themeMode: ThemeMode.dark,
+      home: const ProfilePage(
+        title: 'Profile',
+      ),
+    );
+  }
+}
+
+
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key,required this.title,});
+  final String title;
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage>
+    with TickerProviderStateMixin {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -106,6 +65,76 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 20),
         ],
       ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new),
+              iconSize: 30,
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context).push(_routeHomePageScreen());
+              },
+            ),
+          ),
+
+          Expanded(
+            child: Center(
+              child: Text(
+                widget.title,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(Icons.more_horiz),
+              iconSize: 30,
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context).push(_routeSettingsScreen());
+              },
+            ),
+          ),
+        ],
+      ),
+
+    );
+  }
+
+  Route _routeHomePageScreen() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const HomePageScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+  Route _routeSettingsScreen() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const SettingsScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }
