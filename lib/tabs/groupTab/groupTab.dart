@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'tabs/friendTab/friendPicture.dart';
-import 'tabs/groupTab/groupSelect.dart';
-import 'tabs/friendTab/ownPicture.dart';
+import '../friendTab/friendPicture.dart';
+import 'groupSelect.dart';
+import '../friendTab/ownPicture.dart';
 
 class GroupTab extends StatelessWidget {
   GroupTab({Key? key}) : super(key: key);
