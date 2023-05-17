@@ -22,6 +22,8 @@ class _LoginPageState extends State<LoginPage>{
   final _auth = FirebaseAuth.instance;
   final double _headerHeight = 150;
 
+  bool showPassword = false; // Add this line
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +79,7 @@ class _LoginPageState extends State<LoginPage>{
                                 decoration: ThemeHelper().inputBoxDecorationShadow(),
                                 child: TextFormField(
                                   controller: _password,
-                                  obscureText: true,
+                                  obscureText: !showPassword, // Modified this line
                                   validator: (value) {
                                     if (value == null || value.length < 6) {
                                       return 'Password required (min 6 chars)';
@@ -98,6 +100,17 @@ class _LoginPageState extends State<LoginPage>{
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: const BorderSide(color: Colors.white),
+                                    ),
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          showPassword = !showPassword;
+                                        });
+                                      },
+                                      child: Icon(
+                                        showPassword ? Icons.visibility : Icons.visibility_off,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ),
                                   style: const TextStyle(color: Colors.white),
