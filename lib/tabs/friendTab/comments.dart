@@ -23,6 +23,7 @@ class _CommentsState extends State<Comments> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Comment Section'),
+        backgroundColor: Colors.transparent,
       ),
       body: Column(
         children: <Widget>[
@@ -36,23 +37,27 @@ class _CommentsState extends State<Comments> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: commentController,
-                    decoration: InputDecoration(
-                      hintText: 'Add a comment',
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      controller: commentController,
+                      decoration: InputDecoration(
+                        hintText: 'Add a comment',
+                          border: OutlineInputBorder(
+                          )
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: addComment,
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: addComment,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
