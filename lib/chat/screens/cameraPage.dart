@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:be_for_real/chat/screens/servies/cameraService.dart';
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -42,17 +44,7 @@ class _CameraPageState extends State<CameraPage> {
   CameraController? _controller;
   bool waiting = false;
 
-
-
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  Future<String> getCurrentPlaceName() async {
-    final position = await determinePosition();
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    final place = placemarks.first;
-    return "${place.locality}, ${place.country}";
-  }
 
   String getUid() {
     User? user = auth.currentUser;
@@ -66,7 +58,7 @@ class _CameraPageState extends State<CameraPage> {
   getLocationPermitions() async {
 // You can request multiple permissions at once.
     Map<Permission, PermissionStatus> statuses = await [
-    Permission.location,
+      Permission.location,
     ].request();
     print(statuses[Permission.location]);
   }
@@ -87,8 +79,7 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy:MM:dd -kk.mm').format(now);
+    String formattedDate = DateTime.now().toIso8601String();
 
     if (_controller == null || waiting) {
       return Center(child: CircularProgressIndicator());
@@ -104,47 +95,44 @@ class _CameraPageState extends State<CameraPage> {
                 alignment: Alignment.center,
                 child: Transform.scale(
                     scale: 0.95, // Adjust the scale factor as needed
-                    child: CameraPreview(_controller!))
-            ),
+                    child: CameraPreview(_controller!))),
             Transform.translate(
               offset: Offset(0, -50),
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: FloatingActionButton(
                   onPressed: () async {
-                    String location = await getCurrentPlaceName();
+                    final groupId = "FHVqOkUoW6hdqOOVyQUf";
 
-                    final file1 = await _controller!.takePicture();
+                    final back = await _controller!.takePicture();
                     setState(() {
                       waiting = true;
                     });
 
                     final cameras = await availableCameras();
-                    final camera = cameras.firstWhere(
-                            (cam) => cam.lensDirection == CameraLensDirection.front);
-                    _controller = CameraController(camera, ResolutionPreset.high);
+                    final camera = cameras.firstWhere((cam) =>
+                        cam.lensDirection == CameraLensDirection.front);
+                    _controller =
+                        CameraController(camera, ResolutionPreset.high);
                     await _controller?.initialize();
                     setState(() {});
 
-                    final file2 = await _controller!.takePicture();
-                    final templateUpload =
-                        FirebaseStorage.instance.ref('/Images').child(getUid()).child(location + '_' + formattedDate);
+                    final front = await _controller!.takePicture();
 
-                    final byte1 = await file1.readAsBytes();
+                    final byte1 = await back.readAsBytes();
 
-                    final byte2 = await file2.readAsBytes();
+                    final byte2 = await front.readAsBytes();
 
-                    templateUpload
-                        .child('back')
-                        .putData(byte1);
-                    templateUpload
-                        .child('front')
-                        .putData(byte2);
+                    await CameraService().uploadPhotos(
+                        uid: getUid(),
+                        backBytes: byte1,
+                        frontBytes: byte2,
+                        groupId: groupId);
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Column(children: [
-                      Text(file1.path),
-                      Text(file2.path),
+                      Text(back.path),
+                      Text(front.path),
                     ])));
                     Navigator.of(context).pop();
                   },
