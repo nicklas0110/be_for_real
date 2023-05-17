@@ -23,9 +23,9 @@ class OwnPicture extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Turn on Location', style: TextStyle(color: Colors.red)),
-            content: SingleChildScrollView(
+            content: const SingleChildScrollView(
               child: ListBody(
-                children: const [
+                children: [
                   Text('Please turn on your location', style: TextStyle(color: Colors.white)),
                   Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.white)),
                 ],
