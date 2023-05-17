@@ -47,6 +47,44 @@ class OwnPicture extends StatelessWidget {
     }
   }
 
+  captionPopUp(context) async{
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Add a caption to your picture', style: TextStyle(color: Colors.white)),
+            content: const SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  TextField(
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+                      border: OutlineInputBorder(
+                      ),
+                      hintText: 'Caption',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Send', style: TextStyle(color: Colors.white) ),
+                onPressed: () async {
+                  if(await Geolocator.isLocationServiceEnabled() != false){
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      );
+
+  }
+
   Route _createRouteCamera() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(
@@ -128,11 +166,16 @@ class OwnPicture extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text(
-                    'Add a caption',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      captionPopUp(context);
+                    },
+                    child: const Text(
+                      'Add a caption',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   FutureBuilder(
