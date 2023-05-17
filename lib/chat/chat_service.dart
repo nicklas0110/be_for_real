@@ -19,7 +19,7 @@ class ChatService {
   Stream<Iterable<Groups>> groups(User user) {
     return _firestore
         .collection('groups')
-        .where(ChannelKeys.members, arrayContains: user.uid)
+        .where(ChannelKeys.members, arrayContains: user.email!)
         .orderBy(ChannelKeys.name)
         .withConverter(
       fromFirestore: (snapshot, options) =>
@@ -61,18 +61,16 @@ class ChatService {
 
   Future<void> createChannel(User user, String name) async {
     await _firestore.collection('groups').add({
-      ChannelKeys.members: [user.uid],
+      ChannelKeys.members: [user.email!],
       ChannelKeys.name: name,
-      ChannelKeys.image: 'assets/Placeholder.png'
+      ChannelKeys.image: "assets/Placeholder.png"
     });
   }
 
-  Future<void> addMember(Groups channel, String uid) async {
+  Future<void> addMember(Groups groups, String email) async {
     await _firestore
-        .collection('groups')
-        .doc(channel.id)
-        .update({
-      ChannelKeys.members: FieldValue.arrayUnion([uid])
+        .collection('groups').doc(groups.id).update({
+      ChannelKeys.members: FieldValue.arrayUnion([email])
     });
   }
 }

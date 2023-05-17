@@ -1,13 +1,14 @@
+import 'package:be_for_real/chat/models/groups.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../models/groups.dart';
 import 'add_member_dialog.dart';
 
 class AddMemberButton extends StatelessWidget {
-  final Groups channel;
+  final Groups groups;
   const AddMemberButton({
     super.key,
-    required this.channel,
+    required this.groups,
   });
 
   @override
@@ -18,7 +19,7 @@ class AddMemberButton extends StatelessWidget {
           context: context,
           barrierDismissible: false, // user must tap button!
           builder: (BuildContext context) {
-            return AddMemberDialog(channel: channel);
+            return AddMemberDialog(groups: groups);
           },
         );
       },

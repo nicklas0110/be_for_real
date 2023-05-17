@@ -1,62 +1,56 @@
+import 'package:be_for_real/chat/models/groups.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../chat_service.dart';
-import '../models/groups.dart';
 
 class AddMemberDialog extends StatefulWidget {
-  const AddMemberDialog({
-    super.key,
-    required this.channel,
-  });
-
-  final Groups channel;
+  final Groups groups;
+  const AddMemberDialog({super.key, required this.groups});
 
   @override
-  State<AddMemberDialog> createState() => _AddMemberDialogState();
+  State<AddMemberDialog> createState() => _AddMemberDialog();
 }
 
-class _AddMemberDialogState extends State<AddMemberDialog> {
-  final cameraController = MobileScannerController();
-
-  @override
-  void dispose() {
-    cameraController.dispose();
-    super.dispose();
-  }
+class _AddMemberDialog extends State<AddMemberDialog> {
+  final _formKey = GlobalKey<FormState>();
+  final _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    final chat = Provider.of<ChatService>(context);
     return AlertDialog(
-      title: const Text('Add User'),
-      content: SizedBox(
-        width: 300,
-        height: 300,
-        child: MobileScanner(
-          fit: BoxFit.contain,
-          controller: cameraController,
-          onDetect: _onScannerDetect,
-        ),
+      title: const Text('Add member'),
+      content: Form(
+          key: _formKey,
+          child: TextFormField(
+            controller: _email,
+            decoration: const InputDecoration(label: Text('Email')),
+            validator: (value) => value!.isEmpty ? 'Name required' : null,
+          )
       ),
       actions: [
         TextButton(
           child: const Text('Cancel'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            }
+        ),
+        TextButton(
+          child: const Text('Add'),
           onPressed: () {
-            Navigator.of(context).pop();
+            if (!_formKey.currentState!.validate()) return;{
+              chat.addMember(widget.groups, _email.value.text);
+              Navigator.of(context).pop();
+            };
           },
         ),
       ],
     );
-  }
-
-  void _onScannerDetect(BarcodeCapture barcodes) {
-    try {
-      final barcode =
-      barcodes.barcodes.firstWhere((code) => code.rawValue?.length == 28);
-      final chat = Provider.of<ChatService>(context, listen: false);
-      chat.addMember(widget.channel, barcode.rawValue!);
-      Navigator.of(context).pop();
-    } on StateError {}
   }
 }

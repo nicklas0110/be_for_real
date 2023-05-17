@@ -11,21 +11,21 @@ import '../widgets/add_member_button.dart';
 
 class MessagesScreen extends StatelessWidget {
   final padding = 8.0;
-  final Groups channel;
-  const MessagesScreen({required this.channel, super.key});
+  final Groups groups;
+  const MessagesScreen({required this.groups, super.key});
 
   @override
   Widget build(BuildContext context) {
     final chat = Provider.of<ChatService>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(channel.name),
-        actions: [AddMemberButton(channel: channel)],
+        title: Text(groups.name),
+        actions: [AddMemberButton(groups: groups)],
       ),
       body: Stack(
         children: [
           FirestoreListView<Message>(
-            query: chat.messages(channel),
+            query: chat.messages(groups),
             itemBuilder: (context, doc) {
               final message = doc.data();
               return Column(children: [
@@ -76,7 +76,7 @@ class MessagesScreen extends StatelessWidget {
         keyboardType: TextInputType.text,
         onSubmitted: (value) {
           if (value.isEmpty) return;
-          chat.sendMessage(user, channel, value);
+          chat.sendMessage(user, groups, value);
         },
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
