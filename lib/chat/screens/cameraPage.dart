@@ -64,14 +64,9 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   getLocationPermitions() async {
-    if (await Permission.contacts.request().isGranted) {
-    // Either the permission was already granted before or the user just granted it.
-    }
-
 // You can request multiple permissions at once.
     Map<Permission, PermissionStatus> statuses = await [
     Permission.location,
-    Permission.storage,
     ].request();
     print(statuses[Permission.location]);
   }
@@ -109,49 +104,53 @@ class _CameraPageState extends State<CameraPage> {
                 alignment: Alignment.center,
                 child: Transform.scale(
                     scale: 0.95, // Adjust the scale factor as needed
-                    child: CameraPreview(_controller!))),
-            Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: FloatingActionButton(
-                onPressed: () async {
-                  String location = await getCurrentPlaceName();
+                    child: CameraPreview(_controller!))
+            ),
+            Transform.translate(
+              offset: Offset(0, -50),
+              child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: FloatingActionButton(
+                  onPressed: () async {
+                    String location = await getCurrentPlaceName();
 
-                  final file1 = await _controller!.takePicture();
-                  setState(() {
-                    waiting = true;
-                  });
+                    final file1 = await _controller!.takePicture();
+                    setState(() {
+                      waiting = true;
+                    });
 
-                  final cameras = await availableCameras();
-                  final camera = cameras.firstWhere(
-                          (cam) => cam.lensDirection == CameraLensDirection.front);
-                  _controller = CameraController(camera, ResolutionPreset.high);
-                  await _controller?.initialize();
-                  setState(() {});
+                    final cameras = await availableCameras();
+                    final camera = cameras.firstWhere(
+                            (cam) => cam.lensDirection == CameraLensDirection.front);
+                    _controller = CameraController(camera, ResolutionPreset.high);
+                    await _controller?.initialize();
+                    setState(() {});
 
-                  final file2 = await _controller!.takePicture();
-                  final templateUpload =
-                      FirebaseStorage.instance.ref('/Images').child(getUid()).child(location + '_' + formattedDate);
+                    final file2 = await _controller!.takePicture();
+                    final templateUpload =
+                        FirebaseStorage.instance.ref('/Images').child(getUid()).child(location + '_' + formattedDate);
 
-                  final byte1 = await file1.readAsBytes();
+                    final byte1 = await file1.readAsBytes();
 
-                  final byte2 = await file2.readAsBytes();
+                    final byte2 = await file2.readAsBytes();
 
-                  templateUpload
-                      .child('back')
-                      .putData(byte1);
-                  templateUpload
-                      .child('front')
-                      .putData(byte2);
+                    templateUpload
+                        .child('back')
+                        .putData(byte1);
+                    templateUpload
+                        .child('front')
+                        .putData(byte2);
 
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Column(children: [
-                    Text(file1.path),
-                    Text(file2.path),
-                  ])));
-                  Navigator.of(context).pop();
-                },
-                tooltip: 'Take picture',
-                child: const Icon(Icons.camera),
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Column(children: [
+                      Text(file1.path),
+                      Text(file2.path),
+                    ])));
+                    Navigator.of(context).pop();
+                  },
+                  tooltip: 'Take picture',
+                  child: const Icon(Icons.camera),
+                ),
               ),
             ),
           ],

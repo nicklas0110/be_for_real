@@ -1,5 +1,6 @@
 import 'package:be_for_real/locationUtil.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +22,38 @@ String ownPicLocation = 'location';
 
 class FriendTab extends StatelessWidget {
   const FriendTab({Key? key}) : super(key: key);
+
+  AlertPopUp(context) async{
+    if (await Geolocator.isLocationServiceEnabled() == false) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Turn on Location'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const [
+                  Text('Please turn on your location', style: TextStyle(color: Colors.red)),
+                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.red)),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Approve', style: TextStyle(color: Colors.black38) ),
+                onPressed: () async {
+                  if(await Geolocator.isLocationServiceEnabled() != false){
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   Route _createRouteCamera() {
     return PageRouteBuilder(
@@ -45,6 +78,7 @@ class FriendTab extends StatelessWidget {
 
   Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
     onTap: () {
+      AlertPopUp(context);
       Navigator.of(context).push(_createRouteCamera());
     },
     child: Container(
@@ -114,6 +148,9 @@ class FriendTab extends StatelessWidget {
                         FutureBuilder(
                             future: getCurrentPlaceName(),
                             builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
+                              }
                               if (snapshot.hasData == false) {
                                 return Text(
                                   'Getting location...',
