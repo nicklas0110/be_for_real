@@ -30,71 +30,72 @@ class SettingsScreen extends StatelessWidget {
         // Align the button in the center horizontally
         children: [
           const Text(
-            'Feature',
+            '',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            // Add spacing between the title and the first row
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 100,
-                    color: Colors.grey[900],
-                    // Content for the first section
+
+          GestureDetector(
+            onTap: () {
+              showAboutDialog(
+                context: context,
+                applicationName: 'This is just a prototype and not a real BeReal and it is BeForReal',
+                children: [
+                  const DefaultTextStyle(
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    child: Text('About information goes here.'),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            // Add spacing between the first and second rows
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 100,
-                    color: Colors.grey[900],
-                    // Content for the second section
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // Align the button in the center horizontally
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  // Add spacing between the second and third rows
-                  width: 350,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                        (route) => false,
-                      );
-                    },
-                    icon: const Icon(Icons.logout, color: Colors.red, size: 30),
-                  ),
+                ],
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              // Add spacing between the second and third rows
+              width: 350,
+              height: 55,
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 12.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.info_outline, color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text('About', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
+
+          ),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              // Add spacing between the second and third rows
+              width: 350,
+              height: 55,
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const LoginPage()),
+                        (route) => false,
+                  );
+                },
+                icon: const Icon(Icons.logout, color: Colors.red, size: 30),
+              ),
+            ),
           ),
         ],
       ),
