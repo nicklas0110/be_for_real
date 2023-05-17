@@ -5,13 +5,13 @@ import 'package:provider/provider.dart';
 import '../chat_service.dart';
 import '../models/user.dart';
 import '../utils.dart';
-import '../models/channel.dart';
+import '../models/groups.dart';
 import '../models/message.dart';
 import '../widgets/add_member_button.dart';
 
 class MessagesScreen extends StatelessWidget {
   final padding = 8.0;
-  final Channel channel;
+  final Groups channel;
   const MessagesScreen({required this.channel, super.key});
 
   @override

@@ -14,8 +14,7 @@ class StartupScreen extends StatefulWidget {
 class _StartupScreenState extends State<StartupScreen> {
   bool _isVisible = false;
 
-  _StartupScreenState(){}
-
+  @override
   initState() {
     Timer(const Duration(milliseconds: 2000), () {
       setState(() {
@@ -38,7 +37,6 @@ class _StartupScreenState extends State<StartupScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -72,7 +70,7 @@ class _StartupScreenState extends State<StartupScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'BeForReal', // ignore: spelling_error
+                    'BeForReal',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
