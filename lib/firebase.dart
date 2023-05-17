@@ -1,18 +1,15 @@
 import 'dart:io';
 
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
+import 'friendTab/friendPicture.dart';
+
 class Firebase {
-
-  final user = Provider.of<User?>(context!);
-  late final String recipientUserId = user!.uid;
-
-  static BuildContext? context;
-
 
  Future<void> uploadImage(File imageFile) async {
     final fileName = DateTime
@@ -35,11 +32,14 @@ class Firebase {
  void sendFriendRequest() {
 
    final currentUser = getCurrentUser();
+   final username = friendUsername;
    if (currentUser != null) {
+     final recipientUserId = currentUser.uid;
      // Logic to send a friend request to the recipient user
 
      // Example: Updating a 'friends' collection with the friend request
-     FirebaseFirestore.instance.collection('users').doc(recipientUserId).collection('friends').add({
+     FirebaseFirestore.instance.collection('Groups/groups/members').doc(recipientUserId).collection('friends').add({
+       'username': username,
        'userId': recipientUserId,
        'status': 'pending',
        'timestamp': DateTime.now(),

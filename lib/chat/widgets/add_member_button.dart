@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../models/channel.dart';
+import '../models/groups.dart';
 import 'add_member_dialog.dart';
 
 class AddMemberButton extends StatelessWidget {
-  final Channel channel;
+  final Groups channel;
   const AddMemberButton({
     super.key,
     required this.channel,

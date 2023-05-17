@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'models/channel.dart';
+import 'models/groups.dart';
 import 'models/message.dart';
 import 'models/sender.dart';
 import 'models/user.dart';
@@ -12,33 +12,29 @@ String generateId() {
   return Random().nextInt(2 ^ 53).toString();
 }
 
-class CollectionNames {
-  static const channels = 'channels';
-  static const messages = 'messages';
-}
-
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<Iterable<Channel>> channels(User user) {
+
+  Stream<Iterable<Groups>> groups(User user) {
     return _firestore
-        .collection(CollectionNames.channels)
+        .collection('groups')
         .where(ChannelKeys.members, arrayContains: user.uid)
         .orderBy(ChannelKeys.name)
         .withConverter(
       fromFirestore: (snapshot, options) =>
-          Channel.fromMap(snapshot.id, snapshot.data()!),
+          Groups.fromMap(snapshot.id, snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
     )
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()));
   }
 
-  Query<Message> messages(Channel channel) {
+  Query<Message> messages(Groups group) {
     return _firestore
-        .collection(CollectionNames.channels)
-        .doc(channel.id)
-        .collection(CollectionNames.messages)
+        .collection('groups')
+        .doc(group.id)
+        .collection('messages')
         .orderBy(MessageKeys.timestamp)
         .withConverter(
       fromFirestore: (snapshot, options) =>
@@ -47,15 +43,15 @@ class ChatService {
     );
   }
 
-  Future<void> sendMessage(User user, Channel channel, String message) async {
+  Future<void> sendMessage(User user, Groups channel, String message) async {
     final sender = Sender(
         uid: user.uid,
         displayName: user.displayName ?? '',
         email: user.email ?? 'Unknown');
     await _firestore
-        .collection(CollectionNames.channels)
+        .collection('groups')
         .doc(channel.id)
-        .collection(CollectionNames.messages)
+        .collection('messages')
         .add({
       MessageKeys.timestamp: FieldValue.serverTimestamp(),
       MessageKeys.from: sender.toMap(),
@@ -64,15 +60,16 @@ class ChatService {
   }
 
   Future<void> createChannel(User user, String name) async {
-    await _firestore.collection(CollectionNames.channels).add({
+    await _firestore.collection('groups').add({
       ChannelKeys.members: [user.uid],
       ChannelKeys.name: name,
+      ChannelKeys.image: 'assets/Placeholder.png'
     });
   }
 
-  Future<void> addMember(Channel channel, String uid) async {
+  Future<void> addMember(Groups channel, String uid) async {
     await _firestore
-        .collection(CollectionNames.channels)
+        .collection('groups')
         .doc(channel.id)
         .update({
       ChannelKeys.members: FieldValue.arrayUnion([uid])

@@ -1,12 +1,12 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
 
-import 'package:be_for_real/chat/screens/channel_screen.dart';
+import 'package:be_for_real/chat/screens/group_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'cameraPage.dart';
 import '../../friendTab/friendTab.dart';
 import '../../groupTab.dart';
-import 'channel_screen.dart';
+import 'group_screen.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Route _createRouteFriends() {
     return PageRouteBuilder(
 
-      pageBuilder: (context, animation, secondaryAnimation) => const ChannelsScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => const GroupScreen(),
 
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(-1.0, 0.0);
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Route _createRouteChannels() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      const ChannelsScreen(),
+      const GroupScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
         const begin = Offset(-1.0, 0.0);
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                Navigator.of(context).push(_createRouteFriends()
+                Navigator.of(context).push(_createRouteChannels()
                 );
               },
             ),
