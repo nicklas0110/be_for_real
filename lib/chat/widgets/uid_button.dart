@@ -47,3 +47,6 @@ class UidButton extends StatelessWidget {
     );
   }
 }
+
+QrImageView({required String data, required int version, required int size}) {
+}

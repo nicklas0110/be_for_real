@@ -1,4 +1,5 @@
 import 'package:be_for_real/chat/screens/home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'settings.dart';
 
@@ -18,6 +19,17 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+}
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Future<String?> getUserEmail() async {
+  final user = _auth.currentUser;
+  if (user != null) {
+    return user.email;
+  }
+  return null;
 }
 
 
@@ -35,7 +47,6 @@ class _ProfilePageState extends State<ProfilePage>
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +70,23 @@ class _ProfilePageState extends State<ProfilePage>
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          const Text(
-            'me@example.com',
-            style: TextStyle(fontSize: 18, color: Colors.grey),
+          FutureBuilder<String?>(
+            future: getUserEmail(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+              if (snapshot.hasData && snapshot.data != null) {
+                return Text(
+                  snapshot.data!,
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
+                );
+              }
+              return const Text(
+                'No email found',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              );
+            },
           ),
           const SizedBox(height: 20),
         ],

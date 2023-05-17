@@ -69,7 +69,7 @@ class _StartupScreenState extends State<StartupScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'BeReal', // ignore: spelling_error
+                    'BeForReal', // ignore: spelling_error
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
