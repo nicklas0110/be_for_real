@@ -13,9 +13,9 @@ String ownPicDateTime = 'time';
 String ownPicLocation = 'location';
 
 class OwnPicture extends StatelessWidget {
-  @override
+  const OwnPicture({super.key});
 
-  AlertPopUp(context) async{
+  alertPopUp(context) async{
     if (await Geolocator.isLocationServiceEnabled() == false) {
       showDialog<void>(
         context: context,
@@ -70,7 +70,7 @@ class OwnPicture extends StatelessWidget {
 
   Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
         onTap: () {
-          AlertPopUp(context);
+          alertPopUp(context);
           Navigator.of(context).push(_createRouteCamera());
         },
         child: Container(
@@ -139,7 +139,7 @@ class OwnPicture extends StatelessWidget {
                     future: getCurrentPlaceName(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
+                        return const Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
                       }
                       if (snapshot.hasData == false) {
                         return Text(

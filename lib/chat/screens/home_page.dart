@@ -1,12 +1,8 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
-
 import 'package:be_for_real/chat/screens/group_screen.dart';
-
 import 'package:flutter/material.dart';
-import 'cameraPage.dart';
 import '../../friendTab/friendTab.dart';
 import '../../groupTab.dart';
-import 'group_screen.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});

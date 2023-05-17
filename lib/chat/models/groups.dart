@@ -12,16 +12,16 @@ class Groups {
   final String id;
   final String name;
   final List<String> members;
-  final File? img;
+  final File? image;
 
-  Groups(this.id, this.name, this.members, this.img);
+  Groups(this.id, this.name, this.members, this.image);
 
   Groups.fromMap(this.id, Map<String, dynamic> data)
       : name = data[ChannelKeys.name],
         members = [...data[ChannelKeys.members]],
-        img = data[ChannelKeys.image];
+        image = data[ChannelKeys.image];
 
   Map<String, dynamic> toMap() {
-    return {ChannelKeys.name: name, ChannelKeys.members: members, ChannelKeys.image: img};
+    return {ChannelKeys.name: name, ChannelKeys.members: members, ChannelKeys.image: image};
   }
 }

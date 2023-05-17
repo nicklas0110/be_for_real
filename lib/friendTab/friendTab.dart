@@ -5,8 +5,8 @@ import 'package:be_for_real/friendTab/ownPicture.dart';
 class FriendTab extends StatelessWidget {
   FriendTab({Key? key}) : super(key: key);
 
-  final ownPicture = OwnPicture();
-  final friendPicture = FriendPicture();
+  final ownPicture = const OwnPicture();
+  final friendPicture = const FriendPicture();
 
   @override
   Widget build(BuildContext context) {
