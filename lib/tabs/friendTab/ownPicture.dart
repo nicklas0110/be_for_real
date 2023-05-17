@@ -22,18 +22,18 @@ class OwnPicture extends StatelessWidget {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Turn on Location'),
+            title: const Text('Turn on Location', style: TextStyle(color: Colors.red)),
             content: const SingleChildScrollView(
               child: ListBody(
                 children: [
-                  Text('Please turn on your location', style: TextStyle(color: Colors.red)),
-                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.red)),
+                  Text('Please turn on your location', style: TextStyle(color: Colors.white)),
+                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Approve', style: TextStyle(color: Colors.black38) ),
+                child: const Text('Approve', style: TextStyle(color: Colors.white) ),
                 onPressed: () async {
                   if(await Geolocator.isLocationServiceEnabled() != false){
                     Navigator.of(context).pop();
