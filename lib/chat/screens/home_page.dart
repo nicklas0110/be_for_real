@@ -4,7 +4,7 @@ import 'package:be_for_real/chat/screens/channel_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'cameraPage.dart';
-import '../../friendTab.dart';
+import '../../friendTab/friendTab.dart';
 import '../../groupTab.dart';
 import 'channel_screen.dart';
 
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [FriendTab(), GroupTab()],
+        children: [FriendTab(), GroupTab()],
       ),
     );
   }
