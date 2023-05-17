@@ -1,4 +1,3 @@
-import 'package:be_for_real/services/firebase_storage_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -97,7 +96,6 @@ class _MyAppState extends State<MyApp> {
       ],
       builder: (context, child) {
         final user = Provider.of<User?>(context);
-        FirebaseServiceController _firebaseServiceController = Get.put(FirebaseServiceController());
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,

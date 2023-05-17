@@ -2,8 +2,8 @@ import 'package:be_for_real/locationUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import '../chat/screens/cameraPage.dart';
-import 'package:be_for_real/friendTab/friendPicture.dart';
+import 'package:be_for_real/chat/screens/cameraPage.dart';
+import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 
 String userPic =
     'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
@@ -13,27 +13,27 @@ String ownPicDateTime = 'time';
 String ownPicLocation = 'location';
 
 class OwnPicture extends StatelessWidget {
-  @override
+  const OwnPicture({super.key});
 
-  AlertPopUp(context) async{
+  alertPopUp(context) async{
     if (await Geolocator.isLocationServiceEnabled() == false) {
       showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Turn on Location'),
-            content: SingleChildScrollView(
+            title: const Text('Turn on Location', style: TextStyle(color: Colors.red)),
+            content: const SingleChildScrollView(
               child: ListBody(
-                children: const [
-                  Text('Please turn on your location', style: TextStyle(color: Colors.red)),
-                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.red)),
+                children: [
+                  Text('Please turn on your location', style: TextStyle(color: Colors.white)),
+                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Approve', style: TextStyle(color: Colors.black38) ),
+                child: const Text('Approve', style: TextStyle(color: Colors.white) ),
                 onPressed: () async {
                   if(await Geolocator.isLocationServiceEnabled() != false){
                     Navigator.of(context).pop();
@@ -70,7 +70,7 @@ class OwnPicture extends StatelessWidget {
 
   Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
         onTap: () {
-          AlertPopUp(context);
+          alertPopUp(context);
           Navigator.of(context).push(_createRouteCamera());
         },
         child: Container(
@@ -139,7 +139,7 @@ class OwnPicture extends StatelessWidget {
                     future: getCurrentPlaceName(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
+                        return const Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
                       }
                       if (snapshot.hasData == false) {
                         return Text(

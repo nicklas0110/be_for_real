@@ -59,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
                 color: Colors.grey[900],
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(left: 12.0),
                 child: Row(
                   children: [

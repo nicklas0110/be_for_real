@@ -1,12 +1,8 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
-
 import 'package:be_for_real/chat/screens/group_screen.dart';
-
 import 'package:flutter/material.dart';
-import 'cameraPage.dart';
-import '../../friendTab/friendTab.dart';
-import '../../groupTab.dart';
-import 'group_screen.dart';
+import '../../tabs/friendTab/friendTab.dart';
+import '../../tabs/groupTab/groupTab.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -18,7 +14,7 @@ class HomePageScreen extends StatelessWidget {
       title: 'BeForReal',
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.from(
-          colorScheme: const ColorScheme.dark(background: Colors.transparent)),
+          colorScheme: const ColorScheme.dark(background: Colors.black)),
       themeMode: ThemeMode.dark,
       home: MyHomePage(
         title: 'BeForReal',
