@@ -50,8 +50,8 @@ class _StartupScreenState extends State<StartupScreen> {
         duration: const Duration(milliseconds: 1200),
         child: Center(
           child: Container(
-            height: 160.0,
-            width: 160.0,
+            height: 170.0,
+            width: 170.0,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.black,
