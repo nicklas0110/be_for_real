@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:be_for_real/tabs/friendTab/comments.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy/MM/dd - kk.mm').format(now);
@@ -23,6 +24,25 @@ class FriendPicture extends StatefulWidget {
 class _FriendPictureState extends State<FriendPicture> {
   double _xOffset = 5;
   double _yOffset = 5;
+
+  Route _createRouteComments() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Comments(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +144,15 @@ class _FriendPictureState extends State<FriendPicture> {
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 10, right: 2, top: 6, bottom: 36),
-                  child: Text(
-                    'add a comment...',
-                    style: TextStyle(
-                      color: Colors.grey[400],
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(_createRouteComments());
+                    },
+                    child: Text(
+                      'add a comment...',
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                      ),
                     ),
                   ),
                 ),
