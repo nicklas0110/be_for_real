@@ -40,9 +40,10 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
         TextButton(
           child: const Text('Add'),
           onPressed: () {
-            if (!_formKey.currentState!.validate()) return;
-            chat.createChannel(user, _name.value.text);
-            Navigator.of(context).pop();
+            if (!_formKey.currentState!.validate()) return;{
+              chat.createChannel(user, _name.value.text);
+              Navigator.of(context).pop();
+            };
           },
         ),
       ],

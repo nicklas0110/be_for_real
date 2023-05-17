@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
 import '../chat_service.dart';
-import '../models/channel.dart';
+import '../models/groups.dart';
 
 class AddMemberDialog extends StatefulWidget {
   const AddMemberDialog({
@@ -11,7 +11,7 @@ class AddMemberDialog extends StatefulWidget {
     required this.channel,
   });
 
-  final Channel channel;
+  final Groups channel;
 
   @override
   State<AddMemberDialog> createState() => _AddMemberDialogState();
