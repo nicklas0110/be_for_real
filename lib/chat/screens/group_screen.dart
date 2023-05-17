@@ -49,7 +49,7 @@ class GroupTile extends StatelessWidget {
       title: Text(group.name),
       trailing: Text('Members: ${group.members.length}'),
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => MessagesScreen(channel: group),
+        builder: (context) => MessagesScreen(groups: group),
       )),
     );
   }

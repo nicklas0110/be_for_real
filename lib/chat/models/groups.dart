@@ -12,7 +12,7 @@ class Groups {
   final String id;
   final String name;
   final List<String> members;
-  final File? image;
+  final String? image;
 
   Groups(this.id, this.name, this.members, this.image);
 
