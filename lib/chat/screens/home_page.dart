@@ -18,7 +18,7 @@ class HomePageScreen extends StatelessWidget {
       title: 'BeForReal',
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.from(
-          colorScheme: const ColorScheme.dark(background: Colors.transparent)),
+          colorScheme: const ColorScheme.dark(background: Colors.black)),
       themeMode: ThemeMode.dark,
       home: MyHomePage(
         title: 'BeForReal',
