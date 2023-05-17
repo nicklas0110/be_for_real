@@ -2,8 +2,8 @@ import 'package:be_for_real/locationUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import '../chat/screens/cameraPage.dart';
-import 'package:be_for_real/friendTab/friendPicture.dart';
+import 'package:be_for_real/chat/screens/cameraPage.dart';
+import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 
 String userPic =
     'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';

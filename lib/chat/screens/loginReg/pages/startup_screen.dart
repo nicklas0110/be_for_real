@@ -14,24 +14,24 @@ class StartupScreen extends StatefulWidget {
 class _StartupScreenState extends State<StartupScreen> {
   bool _isVisible = false;
 
+  _StartupScreenState() {}
+
   @override
   initState() {
     Timer(const Duration(milliseconds: 2000), () {
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LoginPage()), (
-            route) => false);
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+            (route) => false);
       });
     });
 
-    Timer(
-        const Duration(milliseconds: 10), () {
+    Timer(const Duration(milliseconds: 10), () {
       setState(() {
         _isVisible =
-        true; // Now it is showing fade effect and navigating to Login page
+            true; // Now it is showing fade effect and navigating to Login page
       });
-    }
-    );
+    });
     super.initState();
   }
 
@@ -40,7 +40,10 @@ class _StartupScreenState extends State<StartupScreen> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).cardColor],
+          colors: [
+            Theme.of(context).secondaryHeaderColor,
+            Theme.of(context).cardColor
+          ],
           begin: const FractionalOffset(1, 0),
           end: const FractionalOffset(1.0, 0.0),
           tileMode: TileMode.decal,
@@ -60,8 +63,7 @@ class _StartupScreenState extends State<StartupScreen> {
                   BoxShadow(
                     color: Colors.black.withOpacity(1.0),
                   )
-                ]
-            ),
+                ]),
             child: const Center(
               child: DecoratedBox(
                 decoration: BoxDecoration(

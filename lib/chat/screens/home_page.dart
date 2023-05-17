@@ -1,7 +1,7 @@
 import 'package:be_for_real/chat/screens/profile_screen.dart';
 import 'package:be_for_real/chat/screens/group_screen.dart';
 import 'package:flutter/material.dart';
-import '../../friendTab/friendTab.dart';
+import '../../tabs/friendTab/friendTab.dart';
 import '../../groupTab.dart';
 
 class HomePageScreen extends StatelessWidget {
