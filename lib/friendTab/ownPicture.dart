@@ -81,9 +81,13 @@ class OwnPicture extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              userPic,
-              fit: BoxFit.cover,
+            child: SizedBox(
+              child: FadeInImage(
+                image: NetworkImage(userPic),
+                fit: BoxFit.cover,
+                placeholder:
+                const AssetImage("assets/Placeholder.png"),
+              ),
             ),
           ),
         ),

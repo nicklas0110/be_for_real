@@ -3,13 +3,19 @@ import 'package:intl/intl.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = DateFormat('yyyy/MM/dd - kk.mm').format(now);
-String friendPic =
+String placeholderImageLink =
     'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+String friendPicProfilePic = placeholderImageLink;
+String friendPicFront = placeholderImageLink;
+String friendPicBack = placeholderImageLink;
+
 String friendUsername = 'username';
 String friendPicDateTime = 'time';
 String friendPicLocation = 'location';
 
 class FriendPicture extends StatefulWidget {
+  const FriendPicture({super.key});
+
   @override
   _FriendPictureState createState() => _FriendPictureState();
 }
@@ -36,10 +42,14 @@ class _FriendPictureState extends State<FriendPicture> {
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: Image.network(
-                              friendPic,
+                          child: SizedBox(
+                            child: FadeInImage(
+                              image: NetworkImage(friendPicProfilePic),
                               fit: BoxFit.cover,
-                            )),
+                              placeholder:
+                              const AssetImage("assets/Placeholder.png"),
+                            ),
+                          ),),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,12 +80,11 @@ class _FriendPictureState extends State<FriendPicture> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: SizedBox(
-                          height: 100,
-                          width: 500,
                           child: FadeInImage(
-                            image: NetworkImage(friendPic),
+                            image: NetworkImage(friendPicBack),
                             fit: BoxFit.cover,
-                            placeholder: AssetImage("assets/Placeholder.png"),
+                            placeholder:
+                                const AssetImage("assets/Placeholder.png"),
                           ),
                         ),
                       ),
@@ -90,14 +99,18 @@ class _FriendPictureState extends State<FriendPicture> {
                             _yOffset += details.delta.dy;
                           });
                         },
-                        child: Container(
+                        child: SizedBox(
                           height: 160,
                           width: 120,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.network(
-                              friendPic,
-                              fit: BoxFit.cover,
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              child: FadeInImage(
+                                image: NetworkImage(friendPicFront),
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    const AssetImage("assets/Placeholder.png"),
+                              ),
                             ),
                           ),
                         ),
