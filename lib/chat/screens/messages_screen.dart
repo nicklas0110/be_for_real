@@ -14,7 +14,8 @@ class MessagesScreen extends StatelessWidget {
   final Groups groups;
   final TextEditingController textEditingController = TextEditingController();
 
-  MessagesScreen({required this.groups, Key? key, required Groups group}) : super(key: key);
+  MessagesScreen({required this.groups, Key? key, required Groups group})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +25,20 @@ class MessagesScreen extends StatelessWidget {
         title: Text(groups.name),
         actions: [AddMemberButton(groups: groups)],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          FirestoreListView<Message>(
-            query: chat.messages(groups),
-            itemBuilder: (context, doc) {
-              final message = doc.data();
-              return Column(children: [
-                sender(message),
-                textBubble(message),
-                SizedBox(height: padding * 2),
-              ]);
-            },
+          Expanded(
+            child: FirestoreListView<Message>(
+              query: chat.messages(groups),
+              itemBuilder: (context, doc) {
+                final message = doc.data();
+                return Column(children: [
+                  sender(message),
+                  textBubble(message),
+                  SizedBox(height: padding * 2),
+                ]);
+              },
+            ),
           ),
           Align(alignment: Alignment.bottomCenter, child: messageInput(context))
         ],
@@ -82,7 +85,6 @@ class MessagesScreen extends StatelessWidget {
           chat.sendMessage(user, groups, value);
           textEditingController.clear();
         },
-
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
           suffixIcon: Icon(Icons.send),
