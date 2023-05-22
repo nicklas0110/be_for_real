@@ -79,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteProfile() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-        const ProfileScreen(),
+        pageBuilder: (context, animation, secondaryAnimation) => const ProfileScreen(),
+
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0);
           const end = Offset.zero;
@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteChannels() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-      const GroupScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => const GroupScreen(),
+
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
         const begin = Offset(-1.0, 0.0);
