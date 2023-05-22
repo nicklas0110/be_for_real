@@ -12,7 +12,9 @@ import '../widgets/add_member_button.dart';
 class MessagesScreen extends StatelessWidget {
   final padding = 8.0;
   final Groups groups;
-  const MessagesScreen({required this.groups, super.key, required Groups group});
+  final TextEditingController textEditingController = TextEditingController();
+
+  MessagesScreen({required this.groups, Key? key, required Groups group}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +75,14 @@ class MessagesScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(padding),
       child: TextField(
+        controller: textEditingController,
         keyboardType: TextInputType.text,
         onSubmitted: (value) {
           if (value.isEmpty) return;
           chat.sendMessage(user, groups, value);
+          textEditingController.clear();
         },
+
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
           suffixIcon: Icon(Icons.send),
