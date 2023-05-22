@@ -15,6 +15,7 @@ class CreateChannelDialog extends StatefulWidget {
 class _CreateChannelDialogState extends State<CreateChannelDialog> {
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController();
+  String _imageUrl = ''; // Define imageUrl variable
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,22 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
       title: const Text('Add Channel'),
       content: Form(
         key: _formKey,
-        child: TextFormField(
-          controller: _name,
-          decoration: const InputDecoration(label: Text('Name')),
-          validator: (value) => value!.isEmpty ? 'Name required' : null,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _name,
+              decoration: const InputDecoration(labelText: 'Name'),
+              validator: (value) => value!.isEmpty ? 'Name required' : null,
+            ),
+            TextFormField(
+              onChanged: (value) {
+                setState(() {
+                  _imageUrl = value; // Update imageUrl value
+                });
+              },
+              decoration: const InputDecoration(labelText: 'Image URL'),
+            ),
+          ],
         ),
       ),
       actions: [
@@ -40,10 +53,9 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
         TextButton(
           child: const Text('Add'),
           onPressed: () {
-            if (!_formKey.currentState!.validate()) return;{
-              chat.createChannel(user, _name.value.text);
-              Navigator.of(context).pop();
-            };
+            if (!_formKey.currentState!.validate()) return;
+            chat.createChannel(user, _name.value.text, imageUrl: _imageUrl); // Pass imageUrl to createChannel method
+            Navigator.of(context).pop();
           },
         ),
       ],

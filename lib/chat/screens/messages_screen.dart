@@ -12,7 +12,7 @@ import '../widgets/add_member_button.dart';
 class MessagesScreen extends StatelessWidget {
   final padding = 8.0;
   final Groups groups;
-  const MessagesScreen({required this.groups, super.key});
+  const MessagesScreen({required this.groups, super.key, required Groups group});
 
   @override
   Widget build(BuildContext context) {

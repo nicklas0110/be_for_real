@@ -14,36 +14,35 @@ class StartupScreen extends StatefulWidget {
 class _StartupScreenState extends State<StartupScreen> {
   bool _isVisible = false;
 
-  _StartupScreenState() {}
+  _StartupScreenState(){}
 
-  @override
   initState() {
     Timer(const Duration(milliseconds: 2000), () {
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-            (route) => false);
+            MaterialPageRoute(builder: (context) => const LoginPage()), (
+            route) => false);
       });
     });
 
-    Timer(const Duration(milliseconds: 10), () {
+    Timer(
+        const Duration(milliseconds: 10), () {
       setState(() {
         _isVisible =
-            true; // Now it is showing fade effect and navigating to Login page
+        true; // Now it is showing fade effect and navigating to Login page
       });
-    });
+    }
+    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Theme.of(context).secondaryHeaderColor,
-            Theme.of(context).cardColor
-          ],
+          colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).cardColor],
           begin: const FractionalOffset(1, 0),
           end: const FractionalOffset(1.0, 0.0),
           tileMode: TileMode.decal,
@@ -54,8 +53,8 @@ class _StartupScreenState extends State<StartupScreen> {
         duration: const Duration(milliseconds: 1200),
         child: Center(
           child: Container(
-            height: 170.0,
-            width: 170.0,
+            height: 160.0,
+            width: 160.0,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black,
@@ -63,7 +62,8 @@ class _StartupScreenState extends State<StartupScreen> {
                   BoxShadow(
                     color: Colors.black.withOpacity(1.0),
                   )
-                ]),
+                ]
+            ),
             child: const Center(
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class _StartupScreenState extends State<StartupScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'BeForReal',
+                    'BeReal', // ignore: spelling_error
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,

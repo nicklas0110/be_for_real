@@ -31,8 +31,8 @@ class GroupScreen extends StatelessWidget {
         stream: chat.groups(user),
         builder: (context, snapshot) => ListView(
           children: [
-            if (snapshot.hasData) ...snapshot.data!.map((e) => GroupTile(e))
-          ],
+    if (snapshot.hasData) ...snapshot.data!.map((e) => GroupTile(e))
+    ],
         ),
       ),
     );
@@ -41,16 +41,29 @@ class GroupScreen extends StatelessWidget {
 
 class GroupTile extends StatelessWidget {
   final Groups group;
-  const GroupTile(this.group, {super.key});
+  const GroupTile(this.group, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: ClipOval(
+        child: Image.network(
+          group.imageUrl ?? '', // Use the imageUrl property
+          width: 50,
+          height: 50,
+        ),
+      ),
       title: Text(group.name),
       trailing: Text('Members: ${group.members.length}'),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => MessagesScreen(groups: group),
-      )),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MessagesScreen(group: group, groups: group),
+          ),
+        );
+      },
     );
   }
 }
+

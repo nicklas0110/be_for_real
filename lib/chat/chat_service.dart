@@ -22,8 +22,12 @@ class ChatService {
         .where(ChannelKeys.members, arrayContains: user.email!)
         .orderBy(ChannelKeys.name)
         .withConverter(
-      fromFirestore: (snapshot, options) =>
-          Groups.fromMap(snapshot.id, snapshot.data()!),
+      fromFirestore: (snapshot, options) {
+        final data = snapshot.data()!;
+        final groupId = snapshot.id;
+        final imageUrl = data[ChannelKeys.imageUrl] as String?;
+        return Groups.fromMap(groupId, data, imageUrl: imageUrl);
+      },
       toFirestore: (value, options) => value.toMap(),
     )
         .snapshots()
@@ -59,11 +63,11 @@ class ChatService {
     });
   }
 
-  Future<void> createChannel(User user, String name) async {
+  Future<void> createChannel(User user, String name, {required String imageUrl}) async {
     await _firestore.collection('groups').add({
       ChannelKeys.members: [user.email!],
       ChannelKeys.name: name,
-      ChannelKeys.image: "assets/Placeholder.png"
+      ChannelKeys.imageUrl: imageUrl,
     });
   }
 

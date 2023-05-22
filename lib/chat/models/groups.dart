@@ -1,27 +1,23 @@
-
-
-import 'dart:io';
-
 class ChannelKeys {
   static const name = 'name';
   static const members = 'members';
-  static const image = 'image';
+  static const imageUrl = 'imageUrl';
 }
 
 class Groups {
   final String id;
   final String name;
   final List<String> members;
-  final String? image;
+  final String? imageUrl;
 
-  Groups(this.id, this.name, this.members, this.image);
+  Groups(this.id, this.name, this.members, this.imageUrl);
 
-  Groups.fromMap(this.id, Map<String, dynamic> data)
+  Groups.fromMap(this.id, Map<String, dynamic> data, {String? imageUrl})
       : name = data[ChannelKeys.name],
         members = [...data[ChannelKeys.members]],
-        image = data[ChannelKeys.image];
+        imageUrl = data[ChannelKeys.imageUrl];
 
   Map<String, dynamic> toMap() {
-    return {ChannelKeys.name: name, ChannelKeys.members: members, ChannelKeys.image: image};
+    return {ChannelKeys.name: name, ChannelKeys.members: members, ChannelKeys.imageUrl: imageUrl};
   }
 }
