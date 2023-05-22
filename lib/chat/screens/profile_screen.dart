@@ -1,7 +1,10 @@
-import 'package:be_for_real/chat/screens/home_page.dart';
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:be_for_real/chat/screens/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'home_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key});
@@ -19,7 +22,6 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
 }
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,21 +34,45 @@ Future<String?> getUserEmail() async {
   return null;
 }
 
-
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key,required this.title,});
+  const ProfilePage({Key? key, required this.title});
+
   final String title;
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage>
     with TickerProviderStateMixin {
+  late String _photoUrl = '';
+  late String _userName = 'Me';
 
   @override
   void initState() {
     super.initState();
+    fetchUserData();
   }
+
+  Future<void> fetchUserData() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('register')
+          .doc(user.uid)
+          .get();
+      if (snapshot.exists) {
+        setState(() {
+          _photoUrl = snapshot.get('photoUrl');
+          final userName = snapshot.get(
+              'name');
+          _userName = userName;
+        });
+      }
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +82,45 @@ class _ProfilePageState extends State<ProfilePage>
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: ClipOval(
-              child: Image.network(
-                'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760',
-                width: 150,
-                height: 150,
+            child: GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 0.5,
+                  ),
+                ),
+                child: AvatarGlow(
+                  glowColor: Colors.white,
+                  showTwoGlows: true,
+                  repeat: true,
+                  endRadius: 80.0,
+                  child: Material(
+                    shape: const CircleBorder(),
+                    elevation: 2.0,
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage:
+                      _photoUrl.isNotEmpty ? NetworkImage(_photoUrl) : null,
+                      child: _photoUrl.isEmpty
+                          ? const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 70,
+                      )
+                          : null,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'Me',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Text(
+            _userName.isNotEmpty ? _userName : 'Me',
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           FutureBuilder<String?>(
@@ -105,12 +158,12 @@ class _ProfilePageState extends State<ProfilePage>
               },
             ),
           ),
-
           Expanded(
             child: Center(
               child: Text(
                 widget.title,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -127,19 +180,19 @@ class _ProfilePageState extends State<ProfilePage>
           ),
         ],
       ),
-
     );
   }
 
   Route _routeHomePageScreen() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const HomePageScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const SettingsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
@@ -147,15 +200,17 @@ class _ProfilePageState extends State<ProfilePage>
       },
     );
   }
+
   Route _routeSettingsScreen() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const SettingsScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const HomePageScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(
           position: animation.drive(tween),
           child: child,
