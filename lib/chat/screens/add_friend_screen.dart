@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:be_for_real/firebase.dart';
 
-class addFriendScreen extends StatelessWidget {
-  const addFriendScreen({super.key});
+class AddFriendScreen extends StatelessWidget {
+   AddFriendScreen({Key? key}) : super(key: key);
+
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,9 @@ class addFriendScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
                   labelText: 'Enter Friend Email',
                 ),
               ),
@@ -28,7 +31,9 @@ class addFriendScreen extends StatelessWidget {
                 child: const Text('Add Friend'),
                 onPressed: () {
                   // Add friend logic here
-                  Firebase().sendFriendRequest();
+                  final friendEmail = _emailController.text;
+                  Firebase().addFriendByEmail(friendEmail);
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -38,3 +43,4 @@ class addFriendScreen extends StatelessWidget {
     );
   }
 }
+

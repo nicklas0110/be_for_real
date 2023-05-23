@@ -27,6 +27,7 @@ class GroupScreen extends StatelessWidget {
           FriendRequestButton(),
         ],
       ),
+
       body: StreamBuilder(
         stream: chat.groups(user),
         builder: (context, snapshot) => ListView(
@@ -34,10 +35,14 @@ class GroupScreen extends StatelessWidget {
     if (snapshot.hasData) ...snapshot.data!.map((e) => GroupTile(e))
     ],
         ),
+
       ),
     );
+
   }
 }
+
+
 
 class GroupTile extends StatelessWidget {
   final Groups group;
