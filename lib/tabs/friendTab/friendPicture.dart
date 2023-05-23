@@ -49,13 +49,13 @@ class _FriendPictureState extends State<FriendPicture> {
     return Column(
       children: [
         SizedBox(
-          height: 661,
+          height: 663,
           child: Column(
             children: [
               Flexible(
                 fit: FlexFit.loose,
                 child: SizedBox(
-                  height: 40,
+                  height: 35,
                   child: Row(
                     children: [
                       Padding(
@@ -67,7 +67,7 @@ class _FriendPictureState extends State<FriendPicture> {
                               image: NetworkImage(friendPicProfilePic),
                               fit: BoxFit.cover,
                               placeholder:
-                              const AssetImage("assets/Placeholder.png"),
+                              const AssetImage("assets/Grey.png"),
                             ),
                           ),),
                       ),
@@ -104,7 +104,7 @@ class _FriendPictureState extends State<FriendPicture> {
                             image: NetworkImage(friendPicBack),
                             fit: BoxFit.cover,
                             placeholder:
-                                const AssetImage("assets/Placeholder.png"),
+                                const AssetImage("assets/Grey.png"),
                           ),
                         ),
                       ),
@@ -119,21 +119,30 @@ class _FriendPictureState extends State<FriendPicture> {
                             _yOffset += details.delta.dy;
                           });
                         },
-                        child: SizedBox(
-                          height: 160,
-                          width: 120,
-                          child: ClipRRect(
+                        child: Container(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              child: FadeInImage(
-                                image: NetworkImage(friendPicFront),
-                                fit: BoxFit.cover,
-                                placeholder:
-                                    const AssetImage("assets/Placeholder.png"),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                          child: SizedBox(
+                            height: 160,
+                            width: 120,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                child: FadeInImage(
+                                  image: NetworkImage(friendPicFront),
+                                  fit: BoxFit.cover,
+                                  placeholder: const AssetImage("assets/Grey.png"),
+                                ),
                               ),
                             ),
                           ),
                         ),
+
                       ),
                     ),
                   ],

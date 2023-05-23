@@ -5,37 +5,41 @@ import 'package:geolocator/geolocator.dart';
 import 'package:be_for_real/chat/screens/cameraPage.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 
-String userPic =
-    'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
-String friendPic =
-    'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+String userPic = '';
 String ownPicDateTime = 'time';
 String ownPicLocation = 'location';
+bool haveUploadedPicture = false;
+bool haveUploadedCaption = false;
 
 class OwnPicture extends StatelessWidget {
   const OwnPicture({super.key});
 
-  alertPopUp(context) async{
+  alertPopUp(context) async {
     if (await Geolocator.isLocationServiceEnabled() == false) {
       showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Turn on Location', style: TextStyle(color: Colors.red)),
+            title: const Text('Turn on Location',
+                style: TextStyle(color: Colors.red)),
             content: const SingleChildScrollView(
               child: ListBody(
                 children: [
-                  Text('Please turn on your location', style: TextStyle(color: Colors.white)),
-                  Text('Press approve to this message when your location is on to continue', style: TextStyle(color: Colors.white)),
+                  Text('Please turn on your location',
+                      style: TextStyle(color: Colors.white)),
+                  Text(
+                      'Press approve to this message when your location is on to continue',
+                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Approve', style: TextStyle(color: Colors.white) ),
+                child: const Text('Approve',
+                    style: TextStyle(color: Colors.white)),
                 onPressed: () async {
-                  if(await Geolocator.isLocationServiceEnabled() != false){
+                  if (await Geolocator.isLocationServiceEnabled() != false) {
                     Navigator.of(context).pop();
                   }
                 },
@@ -47,42 +51,42 @@ class OwnPicture extends StatelessWidget {
     }
   }
 
-  captionPopUp(context) async{
-      showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Add a caption to your picture', style: TextStyle(color: Colors.white)),
-            content: const SingleChildScrollView(
-              child: ListBody(
-                children: [
-                  TextField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
-                      border: OutlineInputBorder(
-                      ),
-                      hintText: 'Caption',
-                    ),
+  captionPopUp(context) async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add a caption to your picture',
+              style: TextStyle(color: Colors.white)),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: [
+                TextField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+                    border: OutlineInputBorder(),
+                    hintText: 'Caption',
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Send', style: TextStyle(color: Colors.white) ),
-                onPressed: () async {
-                  if(await Geolocator.isLocationServiceEnabled() != false){
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-            ],
-          );
-        },
-      );
-
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Send', style: TextStyle(color: Colors.white)),
+              onPressed: () async {
+                if (await Geolocator.isLocationServiceEnabled() != false) {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Route _createRouteCamera() {
@@ -106,29 +110,42 @@ class OwnPicture extends StatelessWidget {
     );
   }
 
+  ImageUploaded(){
+    if (haveUploadedPicture == false){
+      return 'assets/';
+    }
+    else{
+      return 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+      ;
+    }
+  }
+
   Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
         onTap: () {
           alertPopUp(context);
           Navigator.of(context).push(_createRouteCamera());
         },
-        child: Container(
-          width: 120,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blueGrey,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: SizedBox(
-              child: FadeInImage(
-                image: NetworkImage(userPic),
-                fit: BoxFit.cover,
-                placeholder:
-                const AssetImage("assets/Placeholder.png"),
-              ),
-            ),
+    child: Container(
+      width: 120,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.black,
+        border: Border.all(
+          color: Colors.blueGrey,
+          width: 2,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: const SizedBox(
+          child: FadeInImage(
+            image: AssetImage('assets/plus_sign_white.png'),
+            fit: BoxFit.cover,
+            placeholder: AssetImage("assets/Grey.png"),
           ),
         ),
+      ),
+    ),
       );
 
   getCurrentPlaceName() async {
@@ -149,7 +166,7 @@ class OwnPicture extends StatelessWidget {
             return ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.only(left: pad, top: 12, bottom: 12),
-              itemCount: 3,
+              itemCount: 1,
               separatorBuilder: (context, index) {
                 return const SizedBox(width: 12);
               },
@@ -182,7 +199,9 @@ class OwnPicture extends StatelessWidget {
                     future: getCurrentPlaceName(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return const Text("Please enable location service on your device", style: TextStyle(color: Colors.red));
+                        return const Text(
+                            "Please enable location service on your device",
+                            style: TextStyle(color: Colors.red));
                       }
                       if (snapshot.hasData == false) {
                         return Text(
