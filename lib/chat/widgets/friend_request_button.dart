@@ -9,7 +9,7 @@ class FriendRequestButton extends StatelessWidget {
 
   Route _createRouteAddFriend() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const addFriendScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) =>  AddFriendScreen(),
 
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
