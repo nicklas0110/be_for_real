@@ -122,68 +122,26 @@ class Firebase {
     }
   }
 
-  Stream<List<Groups>> groupList() {
-    final groupList = FirebaseFirestore.instance
-        .collection('groups')
-        .orderBy(ChannelKeys.name)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) {
-      final data = doc.data();
-      final groupId = doc.id;
-      final imageUrl = data[ChannelKeys.imageUrl] as String?;
-      final name = data[ChannelKeys.name] as String;
-      final members = List<String>.from(data[ChannelKeys.members] ?? []);
-      return Groups(groupId, name, members, imageUrl);
-    }).toList());
+  Future<int> getGroupNamesLength() async {
+    List<String> groupNames = [];
 
-    return groupList;
-  }
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+    await FirebaseFirestore.instance.collection('groups').get();
 
-}
-
-class YourClass extends StatefulWidget {
-  @override
-  _YourClassState createState() => _YourClassState();
-}
-
-class _YourClassState extends State<YourClass> {
-  Stream<List<Groups>> groupList() {
-    final groupList = FirebaseFirestore.instance
-        .collection('groups')
-        .orderBy(ChannelKeys.name)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) {
-      final data = doc.data();
-      final groupId = doc.id;
-      final imageUrl = data[ChannelKeys.imageUrl] as String?;
-      final name = data[ChannelKeys.name] as String;
-      final members = List<String>.from(data[ChannelKeys.members] ?? []);
-      return Groups(groupId, name, members, imageUrl);
-    }).toList());
-
-    return groupList;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<List<Groups>>(
-      stream: groupList(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final groupList = snapshot.data!;
-          final groupCount = groupList.length;
-
-          // Use the groupList and groupCount in your UI
-
-          return Container(); // Return your desired widget tree
-        } else if (snapshot.hasError) {
-          // Handle error case
-          return Text('Error: ${snapshot.error}');
-        } else {
-          // Show a loading indicator while waiting for data
-          return CircularProgressIndicator();
+    snapshot.docs.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
+      Map<String, dynamic>? data = document.data();
+      if (data != null && data.containsKey('name')) {
+        String? groupName = data['name'] as String?;
+        if (groupName != null) {
+          groupNames.add(groupName);
         }
-      },
-    );
+      }
+    });
+
+    int length = int.parse(groupNames.length.toString());
+    return length;
   }
+
+
+
 }
