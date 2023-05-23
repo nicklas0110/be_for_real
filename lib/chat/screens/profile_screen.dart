@@ -188,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage>
       pageBuilder: (context, animation, secondaryAnimation) =>
       const HomePageScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
+        const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
         var tween =
