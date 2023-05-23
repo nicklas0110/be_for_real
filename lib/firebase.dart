@@ -23,9 +23,9 @@ class Firebase {
     return FirebaseAuth.instance.currentUser;
   }
 
-  void addFriendByEmail(String friendEmail) async {
+  Future<void> addFriendByEmail(String currentUser, String friendEmail) async {
     final querySnapshot = await FirebaseFirestore.instance
-        .collection('register')
+        .collection('users')
         .where('email', isEqualTo: friendEmail)
         .limit(1)
         .get();
@@ -37,40 +37,14 @@ class Firebase {
       // Perform actions with the user data
       final friendName = userData['name'];
 
-      print('Friend name: $friendName'); // Debug print statement
-
-      final currentUser = getCurrentUser();
-      if (currentUser != null) {
-        final recipientUserId = currentUser.uid;
-
-        // Logic to send a friend request to the recipient user
-
-        // Example: Updating a 'friendships' collection with the friend request
-        final requestDoc = FirebaseFirestore.instance.collection('friendships').doc(recipientUserId);
-        final friendsCollection = requestDoc.collection('friends');
-
-        final requestSnapshot = await friendsCollection.where('name', isEqualTo: friendName).get();
-        if (requestSnapshot.size > 0) {
-          // Friend request already exists for the given name
-          print('Friend request already sent for $friendName');
-        } else {
-          await friendsCollection.add({
-            'name': friendName,
-            'userId': recipientUserId,
-            'status': 'pending',
-            'timestamp': DateTime.now(),
-          });
-          print('Friend request sent to $friendName');
-        }
-      } else {
-        // User is not authenticated, handle the case accordingly
-        print('User is not logged in');
-        // You can show a dialog, navigate to a login screen, or take any other appropriate action
-      }
+      // Add logic to send friend request and update the friendships collection
+      // using the currentUser and friendName variables
     } else {
       print('User with email $friendEmail not found');
     }
   }
+
+
   // Function to accept a friend request
   void acceptFriendRequest(String friendUserId) async {
     final currentUser = getCurrentUser();
