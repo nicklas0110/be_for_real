@@ -25,7 +25,7 @@ class Firebase {
 
   Future<void> addFriendByEmail(String currentUser, String friendEmail) async {
     final querySnapshot = await FirebaseFirestore.instance
-        .collection('users')
+        .collection('register')
         .where('email', isEqualTo: friendEmail)
         .limit(1)
         .get();
@@ -34,16 +34,30 @@ class Firebase {
       final userDoc = querySnapshot.docs[0];
       final userData = userDoc.data();
 
+      // Retrieve the friend's user ID
+      final friendUserId = userDoc.id;
+
       // Perform actions with the user data
       final friendName = userData['name'];
 
       // Add logic to send friend request and update the friendships collection
-      // using the currentUser and friendName variables
+      await FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(currentUser)
+          .collection('friends')
+          .doc(friendUserId)
+          .set({
+        'friendName': friendName,
+        'status': 'pending',
+        'timestamp': FieldValue.serverTimestamp(), // Include the timestamp
+        'uid': currentUser, // Include the UID of the current user
+      });
+
+      print('Friend request sent to $friendEmail');
     } else {
       print('User with email $friendEmail not found');
     }
   }
-
 
   // Function to accept a friend request
   void acceptFriendRequest(String friendUserId) async {

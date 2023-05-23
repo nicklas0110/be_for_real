@@ -1,8 +1,6 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/firebase.dart';
-
 
 class AddFriendScreen extends StatefulWidget {
   @override
@@ -41,8 +39,8 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
 
                   if (currentUser != null) {
                     // Add friend logic here
-                    _firebase.addFriendByEmail(currentUser as String, friendEmail);
-                    Navigator.of(context).pop();
+                    _firebase.addFriendByEmail(currentUser.uid, friendEmail);
+                    Navigator.of(context).pushReplacementNamed('/');
                   } else {
                     // User is not authenticated, handle the case accordingly
                     print('User is not logged in');
@@ -69,7 +67,8 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                       itemCount: friendRequests.length,
                       itemBuilder: (context, index) {
                         final friendRequest = friendRequests[index];
-                        final friendData = friendRequest.data() as Map<String, dynamic>?;
+                        final friendData =
+                        friendRequest.data() as Map<String, dynamic>?;
                         final friendName = friendData?['name'] as String?;
                         final friendUserId = friendRequest.id;
 
@@ -115,7 +114,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
   Future<QuerySnapshot> _getFriendRequests() async {
     final currentUser = await _firebase.getCurrentUser();
     if (currentUser != null) {
-      // Retrieve friend requests sent to the current user
+      // Retrieve friend requests for the current user
       final userId = currentUser.uid;
       final querySnapshot = await FirebaseFirestore.instance
           .collection('friendships')
