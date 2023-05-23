@@ -71,4 +71,65 @@ class Firebase {
       print('User with email $friendEmail not found');
     }
   }
+  // Function to accept a friend request
+  void acceptFriendRequest(String friendUserId) async {
+    final currentUser = getCurrentUser();
+    if (currentUser != null) {
+      final userId = currentUser.uid;
+
+      // Update the status of the friend request to 'accepted'
+      final requestDoc = FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .doc(friendUserId);
+      await requestDoc.update({'status': 'accepted'});
+
+      // Store the friend in the user's 'friends' collection
+      final friendsCollection = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('friends');
+      final friendDoc = await friendsCollection.doc(friendUserId).get();
+      if (!friendDoc.exists) {
+        final friendData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(friendUserId)
+            .get();
+
+        final friendDataMap = friendData?.data() ?? {}; // Provide an empty map if friendData is null
+
+        friendsCollection.doc(friendUserId).set(friendDataMap);
+      }
+
+      print('Friend request accepted');
+    } else {
+      // User is not authenticated, handle the case accordingly
+      print('User is not logged in');
+      // You can show a dialog, navigate to a login screen, or take any other appropriate action
+    }
+  }
+
+  // Function to decline a friend request
+  void declineFriendRequest(String friendUserId) async {
+    final currentUser = getCurrentUser();
+    if (currentUser != null) {
+      final userId = currentUser.uid;
+
+      // Remove the friend request from the user's 'friends' collection
+      final requestDoc = FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .doc(friendUserId);
+      await requestDoc.delete();
+
+      print('Friend request declined');
+    } else {
+      // User is not authenticated, handle the case accordingly
+      print('User is not logged in');
+      // You can show a dialog, navigate to a login screen, or take any other appropriate action
+    }
+  }
+
 }
