@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:be_for_real/chat/screens/cameraPage.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 
-String userPic = '';
+String userPic = 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
 String ownPicDateTime = 'time';
 String ownPicLocation = 'location';
 bool haveUploadedPicture = false;
@@ -110,43 +110,46 @@ class OwnPicture extends StatelessWidget {
     );
   }
 
-  ImageUploaded(){
-    if (haveUploadedPicture == false){
-      return 'assets/';
-    }
-    else{
-      return 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
-      ;
+  String ImageUploaded() {
+    if (haveUploadedPicture) {
+      return userPic;
+    } else {
+      return 'assets/plus_sign_white.png';
     }
   }
 
-  Widget buildCardOwnPic(BuildContext context, int index) => GestureDetector(
-        onTap: () {
-          alertPopUp(context);
-          Navigator.of(context).push(_createRouteCamera());
-        },
-    child: Container(
-      width: 120,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.black,
-        border: Border.all(
-          color: Colors.blueGrey,
-          width: 2,
+  Widget buildCardOwnPic(BuildContext context, int index) {
+    String image = haveUploadedPicture ? userPic : 'https://cdn.discordapp.com/attachments/526767373449953285/1110514623267995649/plus_sign_white.png';
+
+    return GestureDetector(
+      onTap: () {
+        alertPopUp(context);
+        Navigator.of(context).push(_createRouteCamera());
+      },
+      child: Container(
+        width: 120,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.black,
+          border: Border.all(
+            color: Colors.blueGrey,
+            width: 2,
+          ),
         ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: const SizedBox(
-          child: FadeInImage(
-            image: AssetImage('assets/plus_sign_white.png'),
-            fit: BoxFit.cover,
-            placeholder: AssetImage("assets/Grey.png"),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            child: FadeInImage(
+              image: NetworkImage(image),
+              fit: BoxFit.cover,
+              placeholder: AssetImage("assets/Grey.png"),
+            ),
           ),
         ),
       ),
-    ),
-      );
+    );
+  }
+
 
   getCurrentPlaceName() async {
     final position = await determinePosition();
