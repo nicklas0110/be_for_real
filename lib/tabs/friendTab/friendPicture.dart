@@ -15,7 +15,7 @@ String friendPicDateTime = 'time';
 String friendPicLocation = 'location';
 
 class FriendPicture extends StatefulWidget {
-  const FriendPicture({super.key});
+  const FriendPicture({Key? key}) : super(key: key);
 
   @override
   _FriendPictureState createState() => _FriendPictureState();
@@ -61,15 +61,15 @@ class _FriendPictureState extends State<FriendPicture> {
                       Padding(
                         padding: const EdgeInsets.only(right: 10, left: 10),
                         child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(50),
                           child: SizedBox(
                             child: FadeInImage(
                               image: NetworkImage(friendPicProfilePic),
                               fit: BoxFit.cover,
-                              placeholder:
-                              const AssetImage("assets/Grey.png"),
+                              placeholder: const AssetImage("assets/Grey.png"),
                             ),
-                          ),),
+                          ),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,8 +103,7 @@ class _FriendPictureState extends State<FriendPicture> {
                           child: FadeInImage(
                             image: NetworkImage(friendPicBack),
                             fit: BoxFit.cover,
-                            placeholder:
-                                const AssetImage("assets/Grey.png"),
+                            placeholder: const AssetImage("assets/Grey.png"),
                           ),
                         ),
                       ),
@@ -112,8 +111,8 @@ class _FriendPictureState extends State<FriendPicture> {
                     Positioned(
                       top: _yOffset,
                       left: _xOffset,
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
+                      child: Listener(
+                        onPointerMove: (details) {
                           setState(() {
                             _xOffset += details.delta.dx;
                             _yOffset += details.delta.dy;
@@ -142,7 +141,6 @@ class _FriendPictureState extends State<FriendPicture> {
                             ),
                           ),
                         ),
-
                       ),
                     ),
                   ],

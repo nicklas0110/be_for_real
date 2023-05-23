@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/tabs/friendTab/friendPicture.dart';
+import 'chat/models/groups.dart';
 
 class Firebase {
   Future<void> uploadImage(File imageFile) async {
@@ -120,4 +122,68 @@ class Firebase {
     }
   }
 
+  Stream<List<Groups>> groupList() {
+    final groupList = FirebaseFirestore.instance
+        .collection('groups')
+        .orderBy(ChannelKeys.name)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+      final data = doc.data();
+      final groupId = doc.id;
+      final imageUrl = data[ChannelKeys.imageUrl] as String?;
+      final name = data[ChannelKeys.name] as String;
+      final members = List<String>.from(data[ChannelKeys.members] ?? []);
+      return Groups(groupId, name, members, imageUrl);
+    }).toList());
+
+    return groupList;
+  }
+
+}
+
+class YourClass extends StatefulWidget {
+  @override
+  _YourClassState createState() => _YourClassState();
+}
+
+class _YourClassState extends State<YourClass> {
+  Stream<List<Groups>> groupList() {
+    final groupList = FirebaseFirestore.instance
+        .collection('groups')
+        .orderBy(ChannelKeys.name)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+      final data = doc.data();
+      final groupId = doc.id;
+      final imageUrl = data[ChannelKeys.imageUrl] as String?;
+      final name = data[ChannelKeys.name] as String;
+      final members = List<String>.from(data[ChannelKeys.members] ?? []);
+      return Groups(groupId, name, members, imageUrl);
+    }).toList());
+
+    return groupList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<Groups>>(
+      stream: groupList(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final groupList = snapshot.data!;
+          final groupCount = groupList.length;
+
+          // Use the groupList and groupCount in your UI
+
+          return Container(); // Return your desired widget tree
+        } else if (snapshot.hasError) {
+          // Handle error case
+          return Text('Error: ${snapshot.error}');
+        } else {
+          // Show a loading indicator while waiting for data
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
 }
