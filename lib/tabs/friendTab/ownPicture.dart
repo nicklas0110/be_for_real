@@ -8,6 +8,7 @@ import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 String userPic = 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
 String ownPicDateTime = 'time';
 String ownPicLocation = 'location';
+String addedCaption = 'added caption';
 bool haveUploadedPicture = false;
 bool haveUploadedCaption = false;
 
@@ -118,6 +119,14 @@ class OwnPicture extends StatelessWidget {
     }
   }
 
+  String CaptionUploaded() {
+    if (haveUploadedCaption) {
+      return addedCaption;
+    } else {
+      return 'Add a caption';
+    }
+  }
+
   Widget buildCardOwnPic(BuildContext context, int index) {
     String image = haveUploadedPicture ? userPic : 'https://cdn.discordapp.com/attachments/526767373449953285/1110514623267995649/plus_sign_white.png';
 
@@ -142,7 +151,7 @@ class OwnPicture extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(image),
               fit: BoxFit.cover,
-              placeholder: AssetImage("assets/Grey.png"),
+              placeholder: const AssetImage("assets/Grey.png"),
             ),
           ),
         ),
@@ -160,6 +169,7 @@ class OwnPicture extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
+    String caption = haveUploadedCaption ? addedCaption : 'Add a caption';
     return Column(
       children: [
         SizedBox(
@@ -190,9 +200,9 @@ class OwnPicture extends StatelessWidget {
                     onTap: () {
                       captionPopUp(context);
                     },
-                    child: const Text(
-                      'Add a caption',
-                      style: TextStyle(
+                    child: Text(
+                      caption,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
