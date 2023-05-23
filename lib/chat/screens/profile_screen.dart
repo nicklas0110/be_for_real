@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage>
   Route _routeHomePageScreen() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      const SettingsScreen(),
+      const HomePageScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
@@ -204,7 +204,7 @@ class _ProfilePageState extends State<ProfilePage>
   Route _routeSettingsScreen() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      const HomePageScreen(),
+      const SettingsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
