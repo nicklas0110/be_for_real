@@ -10,7 +10,6 @@ import 'chat/chat_service.dart';
 import 'chat/screens/home_page.dart';
 import 'chat/screens/loginReg/pages/startup_screen.dart';
 import 'firebase_options.dart';
-import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
