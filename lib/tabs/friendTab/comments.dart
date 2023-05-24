@@ -22,7 +22,7 @@ class _CommentsState extends State<Comments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comment Section'),
+        title: const Text('Comment Section'),
         backgroundColor: Colors.transparent,
       ),
       body: Column(
@@ -47,9 +47,9 @@ class _CommentsState extends State<Comments> {
                       controller: commentController,
                       decoration: InputDecoration(
                         hintText: 'Add a comment',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.send),
+                            icon: const Icon(Icons.send),
                             onPressed: addComment,
                           ),
                       ),

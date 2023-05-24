@@ -37,46 +37,36 @@ class _StartupScreenState extends State<StartupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Theme.of(context).secondaryHeaderColor, Theme.of(context).cardColor],
-          begin: const FractionalOffset(1, 0),
-          end: const FractionalOffset(1.0, 0.0),
-          tileMode: TileMode.decal,
-        ),
-      ),
-      child: AnimatedOpacity(
-        opacity: _isVisible ? 1.0 : 0,
-        duration: const Duration(milliseconds: 1200),
-        child: Center(
-          child: Container(
-            height: 170.0,
-            width: 170.0,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
+    return AnimatedOpacity(
+      opacity: _isVisible ? 1.0 : 0,
+      duration: const Duration(milliseconds: 1200),
+      child: Center(
+        child: Container(
+          height: 170.0,
+          width: 170.0,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(1.0),
+                )
+              ]
+          ),
+          child: const Center(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
                 color: Colors.black,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(1.0),
-                  )
-                ]
-            ),
-            child: const Center(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Text(
-                    'BeForReal',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.none,
-                    ),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  'BeForReal',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none,
                   ),
                 ),
               ),

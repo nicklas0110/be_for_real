@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'create_channel_dialog.dart';
 
 class CreateChannelButton extends StatelessWidget {
@@ -24,7 +23,7 @@ class CreateChannelButton extends StatelessWidget {
       icon: Transform(
         alignment: Alignment.center,
         transform: Matrix4.rotationY(3.14159), // Mirroring around Y-axis
-        child: Icon(Icons.group_add),
+        child: const Icon(Icons.group_add),
       ),
     );
   }

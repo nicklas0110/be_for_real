@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../../chat/models/groups.dart';
 import '../../chat/models/user.dart';
@@ -18,7 +17,7 @@ class GroupSelect extends StatelessWidget {
   Widget buildCardGroupPic(Groups groups) {
     final ImageProvider imageProvider = groups.imageUrl != null
         ? NetworkImage(groups.imageUrl!)
-        : AssetImage("assets/Grey.png") as ImageProvider;
+        : const AssetImage("assets/Grey.png") as ImageProvider;
     return GestureDetector(
       onTap: () {
         //TODO Change content to be group only content

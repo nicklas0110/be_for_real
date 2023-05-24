@@ -6,9 +6,9 @@ import '../friendTab/ownPicture.dart';
 class GroupTab extends StatelessWidget {
   GroupTab({Key? key}) : super(key: key);
 
-  final ownPicture = OwnPicture();
-  final friendPicture = FriendPicture();
-  final groupSelect = GroupSelect();
+  final ownPicture = const OwnPicture();
+  final friendPicture = const FriendPicture();
+  final groupSelect = const GroupSelect();
 
   @override
   Widget build(BuildContext context) {

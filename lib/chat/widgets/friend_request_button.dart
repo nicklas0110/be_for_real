@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase.dart';
 import '../screens/add_friend_screen.dart';
-import '../screens/group_screen.dart';
 
 class FriendRequestButton extends StatelessWidget {
   final firebase = Firebase();
@@ -39,7 +38,5 @@ class FriendRequestButton extends StatelessWidget {
       icon: Icon(Icons.person_add),
     );
   }
-
-
 
 }
