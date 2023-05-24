@@ -53,6 +53,7 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
     }
   }
 
+
   Future<String> getDownload(String userId) async {
     String downloadUrl = await FirebaseStorage.instance
         .ref("groupsImages/$userId.jpg")
@@ -156,42 +157,33 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
         ),
       ),
       actions: [
-        TextButton(
-          child: const Text('Cancel'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: const Text('Add'),
-          onPressed: () {
-            if (!_formKey.currentState!.validate()) return;
-            chat.createChannel(user, _name.value.text,
-                imageUrl: _imageUrl); // Pass imageUrl to createChannel method
-            Navigator.of(context).pop();
-          },
-        ),
         GestureDetector(
           onTap: () async {
+            if (photo != null) {
+              await uploadPfp(getUid());
+            }
             if (_formKey.currentState!.validate()) {
               setState(() {
                 isLoading = true;
               });
               try {
-                final downloadUrl = await getDownload(getUid());
-                await _firestore.collection('groupRegister').doc(getUid()).set({
-                  'name': _userNameRegister.text,
-                  'email': _userEmailRegister.text.trim(),
-                  'photoUrl': downloadUrl,
-                  'created_at': FieldValue.serverTimestamp()
-                });
+
+                // Set _imageUrl to the download URL
+                _imageUrl = await getDownload(getUid());
+
+                // Replace the following code with the createChannel method
+                chat.createChannel(user, _userNameRegister.text,
+                    imageUrl: _imageUrl); // Pass imageUrl to createChannel method
+
+                // The rest of the code remains the same
+                Navigator.of(context).pop();
               } catch (e) {
                 if (kDebugMode) {
                   print(e);
                 }
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Registration failed.'),
+                    content: Text('Group creation failed.'),
                   ),
                 );
               }
@@ -208,7 +200,31 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: const Text(
-                'Register',
+                'Create Channel',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
+        GestureDetector(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Material(
+            elevation: 3.0,
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.cyan[900],
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+              child: const Text(
+                'Close',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,

@@ -194,7 +194,7 @@ class Firebase {
       throw Exception('User is not authenticated');
     }
   }
-  
+
 }
 
 
