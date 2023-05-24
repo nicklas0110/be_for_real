@@ -111,7 +111,7 @@ class _CameraPageState extends State<CameraPage> {
 
                     final cameras = await availableCameras();
                     final camera = cameras.firstWhere((cam) =>
-                        cam.lensDirection == CameraLensDirection.front);
+                    cam.lensDirection == CameraLensDirection.front);
                     _controller =
                         CameraController(camera, ResolutionPreset.high);
                     await _controller?.initialize();
@@ -131,9 +131,9 @@ class _CameraPageState extends State<CameraPage> {
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Column(children: [
-                      Text(back.path),
-                      Text(front.path),
-                    ])));
+                          Text(back.path),
+                          Text(front.path),
+                        ])));
                     Navigator.of(context).pop();
                   },
                   tooltip: 'Take picture',

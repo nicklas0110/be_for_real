@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 
 class ThemeHelper{
-
-
   BoxDecoration buttonRegisterDecoration(BuildContext context) {
     return BoxDecoration(
       color: Colors.grey[900],
