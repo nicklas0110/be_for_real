@@ -80,19 +80,36 @@ class ChatService {
 
   Future<void> deleteGroup(String groupId) async {
     try {
-      final groupDocRef = FirebaseFirestore.instance.collection('groups').doc(groupId);
-      final groupDoc = await groupDocRef.get();
+      final batch = FirebaseFirestore.instance.batch();
+      final Groups groups;
+      // Delete group document
+      final groupDocRef = FirebaseFirestore.instance
+          .collection('groups')
+          .doc(groupId);
+      batch.delete(groupDocRef);
 
-      if (groupDoc.exists) {
-        await groupDocRef.delete();
-        print('Group deleted successfully!');
-      } else {
-        print('Group does not exist.');
+      // Delete subcollections
+      final subcollections = ['messages', 'members']; // Replace with the actual subcollection names
+      for (final subcollection in subcollections) {
+        final subcollectionRef = FirebaseFirestore.instance
+            .collection('groups')
+            .doc(groupId)
+            .collection(subcollection);
+        final docs = await subcollectionRef.get();
+        for (final doc in docs.docs) {
+          batch.delete(doc.reference);
+        }
       }
+
+      // Commit the batched writes
+      await batch.commit();
+
+      print('Group and associated subcollections deleted successfully!');
     } catch (error) {
       print('Error deleting group: $error');
     }
   }
+
 
 }
 

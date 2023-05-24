@@ -32,11 +32,11 @@ class FriendRequestButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return IconButton(
       onPressed: () {
         Navigator.of(context).push(_createRouteAddFriend());
       },
-      child: Text('Add Friend'),
+      icon: Icon(Icons.person_add),
     );
   }
 

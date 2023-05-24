@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 
+import '../../../Alexs_Firebase_mappe/firebase.dart';
 import '../../../locationUtil.dart';
 import '../../../tabs/friendTab/friendPicture.dart';
 
@@ -31,10 +32,13 @@ class CameraService {
     final front = await templateUpload.child('front').putData(frontBytes);
 
     final ref = FirebaseFirestore.instance
-        .collection("groups")
+        .collection("dailyPicture")
         .doc(groupId)
-        .collection("notification")
+        .collection("dailyPicture")
+        .doc(uid)
+        .collection("dailyNotification")
         .doc(formattedDate);
+
         await ref.set({});
 
     ref.update({
