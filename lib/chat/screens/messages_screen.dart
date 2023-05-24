@@ -42,12 +42,21 @@ class _MessagesScreenState extends State<MessagesScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            ClipOval(
-              child: Image.network(
-                widget.groups.imageUrl ?? '',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.blueGrey, // Set the border color
+                  width: 0.5, // Set the border width
+                ),
+              ),
+              child: ClipOval(
+                child: Image.network(
+                  widget.groups.imageUrl ?? '',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 8),
