@@ -3,7 +3,7 @@ import 'package:be_for_real/chat/widgets/friend_request_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../chat_service.dart';
+import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../models/user.dart';
 import '../widgets/create_channel_button.dart';
 import '../models/groups.dart';

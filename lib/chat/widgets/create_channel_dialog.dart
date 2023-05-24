@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../chat_service.dart';
+import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../models/user.dart';
 
 class CreateChannelDialog extends StatefulWidget {

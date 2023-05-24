@@ -3,10 +3,10 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'models/groups.dart';
-import 'models/message.dart';
-import 'models/sender.dart';
-import 'models/user.dart';
+import '../chat/models/groups.dart';
+import '../chat/models/message.dart';
+import '../chat/models/sender.dart';
+import '../chat/models/user.dart';
 
 String generateId() {
   return Random().nextInt(2 ^ 53).toString();

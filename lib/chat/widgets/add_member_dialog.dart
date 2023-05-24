@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../chat_service.dart';
+import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 
 class AddMemberDialog extends StatefulWidget {
   final Groups groups;

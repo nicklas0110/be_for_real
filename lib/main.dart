@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'chat/chat_service.dart';
+import 'Alexs_Firebase_mappe/firebase_chat_service.dart';
 import 'chat/screens/home_page.dart';
 import 'chat/screens/loginReg/pages/startup_screen.dart';
-import 'firebase_options.dart';
+import 'Alexs_Firebase_mappe/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

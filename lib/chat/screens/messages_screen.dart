@@ -3,7 +3,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../chat_service.dart';
+import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../models/groups.dart';
 import '../models/message.dart';
 import '../utils.dart';

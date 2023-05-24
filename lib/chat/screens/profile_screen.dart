@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage>
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new),
+              icon: const Icon(Icons.arrow_forward_ios),
               iconSize: 30,
               color: Colors.white,
               onPressed: () {
@@ -188,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage>
       pageBuilder: (context, animation, secondaryAnimation) =>
       const HomePageScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(-1.0, 0.0);
+        const begin = Offset(-2.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
         var tween =

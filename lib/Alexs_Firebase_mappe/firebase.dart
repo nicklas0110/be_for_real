@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/tabs/friendTab/friendPicture.dart';
-import 'chat/models/groups.dart';
+import '../chat/models/groups.dart';
 
 class Firebase {
   Future<void> uploadImage(File imageFile) async {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:be_for_real/firebase.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase.dart';
 
 class AddFriendScreen extends StatefulWidget {
   @override
