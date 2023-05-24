@@ -79,7 +79,6 @@ class Firebase {
     }
   }
 
-  // Function to accept a friend request
   void acceptFriendRequest(String friendUserId) async {
     final currentUser = getCurrentUser();
     if (currentUser != null) {
@@ -94,20 +93,43 @@ class Firebase {
       await requestDoc.update({'status': 'accepted'});
 
       // Store the friend in the user's 'friends' collection
-      final friendsCollection = FirebaseFirestore.instance
+      final currentUserFriendsCollection = FirebaseFirestore.instance
           .collection('friendsRegister')
           .doc(userId)
           .collection('friends');
-      final friendDoc = await friendsCollection.doc(friendUserId).get();
+      final friendDoc = await currentUserFriendsCollection.doc(friendUserId).get();
       if (!friendDoc.exists) {
         final friendData = await FirebaseFirestore.instance
-            .collection('users')
+            .collection('register')
             .doc(friendUserId)
             .get();
 
-        final friendDataMap = friendData?.data() ?? {}; // Provide an empty map if friendData is null
+        final friendDataMap = friendData?.data() ?? {};
 
-        friendsCollection.doc(friendUserId).set(friendDataMap);
+        final currentUserName = friendDataMap['name'];
+
+        if (currentUserName != null) {
+          friendDataMap['name'] = currentUserName;
+        }
+
+        currentUserFriendsCollection.doc(friendUserId).set(friendDataMap);
+      }
+
+      // Store the current user in the friend's 'friends' collection
+      final friendFriendsCollection = FirebaseFirestore.instance
+          .collection('friendsRegister')
+          .doc(friendUserId)
+          .collection('friends');
+      final currentUserDoc = await friendFriendsCollection.doc(userId).get();
+      if (!currentUserDoc.exists) {
+        final currentUserData = await FirebaseFirestore.instance
+            .collection('register')
+            .doc(userId)
+            .get();
+
+        final currentUserDataMap = currentUserData?.data() ?? {}; // Provide an empty map if currentUserData is null
+
+        friendFriendsCollection.doc(userId).set(currentUserDataMap);
       }
 
       print('Friend request accepted');
@@ -139,7 +161,7 @@ class Firebase {
       // You can show a dialog, navigate to a login screen, or take any other appropriate action
     }
   }
-  
+
   Stream<QuerySnapshot> getFriendRequests() async* {
     final currentUser = getCurrentUser();
     if (currentUser != null) {
@@ -151,23 +173,6 @@ class Firebase {
           .collection('friends')
           .where('status', isEqualTo: 'pending')
           .snapshots();
-    } else {
-      throw Exception('User is not authenticated');
-    }
-  }
-  Future<QuerySnapshot> _getFriendRequests() async {
-    final currentUser = await getCurrentUser();
-    if (currentUser != null) {
-      // Retrieve friend requests for the current user
-      final userId = currentUser.uid;
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection('friendships')
-          .doc(userId)
-          .collection('friends')
-          .where('status', isEqualTo: 'pending')
-          .get();
-
-      return querySnapshot;
     } else {
       throw Exception('User is not authenticated');
     }
