@@ -168,7 +168,6 @@ class _RegistrationPageState extends State<RegistrationPage>
                       height: 30,
                     ),
                     Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
                         controller: _userNameRegister,
@@ -199,7 +198,6 @@ class _RegistrationPageState extends State<RegistrationPage>
                       height: 30,
                     ),
                     Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: _userEmailRegister,
@@ -228,7 +226,6 @@ class _RegistrationPageState extends State<RegistrationPage>
                     ),
                     const SizedBox(height: 20.0),
                     Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
                       child: TextFormField(
                         controller: _passwordRegister,
                         decoration: InputDecoration(

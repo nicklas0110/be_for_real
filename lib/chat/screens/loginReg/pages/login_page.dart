@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage>{
                           child: Column(
                             children: [
                               Container(
-                                decoration: ThemeHelper().inputBoxDecorationShadow(),
                                 child: TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   controller: _username,
@@ -75,7 +74,6 @@ class _LoginPageState extends State<LoginPage>{
                               ),
                               const SizedBox(height: 30.0),
                               Container(
-                                decoration: ThemeHelper().inputBoxDecorationShadow(),
                                 child: TextFormField(
                                   controller: _password,
                                   obscureText: !showPassword, // Modified this line
