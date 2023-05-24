@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
+import '../screens/group_screen.dart';
 
 class DeleteGroupButton extends StatelessWidget {
   final String groupId;
@@ -10,7 +11,7 @@ class DeleteGroupButton extends StatelessWidget {
 
   void _onDeleteGroupPressed(BuildContext context) {
     ChatService().deleteGroup(groupId);
-    Navigator.pop(context);
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 
   @override

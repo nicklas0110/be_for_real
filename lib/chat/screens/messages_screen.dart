@@ -65,7 +65,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           ],
         ),
         actions: [
-          DeleteGroupButton(groupId: ''),
+          DeleteGroupButton(groupId: widget.groups.id),
           AddMemberButton(groups: widget.groups),
         ],
       ),
