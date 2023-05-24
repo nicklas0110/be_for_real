@@ -124,7 +124,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
     final user = Provider.of<User>(context);
     final chat = Provider.of<ChatService>(context);
     return Padding(
-      padding: EdgeInsets.all(widget.padding),
+      padding: const EdgeInsets.only(bottom: 50),
       child: TextField(
         controller: widget.textEditingController,
         keyboardType: TextInputType.text,
