@@ -7,10 +7,13 @@ import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../models/user.dart';
 import '../widgets/create_channel_button.dart';
 import '../models/groups.dart';
+import '../widgets/friend_list_button.dart';
 import 'messages_screen.dart';
 
 class GroupScreen extends StatelessWidget {
-  const GroupScreen({super.key});
+   GroupScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class GroupScreen extends StatelessWidget {
         actions: [
           CreateChannelButton(),
           FriendRequestButton(),
+          FriendListButton(userId: '',),
         ],
       ),
       body: StreamBuilder(

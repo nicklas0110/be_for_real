@@ -18,7 +18,7 @@ class FriendListButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FriendListScreen(userId: userId),
+            builder: (context) => FriendListScreen(),
           ),
         );
       },

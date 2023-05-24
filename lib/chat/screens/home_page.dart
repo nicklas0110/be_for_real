@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Route _createRouteFriends() {
     return PageRouteBuilder(
 
-      pageBuilder: (context, animation, secondaryAnimation) => const GroupScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => GroupScreen(),
 
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(-1.0, 0.0);
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteChannels() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const GroupScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => GroupScreen(),
 
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
