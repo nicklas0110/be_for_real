@@ -95,7 +95,7 @@ class Firebase {
 
       // Store the friend in the user's 'friends' collection
       final friendsCollection = FirebaseFirestore.instance
-          .collection('users')
+          .collection('friendsRegister')
           .doc(userId)
           .collection('friends');
       final friendDoc = await friendsCollection.doc(friendUserId).get();
@@ -161,5 +161,44 @@ class Firebase {
   }
 
 
+  Stream<QuerySnapshot> getFriendRequests() async* {
+    final currentUser = getCurrentUser();
+    if (currentUser != null) {
+      // Retrieve friend requests sent to the current user
+      final userId = currentUser.uid;
+      yield* FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .where('status', isEqualTo: 'pending')
+          .snapshots();
+    } else {
+      throw Exception('User is not authenticated');
+    }
+  }
+  Future<QuerySnapshot> _getFriendRequests() async {
+    final currentUser = await getCurrentUser();
+    if (currentUser != null) {
+      // Retrieve friend requests for the current user
+      final userId = currentUser.uid;
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .where('status', isEqualTo: 'pending')
+          .get();
+
+      return querySnapshot;
+    } else {
+      throw Exception('User is not authenticated');
+    }
+  }
 
 }
+
+
+
+
+
+
+

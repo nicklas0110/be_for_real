@@ -57,8 +57,8 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              FutureBuilder<QuerySnapshot>(
-                future: _getFriendRequests(),
+              StreamBuilder<QuerySnapshot>(
+                stream: _firebase.getFriendRequests(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator();
@@ -113,22 +113,5 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
       ),
     );
   }
-
-  Future<QuerySnapshot> _getFriendRequests() async {
-    final currentUser = await _firebase.getCurrentUser();
-    if (currentUser != null) {
-      // Retrieve friend requests for the current user
-      final userId = currentUser.uid;
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection('friendships')
-          .doc(userId)
-          .collection('friends')
-          .where('status', isEqualTo: 'pending')
-          .get();
-
-      return querySnapshot;
-    } else {
-      throw Exception('User is not authenticated');
-    }
-  }
 }
+
