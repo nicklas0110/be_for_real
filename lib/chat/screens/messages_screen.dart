@@ -8,6 +8,7 @@ import '../models/groups.dart';
 import '../models/message.dart';
 import '../utils.dart';
 import '../widgets/add_member_button.dart';
+import '../widgets/delete_group_button.dart';
 
 class MessagesScreen extends StatefulWidget {
   final double padding = 8.0;
@@ -42,12 +43,21 @@ class _MessagesScreenState extends State<MessagesScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            ClipOval(
-              child: Image.network(
-                widget.groups.imageUrl ?? '',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.blueGrey, // Set the border color
+                  width: 0.5, // Set the border width
+                ),
+              ),
+              child: ClipOval(
+                child: Image.network(
+                  widget.groups.imageUrl ?? '',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -55,6 +65,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           ],
         ),
         actions: [
+          DeleteGroupButton(groupId: ''),
           AddMemberButton(groups: widget.groups),
         ],
       ),

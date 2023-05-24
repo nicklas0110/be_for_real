@@ -22,7 +22,7 @@ class _AddMemberDialog extends State<AddMemberDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+
     final chat = Provider.of<ChatService>(context);
     return AlertDialog(
       title: const Text('Add member'),
