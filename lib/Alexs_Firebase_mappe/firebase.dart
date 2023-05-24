@@ -139,27 +139,4 @@ class Firebase {
       // You can show a dialog, navigate to a login screen, or take any other appropriate action
     }
   }
-
-  Future<int> getGroupNamesLength() async {
-    List<String> groupNames = [];
-
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-    await FirebaseFirestore.instance.collection('groups').get();
-
-    snapshot.docs.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
-      Map<String, dynamic>? data = document.data();
-      if (data != null && data.containsKey('name')) {
-        String? groupName = data['name'] as String?;
-        if (groupName != null) {
-          groupNames.add(groupName);
-        }
-      }
-    });
-
-    int length = int.parse(groupNames.length.toString());
-    return length;
-  }
-
-
-
 }
