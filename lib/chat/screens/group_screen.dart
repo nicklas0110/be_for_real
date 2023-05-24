@@ -10,7 +10,6 @@ import '../models/groups.dart';
 import 'messages_screen.dart';
 
 class GroupScreen extends StatelessWidget {
-
   const GroupScreen({super.key});
 
   @override
@@ -27,35 +26,40 @@ class GroupScreen extends StatelessWidget {
           FriendRequestButton(),
         ],
       ),
-
       body: StreamBuilder(
         stream: chat.groups(user),
         builder: (context, snapshot) => ListView(
           children: [
-    if (snapshot.hasData) ...snapshot.data!.map((e) => GroupTile(e))
-    ],
+            if (snapshot.hasData) ...snapshot.data!.map((e) => GroupTile(e))
+          ],
         ),
-
       ),
     );
-
   }
 }
 
-
-
 class GroupTile extends StatelessWidget {
   final Groups group;
+
   const GroupTile(this.group, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ClipOval(
-        child: Image.network(
-          group.imageUrl ?? '', // Use the imageUrl property
-          width: 50,
-          height: 50,
+      leading: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.blueGrey, // Set the border color
+            width: 1.0, // Set the border width
+          ),
+        ),
+        child: ClipOval(
+          child: Image.network(
+            group.imageUrl ?? '', // Use the imageUrl property
+            width: 50,
+            height: 50,
+          ),
         ),
       ),
       title: Text(group.name),
@@ -71,4 +75,3 @@ class GroupTile extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../chat/chat_service.dart';
 import '../../chat/models/groups.dart';
+import '../../chat/models/user.dart';
 import '../../firebase.dart';
 
 String placeholderImageLink =
@@ -9,34 +12,39 @@ String placeholderImageLink =
 class GroupSelect extends StatelessWidget {
   final Groups? groups; // Make groups nullable
   final Firebase? firebase;
+
   const GroupSelect({Key? key, this.groups, this.firebase}) : super(key: key);
 
-  int length() {
-    return (firebase?.getGroupNamesLength() ?? 0) as int; // Cast to int
-  }
-
-  Widget buildCardGroupPic(BuildContext context, int index) => GestureDetector(
-    onTap: () {
-      //TODO Change content to be group only content
-    },
-    child: Container(
-      width: 80,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: Colors.blueGrey,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(100),
-        child: SizedBox(
-          child: FadeInImage(
-            image: NetworkImage(placeholderImageLink),
-            fit: BoxFit.cover,
-            placeholder: const AssetImage("assets/Placeholder.png"),
+  Widget buildCardGroupPic(Groups groups) {
+    final ImageProvider imageProvider = groups.imageUrl != null
+        ? NetworkImage(groups.imageUrl!)
+        : AssetImage("assets/Grey.png") as ImageProvider;
+    return GestureDetector(
+      onTap: () {
+        //TODO Change content to be group only content
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 6),
+        child: Container(
+          width: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.blueGrey,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: SizedBox(
+              child: FadeInImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+                placeholder: const AssetImage("assets/Placeholder.png"),
+              ),
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +63,19 @@ class GroupSelect extends StatelessWidget {
         SizedBox(
           height: 100,
           child: LayoutBuilder(builder: (context, constraints) {
+            final user = Provider.of<User>(context);
+            final chat = Provider.of<ChatService>(context);
             final pad = (constraints.maxWidth - 80) / 2;
-            return ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.only(left: pad, top: 6, bottom: 12),
-              itemCount: length(),
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 12);
-              },
-              itemBuilder: (context, index) {
-                return buildCardGroupPic(context, index);
-              },
+            return StreamBuilder(
+              stream: chat.groups(user),
+              builder: (context, snapshot) => ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(left: pad, top: 6, bottom: 12),
+                children: [
+                  if (snapshot.hasData)
+                    ...snapshot.data!.map((e) => buildCardGroupPic(e))
+                ],
+              ),
             );
           }),
         ),
