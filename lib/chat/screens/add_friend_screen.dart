@@ -40,7 +40,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                   if (currentUser != null) {
                     // Add friend logic here
                     _firebase.addFriendByEmail(currentUser.uid, friendEmail);
-                    Navigator.of(context).pushReplacementNamed('/');
+                    Navigator.of(context).pop();
                   } else {
                     // User is not authenticated, handle the case accordingly
                     print('User is not logged in');
@@ -60,16 +60,21 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
               FutureBuilder<QuerySnapshot>(
                 future: _getFriendRequests(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
                     final friendRequests = snapshot.data!.docs;
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: friendRequests.length,
                       itemBuilder: (context, index) {
                         final friendRequest = friendRequests[index];
-                        final friendData =
-                        friendRequest.data() as Map<String, dynamic>?;
-                        final friendName = friendData?['name'] as String?;
+                        final friendData = friendRequest.data() as Map<
+                            String,
+                            dynamic>?;
+                        final friendName = friendData?['friendName'] as String?;
                         final friendUserId = friendRequest.id;
 
                         return ListTile(
@@ -97,10 +102,8 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                         );
                       },
                     );
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
                   } else {
-                    return CircularProgressIndicator();
+                    return const Text('No friend requests found.');
                   }
                 },
               ),
@@ -118,7 +121,8 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
       final userId = currentUser.uid;
       final querySnapshot = await FirebaseFirestore.instance
           .collection('friendships')
-          .where('friendUserId', isEqualTo: userId)
+          .doc(userId)
+          .collection('friends')
           .where('status', isEqualTo: 'pending')
           .get();
 

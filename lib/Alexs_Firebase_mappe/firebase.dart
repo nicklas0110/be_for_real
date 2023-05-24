@@ -24,7 +24,6 @@ class Firebase {
   User? getCurrentUser() {
     return FirebaseAuth.instance.currentUser;
   }
-
   Future<void> addFriendByEmail(String currentUser, String friendEmail) async {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('register')
@@ -39,17 +38,36 @@ class Firebase {
       // Retrieve the friend's user ID
       final friendUserId = userDoc.id;
 
-      // Perform actions with the user data
-      final friendName = userData['name'];
+      // Check if a friend request has already been sent to the friend
+      final friendRequestsSnapshot = await FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(friendUserId)
+          .collection('friends')
+          .where('uid', isEqualTo: currentUser)
+          .limit(1)
+          .get();
+
+      if (friendRequestsSnapshot.size > 0) {
+        // A friend request has already been sent to the friend
+        print('A friend request has already been sent to $friendEmail');
+        return;
+      }
+
+      // Retrieve the current user's name
+      final currentUserDoc = await FirebaseFirestore.instance
+          .collection('register')
+          .doc(currentUser)
+          .get();
+      final currentUserName = currentUserDoc.get('name');
 
       // Add logic to send friend request and update the friendships collection
       await FirebaseFirestore.instance
           .collection('friendships')
-          .doc(currentUser)
-          .collection('friends')
           .doc(friendUserId)
+          .collection('friends')
+          .doc(currentUser)
           .set({
-        'friendName': friendName,
+        'friendName': currentUserName, // Set the current user's name as the friend's name
         'status': 'pending',
         'timestamp': FieldValue.serverTimestamp(), // Include the timestamp
         'uid': currentUser, // Include the UID of the current user
