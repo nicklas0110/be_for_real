@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:be_for_real/tabs/friendTab/comments.dart';
 
 DateTime now = DateTime.now();
-String formattedDate = DateFormat('yyyy/MM/dd - kk.mm').format(now);
+String formattedDate = now.toIso8601String();
 String placeholderImageLink =
     'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
 String friendPicProfilePic = placeholderImageLink;

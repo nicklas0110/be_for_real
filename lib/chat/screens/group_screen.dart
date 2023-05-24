@@ -59,6 +59,7 @@ class GroupTile extends StatelessWidget {
             group.imageUrl ?? '', // Use the imageUrl property
             width: 50,
             height: 50,
+            fit: BoxFit.cover,
           ),
         ),
       ),
