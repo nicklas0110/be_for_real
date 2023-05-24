@@ -95,7 +95,7 @@ class Firebase {
 
       // Store the friend in the user's 'friends' collection
       final friendsCollection = FirebaseFirestore.instance
-          .collection('users')
+          .collection('friendsRegister')
           .doc(userId)
           .collection('friends');
       final friendDoc = await friendsCollection.doc(friendUserId).get();
@@ -139,27 +139,45 @@ class Firebase {
       // You can show a dialog, navigate to a login screen, or take any other appropriate action
     }
   }
+  
+  Stream<QuerySnapshot> getFriendRequests() async* {
+    final currentUser = getCurrentUser();
+    if (currentUser != null) {
+      // Retrieve friend requests sent to the current user
+      final userId = currentUser.uid;
+      yield* FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .where('status', isEqualTo: 'pending')
+          .snapshots();
+    } else {
+      throw Exception('User is not authenticated');
+    }
+  }
+  Future<QuerySnapshot> _getFriendRequests() async {
+    final currentUser = await getCurrentUser();
+    if (currentUser != null) {
+      // Retrieve friend requests for the current user
+      final userId = currentUser.uid;
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('friendships')
+          .doc(userId)
+          .collection('friends')
+          .where('status', isEqualTo: 'pending')
+          .get();
 
-  Future<int> getGroupNamesLength() async {
-    List<String> groupNames = [];
-
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-    await FirebaseFirestore.instance.collection('groups').get();
-
-    snapshot.docs.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
-      Map<String, dynamic>? data = document.data();
-      if (data != null && data.containsKey('name')) {
-        String? groupName = data['name'] as String?;
-        if (groupName != null) {
-          groupNames.add(groupName);
-        }
-      }
-    });
-
-    int length = int.parse(groupNames.length.toString());
-    return length;
+      return querySnapshot;
+    } else {
+      throw Exception('User is not authenticated');
+    }
   }
 
-
-
 }
+
+
+
+
+
+
+
