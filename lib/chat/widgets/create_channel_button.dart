@@ -19,7 +19,7 @@ class CreateChannelButton extends StatelessWidget {
           },
         );
       },
-      icon: const Icon(Icons.wechat),
+      icon: const Icon(Icons.group_add),
     );
   }
 }

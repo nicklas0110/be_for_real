@@ -36,7 +36,7 @@ class FriendRequestButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(_createRouteAddFriend());
       },
-      icon: Icon(Icons.add_reaction_rounded),
+      icon: Icon(Icons.person_add),
     );
   }
 
