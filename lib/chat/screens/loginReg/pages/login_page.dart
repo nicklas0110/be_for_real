@@ -51,69 +51,63 @@ class _LoginPageState extends State<LoginPage>{
                           key: _formKey,
                           child: Column(
                             children: [
-                              Container(
-                                decoration: ThemeHelper().inputBoxDecorationShadow(),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  controller: _username,
-                                  validator: (value) => (value == null || !value.contains("@")) ? 'Email required' : null,
-                                  decoration: InputDecoration(
-                                    labelText: 'E-mail',
-                                    labelStyle: const TextStyle(color: Colors.white),
-                                    hintText: 'Enter your E-mail',
-                                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.black87),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.white),
-                                    ),
+                              TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: _username,
+                                validator: (value) => (value == null || !value.contains("@")) ? 'Email required' : null,
+                                decoration: InputDecoration(
+                                  labelText: 'E-mail',
+                                  labelStyle: const TextStyle(color: Colors.white),
+                                  hintText: 'Enter your E-mail',
+                                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.black87),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.white),
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 30.0),
-                              Container(
-                                decoration: ThemeHelper().inputBoxDecorationShadow(),
-                                child: TextFormField(
-                                  controller: _password,
-                                  obscureText: !showPassword, // Modified this line
-                                  validator: (value) {
-                                    if (value == null || value.length < 6) {
-                                      return 'Password required (min 6 chars)';
-                                    } else if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                                      return 'Password must contain at least one uppercase letter';
-                                    } else if (!RegExp(r'\d').hasMatch(value)) {
-                                      return 'Password must contain at least one number';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText: 'Password',
-                                    labelText: 'Password',
-                                    hintStyle: const TextStyle(color: Colors.grey),
-                                    labelStyle: const TextStyle(color: Colors.white),
-                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.white),
-                                    ),
-                                    suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          showPassword = !showPassword;
-                                        });
-                                      },
-                                      child: Icon(
-                                        showPassword ? Icons.visibility : Icons.visibility_off,
-                                        color: Colors.grey,
-                                      ),
+                              TextFormField(
+                                controller: _password,
+                                obscureText: !showPassword, // Modified this line
+                                validator: (value) {
+                                  if (value == null || value.length < 6) {
+                                    return 'Password required (min 6 chars)';
+                                  } else if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                                    return 'Password must contain at least one uppercase letter';
+                                  } else if (!RegExp(r'\d').hasMatch(value)) {
+                                    return 'Password must contain at least one number';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  labelText: 'Password',
+                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  labelStyle: const TextStyle(color: Colors.white),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(color: Colors.white),
+                                  ),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        showPassword = !showPassword;
+                                      });
+                                    },
+                                    child: Icon(
+                                      showPassword ? Icons.visibility : Icons.visibility_off,
+                                      color: Colors.grey,
                                     ),
                                   ),
-                                  style: const TextStyle(color: Colors.white),
                                 ),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               const SizedBox(height: 30.0),
                               Container(
@@ -154,7 +148,6 @@ class _LoginPageState extends State<LoginPage>{
                                   ),
                                 ),
                               ),
-
                               Container(
                                 margin: const EdgeInsets.fromLTRB(10,20,10,20),
                                 //child: Text('Don\'t have an account? Create'),
