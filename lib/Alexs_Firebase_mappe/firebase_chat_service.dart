@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter/foundation.dart';
 import '../chat/models/groups.dart';
 import '../chat/models/message.dart';
 import '../chat/models/sender.dart';
@@ -81,7 +80,6 @@ class ChatService {
   Future<void> deleteGroup(String groupId) async {
     try {
       final batch = FirebaseFirestore.instance.batch();
-      final Groups groups;
       // Delete group document
       final groupDocRef = FirebaseFirestore.instance
           .collection('groups')
@@ -104,12 +102,14 @@ class ChatService {
       // Commit the batched writes
       await batch.commit();
 
-      print('Group and associated subcollections deleted successfully!');
+      if (kDebugMode) {
+        print('Group and associated subcollections deleted successfully!');
+      }
     } catch (error) {
-      print('Error deleting group: $error');
+      if (kDebugMode) {
+        print('Error deleting group: $error');
+      }
     }
   }
-
-
 }
 

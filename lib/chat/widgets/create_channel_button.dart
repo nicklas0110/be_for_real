@@ -21,7 +21,11 @@ class CreateChannelButton extends StatelessWidget {
           },
         );
       },
-      icon: const Icon(Icons.wechat),
+      icon: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.rotationY(3.14159), // Mirroring around Y-axis
+        child: Icon(Icons.group_add),
+      ),
     );
   }
 }

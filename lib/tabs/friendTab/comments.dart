@@ -47,15 +47,15 @@ class _CommentsState extends State<Comments> {
                       controller: commentController,
                       decoration: InputDecoration(
                         hintText: 'Add a comment',
-                          border: OutlineInputBorder(
-                          )
+                          border: OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.send),
+                            onPressed: addComment,
+                          ),
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.send),
-                    onPressed: addComment,
-                  ),
+
                 ],
               ),
             ),

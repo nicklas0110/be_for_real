@@ -1,17 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 
 class ThemeHelper{
-  BoxDecoration inputBoxDecorationShadow() {
-    return BoxDecoration(boxShadow: [
-      BoxShadow(
-        color: Colors.orange.withOpacity(0.0),
-        offset: const Offset(0, 1),
-      )
-    ]);
-  }
-
   BoxDecoration buttonRegisterDecoration(BuildContext context) {
     return BoxDecoration(
       color: Colors.grey[900],

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,9 @@ class Firebase {
     final UploadTask uploadTask = reference.putFile(imageFile);
     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
     final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    print('Image URL: $downloadUrl');
+    if (kDebugMode) {
+      print('Image URL: $downloadUrl');
+    }
   }
 
   User? getCurrentUser() {
@@ -49,7 +52,9 @@ class Firebase {
 
       if (friendRequestsSnapshot.size > 0) {
         // A friend request has already been sent to the friend
-        print('A friend request has already been sent to $friendEmail');
+        if (kDebugMode) {
+          print('A friend request has already been sent to $friendEmail');
+        }
         return;
       }
 
@@ -73,9 +78,13 @@ class Firebase {
         'uid': currentUser, // Include the UID of the current user
       });
 
-      print('Friend request sent to $friendEmail');
+      if (kDebugMode) {
+        print('Friend request sent to $friendEmail');
+      }
     } else {
-      print('User with email $friendEmail not found');
+      if (kDebugMode) {
+        print('User with email $friendEmail not found');
+      }
     }
   }
 
@@ -132,10 +141,14 @@ class Firebase {
         friendFriendsCollection.doc(userId).set(currentUserDataMap);
       }
 
-      print('Friend request accepted');
+      if (kDebugMode) {
+        print('Friend request accepted');
+      }
     } else {
       // User is not authenticated, handle the case accordingly
-      print('User is not logged in');
+      if (kDebugMode) {
+        print('User is not logged in');
+      }
       // You can show a dialog, navigate to a login screen, or take any other appropriate action
     }
   }
@@ -154,10 +167,14 @@ class Firebase {
           .doc(friendUserId);
       await requestDoc.delete();
 
-      print('Friend request declined');
+      if (kDebugMode) {
+        print('Friend request declined');
+      }
     } else {
       // User is not authenticated, handle the case accordingly
-      print('User is not logged in');
+      if (kDebugMode) {
+        print('User is not logged in');
+      }
       // You can show a dialog, navigate to a login screen, or take any other appropriate action
     }
   }
@@ -177,7 +194,7 @@ class Firebase {
       throw Exception('User is not authenticated');
     }
   }
-
+  
 }
 
 

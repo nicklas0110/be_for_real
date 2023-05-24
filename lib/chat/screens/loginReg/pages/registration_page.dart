@@ -167,68 +167,61 @@ class _RegistrationPageState extends State<RegistrationPage>
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _userNameRegister,
-                        validator: (value) =>
-                        (value == null || value.isEmpty)
-                            ? 'Name required'
-                            : null,
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          hintText: 'Enter your Name',
-                          hintStyle: TextStyle(
-                              color: Colors.white.withOpacity(0.5)),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.black87),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.white),
-                          ),
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: _userNameRegister,
+                      validator: (value) =>
+                      (value == null || value.isEmpty)
+                          ? 'Name required'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        hintText: 'Enter your Name',
+                        hintStyle: TextStyle(
+                            color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.black87),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.white),
                         ),
                       ),
                     ),
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
-                      child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _userEmailRegister,
-                        validator: (value) =>
-                        (value == null || !value.contains("@"))
-                            ? 'Email required'
-                            : null,
-                        decoration: InputDecoration(
-                          labelText: 'E-mail',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          hintText: 'Enter your E-mail',
-                          hintStyle: TextStyle(
-                              color: Colors.white.withOpacity(0.5)),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.black87),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.white),
-                          ),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _userEmailRegister,
+                      validator: (value) =>
+                      (value == null || !value.contains("@"))
+                          ? 'Email required'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: 'E-mail',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        hintText: 'Enter your E-mail',
+                        hintStyle: TextStyle(
+                            color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.black87),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.white),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20.0),
                     Container(
-                      decoration: ThemeHelper().inputBoxDecorationShadow(),
                       child: TextFormField(
                         controller: _passwordRegister,
                         decoration: InputDecoration(
