@@ -8,6 +8,7 @@ import '../models/groups.dart';
 import '../models/message.dart';
 import '../utils.dart';
 import '../widgets/add_member_button.dart';
+import '../widgets/delete_group_button.dart';
 
 class MessagesScreen extends StatefulWidget {
   final double padding = 8.0;
@@ -64,6 +65,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           ],
         ),
         actions: [
+          DeleteGroupButton(groupId: ''),
           AddMemberButton(groups: widget.groups),
         ],
       ),

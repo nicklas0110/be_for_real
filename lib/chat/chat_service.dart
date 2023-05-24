@@ -77,5 +77,22 @@ class ChatService {
       ChannelKeys.members: FieldValue.arrayUnion([email])
     });
   }
+
+  Future<void> deleteGroup(String groupId) async {
+    try {
+      final groupDocRef = FirebaseFirestore.instance.collection('groups').doc(groupId);
+      final groupDoc = await groupDocRef.get();
+
+      if (groupDoc.exists) {
+        await groupDocRef.delete();
+        print('Group deleted successfully!');
+      } else {
+        print('Group does not exist.');
+      }
+    } catch (error) {
+      print('Error deleting group: $error');
+    }
+  }
+
 }
 
