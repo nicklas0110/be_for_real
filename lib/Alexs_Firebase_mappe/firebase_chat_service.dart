@@ -62,14 +62,18 @@ class ChatService {
     });
   }
 
-  Future<void> createChannel(User user, String name, {required String imageUrl}) async {
-    await _firestore.collection('groups').add({
+  Future<DocumentReference> createChannel(User user, String name, {required String imageUrl}) async {
+    return await _firestore.collection('groups').add({
       ChannelKeys.members: [user.email!],
       ChannelKeys.name: name,
       ChannelKeys.imageUrl: imageUrl,
     });
   }
-
+  Future<void> updateImageUrl(String groupId, {required String imageUrl}) async {
+    return await _firestore.collection('groups').doc(groupId).update({
+      ChannelKeys.imageUrl: imageUrl,
+    });
+  }
   Future<void> addMember(Groups groups, String email) async {
     await _firestore
         .collection('groups').doc(groups.id).update({

@@ -37,10 +37,10 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
     }
   }
 
-  Future<void> uploadPfp(String userId) async {
+  Future<void> uploadPfp(String groupId) async {
     File uploadFile = File(photo!.path);
     try {
-      String fileName = '$userId-${DateTime.now().millisecondsSinceEpoch}.jpg';
+      String fileName = '$groupId.jpg';
       await FirebaseStorage.instance
           .ref('groupsImages/$fileName')
           .putFile(uploadFile);
@@ -52,9 +52,9 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
   }
 
 
-  Future<String> getDownload(String userId) async {
+  Future<String> getDownload(String groupId) async {
     String downloadUrl = await FirebaseStorage.instance
-        .ref("groupsImages/$userId.jpg")
+        .ref("groupsImages/$groupId.jpg")
         .getDownloadURL();
     return downloadUrl;
   }
@@ -158,8 +158,13 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
       actions: [
         GestureDetector(
           onTap: () async {
+
+         final chaleref = await chat.createChannel(
+              user, _name.text,
+              imageUrl: _imageUrl);
+
             if (photo != null) {
-              await uploadPfp(getUid());
+              await uploadPfp(chaleref.path);
             }
             if (_formKey.currentState!.validate()) {
               setState(() {
@@ -168,23 +173,21 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
               try {
 
                 // Set _imageUrl to the download URL
-                _imageUrl = await getDownload(getUid());
+                _imageUrl = await getDownload(chaleref.path);
+
+                await chat.updateImageUrl(
+                    chaleref.id,
+                    imageUrl: _imageUrl);
+
                 Navigator.of(context).pop();
                 // Replace the following code with the createChannel method
-                chat.createChannel(
-                    user, _name.text,
-                    imageUrl: _imageUrl);
+
                 // The rest of the code remains the same
 
               } catch (e) {
                 if (kDebugMode) {
                   print(e);
                 }
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Group creation failed.'),
-                  ),
-                );
               }
               setState(() {
                 isLoading = false;

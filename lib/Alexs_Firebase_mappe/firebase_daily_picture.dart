@@ -27,6 +27,8 @@ class FirebaseDailyPicture {
         .expand((group) => group.data()['members'] as List<dynamic>)
         .toList();
 
+    if (emails.isEmpty) return [];
+
     final userImages = await _firestore
         .collection("userImages")
         .where(FieldPath.documentId, whereIn: emails)
