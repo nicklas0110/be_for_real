@@ -42,6 +42,34 @@ class FirebaseDailyPicture {
     return pictures;
   }
 
+  Future<List<DailyPicture>> getPicturesFriends(String email) async {
+    final friends = await _firestore
+        .collection("friendsRegister").doc(FirebaseAuth.instance.currentUser?.uid).collection('friends')
+        .get();
+
+    final emails = friends.docs
+        .map((friend)
+    {
+      final data =friend.data();
+      return data['email'] as String;
+    })
+        .toList();
+
+    //emails.addAll(iterable);
+
+    final userImages = await _firestore
+        .collection("userImages")
+        .where(FieldPath.documentId, whereIn: emails)
+        .get();
+
+    final pictures = userImages.docs.expand((doc) {
+      final list = doc.data()['dailyImages'] as List<dynamic>;
+      return list.map((e) => DailyPicture.fromMap(doc.id, e));
+    }).toList();
+
+    return pictures;
+  }
+
 
   /*getPicturesFriends(String uid) async {
     final users = await _firestore
