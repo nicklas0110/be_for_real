@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-import '../themHelper/reg_login_theme_helper.dart';
 import 'login_page.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -221,32 +220,30 @@ class _RegistrationPageState extends State<RegistrationPage>
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    Container(
-                      child: TextFormField(
-                        controller: _passwordRegister,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          hintText: 'Enter your password',
-                          hintStyle: TextStyle(
-                              color: Colors.white.withOpacity(0.5)),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.black87),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            const BorderSide(color: Colors.white),
-                          ),
+                    TextFormField(
+                      controller: _passwordRegister,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        hintText: 'Enter your password',
+                        hintStyle: TextStyle(
+                            color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.black87),
                         ),
-                        obscureText: true,
-                        validator: (value) =>
-                        (value == null || value.isEmpty)
-                            ? 'Password required'
-                            : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.white),
+                        ),
                       ),
+                      obscureText: true,
+                      validator: (value) =>
+                      (value == null || value.isEmpty)
+                          ? 'Password required'
+                          : null,
                     ),
                     const SizedBox(height: 20.0),
                     FormField<bool>(
