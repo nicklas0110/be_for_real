@@ -103,117 +103,127 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
     final user = Provider.of<User>(context);
     final chat = Provider.of<ChatService>(context);
     return AlertDialog(
       title: const Text('Add Channel'),
       content: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _name,
-              decoration: const InputDecoration(labelText: 'Name'),
-              validator: (value) => value!.isEmpty ? 'Name required' : null,
-            ),
-            GestureDetector(
-              onTap: pickImage,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.transparent,
-                    width: 0.5,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _name,
+                decoration: const InputDecoration(labelText: 'Name'),
+                validator: (value) => value!.isEmpty ? 'Name required' : null,
+              ),
+              GestureDetector(
+                onTap: pickImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.transparent,
+                      width: 0.5,
+                    ),
                   ),
-                ),
-                child: AvatarGlow(
-                  glowColor: Colors.white,
-                  showTwoGlows: true,
-                  repeat: true,
-                  endRadius: 80.0,
-                  child: Material(
-                    shape: const CircleBorder(),
-                    elevation: 2.0,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage:
-                          photo != null ? FileImage(File(photo!.path)) : null,
-                      child: photo == null
-                          ? const Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 70,
-                            )
-                          : null,
+                  child: AvatarGlow(
+                    glowColor: Colors.white,
+                    showTwoGlows: true,
+                    repeat: true,
+                    endRadius: 80.0,
+                    child: Material(
+                      shape: const CircleBorder(),
+                      elevation: 2.0,
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage:
+                            photo != null ? FileImage(File(photo!.path)) : null,
+                        child: photo == null
+                            ? const Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 70,
+                              )
+                            : null,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
       actions: [
-        GestureDetector(
-          onTap: () async {
+        SingleChildScrollView(
+          child: GestureDetector(
+            onTap: () async {
+              final chaleref = await chat.createChannel(
+                user,
+                _name.text,
+                imageUrl: _imageUrl,
+              );
 
-         final chaleref = await chat.createChannel(
-              user, _name.text,
-              imageUrl: _imageUrl);
-
-            if (photo != null) {
-              await uploadPfp(chaleref.path);
-            }
-            if (_formKey.currentState!.validate()) {
-              setState(() {
-                isLoading = true;
-              });
-              try {
-
-                // Set _imageUrl to the download URL
-                _imageUrl = await getDownload(chaleref.path);
-
-                await chat.updateImageUrl(
-                    chaleref.id,
-                    imageUrl: _imageUrl);
-
-                Navigator.of(context).pop();
-                // Replace the following code with the createChannel method
-
-                // The rest of the code remains the same
-
-              } catch (e) {
-                if (kDebugMode) {
-                  print(e);
-                }
+              if (photo != null) {
+                await uploadPfp(chaleref.path);
               }
-              setState(() {
-                isLoading = false;
-              });
-            }
-          },
-          child: Material(
-            elevation: 3.0,
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.cyan[900],
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-              child: const Text(
-                'Create Channel',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              if (_formKey.currentState!.validate()) {
+                setState(() {
+                  isLoading = true;
+                });
+                try {
+                  // Set _imageUrl to the download URL
+                  _imageUrl = await getDownload(chaleref.path);
+
+                  await chat.updateImageUrl(chaleref.id, imageUrl: _imageUrl);
+
+                  Navigator.of(context).pop();
+                  // Replace the following code with the createChannel method
+
+                  // The rest of the code remains the same
+
+                } catch (e) {
+                  if (kDebugMode) {
+                    print(e);
+                  }
+                }
+                setState(() {
+                  isLoading = false;
+                });
+              }
+            },
+            child: Material(
+              elevation: 3.0,
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.cyan[900],
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    if (isLoading) // Show CircularProgressIndicator if isLoading is true
+                      const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    const Text(
+                      'Create Channel',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
         ),
         SizedBox(height: 15),
+
         GestureDetector(
           onTap: () async {
             Navigator.pop(context);
