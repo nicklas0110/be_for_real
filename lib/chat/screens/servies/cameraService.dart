@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:be_for_real/chat/models/user.dart';
+import 'package:be_for_real/chat/screens/profile_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,7 +38,7 @@ class CameraService {
     "timestamp": formattedDate,
     "location": location,
     "back": await back.ref.getDownloadURL(),
-    "uid": uid,
+    "uid": getUserEmail().toString(),
     };
 
     final userRef = await FirebaseFirestore.instance
