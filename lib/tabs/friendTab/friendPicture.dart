@@ -97,9 +97,9 @@ class _FriendPictureState extends State<FriendPicture> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(friendUsername),
+                      Text(dailyPicture.user),
                       Text(
-                        '$friendPicLocation • $friendPicDateTime',
+                        '${dailyPicture.location} • ${dailyPicture.timestamp}',
                         style: TextStyle(
                           color: Colors.grey[400],
                         ),
