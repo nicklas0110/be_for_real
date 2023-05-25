@@ -38,7 +38,7 @@ class CameraService {
     "timestamp": formattedDate,
     "location": location,
     "back": await back.ref.getDownloadURL(),
-    "uid": getUserEmail().toString(),
+    "uid": uid,
     };
 
     final userRef = await FirebaseFirestore.instance

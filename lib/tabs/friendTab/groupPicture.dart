@@ -22,8 +22,8 @@ String friendUsername = 'username';
 String friendPicDateTime = 'time';
 String friendPicLocation = 'location';
 
-class FriendPicture extends StatelessWidget {
-  const FriendPicture({Key? key}) : super(key: key);
+class GroupPicture extends StatelessWidget {
+  const GroupPicture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class FriendPicture extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return FutureBuilder<List<DailyPicture>>(
-      future: dailyPicture.getPicturesFriends(user!.email!),
+      future: dailyPicture.getPicturesGroups(user!.email!),
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
         if (!snapshot.hasData) {

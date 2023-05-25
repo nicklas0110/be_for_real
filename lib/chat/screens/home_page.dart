@@ -5,7 +5,7 @@ import '../../tabs/friendTab/friendTab.dart';
 import '../../tabs/groupTab/groupTab.dart';
 
 class HomePageScreen extends StatelessWidget {
-  const HomePageScreen({super.key});
+  const HomePageScreen({Key? key});
 
   // This widget is the root of your application.
   @override
@@ -31,12 +31,12 @@ MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
 });
 
 class MyHomePage extends StatefulWidget {
-
-  MyHomePage({super.key,
+  MyHomePage({
+    Key? key,
     required this.title,
     required this.friendTab,
-    required this.groupTab});
-
+    required this.groupTab,
+  });
 
   final String title;
   final String friendTab;
@@ -46,21 +46,27 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with TickerProviderStateMixin {
   late TabController _tabController;
+  bool groupOrFriendTab = false; // Added boolean variable
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(_handleTabChange); // Added listener
+  }
+
+  void _handleTabChange() {
+    setState(() {
+      groupOrFriendTab = _tabController.index == 1; // Set to true when in friend tab, false otherwise
+    });
   }
 
   Route _createRouteFriends() {
     return PageRouteBuilder(
-
       pageBuilder: (context, animation, secondaryAnimation) => GroupScreen(),
-
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
@@ -79,31 +85,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Route _createRouteProfile() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const ProfileScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const ProfileScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
 
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0);
-          const end = Offset.zero;
-          const curve = Curves.ease;
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-          var tween =
-          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-          return SlideTransition(
-            position: animation.drive(tween),
-            child: child,
-          );
-        });
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
   Route _createRouteChannels() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => GroupScreen(),
-
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-
         const begin = Offset(-1.0, 0.0);
-
         const end = Offset.zero;
         const curve = Curves.ease;
 
@@ -132,17 +136,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               color: Colors.white,
               tooltip: 'Friends',
               onPressed: () {
-                Navigator.of(context).push(_createRouteChannels()
-                );
+                Navigator.of(context).push(_createRouteChannels());
               },
             ),
           ),
           Expanded(
             child: Center(
               child: Text(
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  widget.title),
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           Padding(
@@ -168,7 +174,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [FriendTab(), GroupTab()],
+        children: [
+          FriendTab(),
+          GroupTab(),
+        ],
       ),
     );
   }

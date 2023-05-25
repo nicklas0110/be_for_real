@@ -91,6 +91,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider<ChatService>(create: (context) => ChatService()),
         Provider<FirebaseDailyPicture>(create: (context) => FirebaseDailyPicture()),
+        Provider<HomePageScreen>(create: (context) => HomePageScreen()),
         StreamProvider<User?>(
           create: (context) => FirebaseAuth.instance.authStateChanges(),
           initialData: null,

@@ -1,9 +1,11 @@
+import 'package:be_for_real/tabs/friendTab/groupPicture.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 import 'package:be_for_real/tabs/friendTab/ownPicture.dart';
 
 class FriendTab extends StatelessWidget {
-  FriendTab({Key? key}) : super(key: key);
+
+  FriendTab( {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class FriendTab extends StatelessWidget {
               return OwnPicture();
             }
             if (index == 1) {
-              return FriendPicture();
+                return FriendPicture();
             }
           }),
     );
