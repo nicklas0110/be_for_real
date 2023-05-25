@@ -40,9 +40,9 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
   Future<void> uploadPfp(String userId) async {
     File uploadFile = File(photo!.path);
     try {
+      String fileName = '$userId-${DateTime.now().millisecondsSinceEpoch}.jpg';
       await FirebaseStorage.instance
-          .ref(
-              'groupsImages/$userId.jpg') // Use a unique file name for each user
+          .ref('groupsImages/$fileName')
           .putFile(uploadFile);
     } catch (e) {
       if (kDebugMode) {
@@ -92,6 +92,7 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
       if (pickedFile != null) {
         setState(() {
           photo = pickedFile;
+          _imageUrl = ''; // Reset _imageUrl when a new photo is picked
         });
       }
     }
@@ -168,13 +169,13 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
 
                 // Set _imageUrl to the download URL
                 _imageUrl = await getDownload(getUid());
-
-                // Replace the following code with the createChannel method
-                chat.createChannel(user, _userNameRegister.text,
-                    imageUrl: _imageUrl); // Pass imageUrl to createChannel method
-
-                // The rest of the code remains the same
                 Navigator.of(context).pop();
+                // Replace the following code with the createChannel method
+                chat.createChannel(
+                    user, _name.text,
+                    imageUrl: _imageUrl);
+                // The rest of the code remains the same
+
               } catch (e) {
                 if (kDebugMode) {
                   print(e);

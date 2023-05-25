@@ -14,10 +14,14 @@ class Groups {
 
   Groups.fromMap(this.id, Map<String, dynamic> data, {String? imageUrl})
       : name = data[ChannelKeys.name],
-        members = [...data[ChannelKeys.members]],
+        members = List<String>.from(data[ChannelKeys.members]),
         imageUrl = data[ChannelKeys.imageUrl];
 
   Map<String, dynamic> toMap() {
-    return {ChannelKeys.name: name, ChannelKeys.members: members, ChannelKeys.imageUrl: imageUrl};
+    return {
+      ChannelKeys.name: name,
+      ChannelKeys.members: members,
+      ChannelKeys.imageUrl: imageUrl
+    };
   }
 }

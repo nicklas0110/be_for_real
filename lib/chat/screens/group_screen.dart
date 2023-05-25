@@ -60,7 +60,7 @@ class GroupTile extends StatelessWidget {
         ),
         child: ClipOval(
           child: Image.network(
-            group.imageUrl ?? '', // Use the imageUrl property
+            group.imageUrl ??  '',
             width: 50,
             height: 50,
             fit: BoxFit.cover,
