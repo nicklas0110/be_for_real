@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import '../../UtilityHelpers/locationUtil.dart';
-import '../../home_page.dart';
+import '../../home_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,16 +31,16 @@ class MyApp extends StatelessWidget {
 
 // https://docs.flutter.dev/cookbook/plugins/picture-using-camera
 
-class CameraPage extends StatefulWidget {
-  const CameraPage({super.key, required this.title});
+class CameraScreen extends StatefulWidget {
+  const CameraScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<CameraPage> createState() => _CameraPageState();
+  State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _CameraScreenState extends State<CameraScreen> {
   final path = "gs://be-for-real.appspot.com/Images";
   CameraController? _controller;
   bool waiting = false;

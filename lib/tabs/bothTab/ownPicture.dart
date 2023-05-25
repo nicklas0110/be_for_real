@@ -2,7 +2,7 @@ import 'package:be_for_real/UtilityHelpers/locationUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:be_for_real/tabs/bothTab/cameraPage.dart';
+import 'package:be_for_real/tabs/bothTab/camera_screen.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 
 String userPic = 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
@@ -92,7 +92,7 @@ class OwnPicture extends StatelessWidget {
 
   Route _createRouteCamera() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const CameraPage(
+      pageBuilder: (context, animation, secondaryAnimation) => const CameraScreen(
         title: 'Camera',
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {

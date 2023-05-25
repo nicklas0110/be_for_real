@@ -8,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'Alexs_Firebase_mappe/firebase_chat_service.dart';
 import 'models/dailyPicture.dart';
-import 'home_page.dart';
+import 'home_screen.dart';
 import 'LoginRegisterStartup/startup_screen.dart';
 import 'Alexs_Firebase_mappe/firebase_options.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider<ChatService>(create: (context) => ChatService()),
         Provider<FirebaseDailyPicture>(create: (context) => FirebaseDailyPicture()),
-        Provider<HomePageScreen>(create: (context) => HomePageScreen()),
+        Provider<HomeScreen>(create: (context) => HomeScreen()),
         StreamProvider<User?>(
           create: (context) => FirebaseAuth.instance.authStateChanges(),
           initialData: null,
@@ -107,7 +107,7 @@ class _MyAppState extends State<MyApp> {
           themeMode: ThemeMode.dark,
           home: user == null
               ? const StartupScreen(title: 'Flutter Login UI')
-              : const HomePageScreen(),
+              : const HomeScreen(),
         );
       },
     );

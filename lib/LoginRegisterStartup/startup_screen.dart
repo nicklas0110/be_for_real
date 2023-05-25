@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'login_screen.dart';
 
 class StartupScreen extends StatefulWidget {
   const StartupScreen({Key? key, required this.title}) : super(key: key);
@@ -32,7 +32,7 @@ class _StartupScreenState extends State<StartupScreen> {
       if (mounted) {
         setState(() {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LoginPage()),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
                 (route) => false,
           );
         });

@@ -1,20 +1,20 @@
-import 'package:be_for_real/home_page.dart';
+import 'package:be_for_real/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 
  import '../UtilityHelpers/reg_login_theme_helper.dart';
-import 'registration_page.dart';
+import 'registration_screen.dart';
 
-class LoginPage extends StatefulWidget{
-  const LoginPage({Key? key}): super(key:key);
+class LoginScreen extends StatefulWidget{
+  const LoginScreen({Key? key}): super(key:key);
 
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
+  State<StatefulWidget> createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage>{
+class _LoginScreenState extends State<LoginScreen>{
   final _username = TextEditingController();
   final _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage>{
                                         return;
                                       }
                                       // User found, navigate to the home page
-                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePageScreen()));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomeScreen()));
                                     } catch (e) {
                                       // Show an error message if sign-in failed
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sign-in failed, please try again later')));
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage>{
                                             text: 'Register',
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => const RegistrationScreen()));
                                               },
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,

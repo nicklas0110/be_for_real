@@ -1,11 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
-import 'package:be_for_real/profile/settings.dart';
+import 'package:be_for_real/profile/settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../home_page.dart';
+import '../home_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key});
@@ -181,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage>
   Route _routeHomePageScreen() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-      const HomePageScreen(),
+      const HomeScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(-2.0, 0.0);
         const end = Offset.zero;

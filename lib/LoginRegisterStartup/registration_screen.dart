@@ -6,16 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-import 'login_page.dart';
+import 'login_screen.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  _RegistrationPageState createState() => _RegistrationPageState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage>
+class _RegistrationScreenState extends State<RegistrationScreen>
     with SingleTickerProviderStateMixin {
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -320,7 +320,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const LoginPage(),
+                                builder: (context) => const LoginScreen(),
                               ),
                             );
                           } catch (e) {

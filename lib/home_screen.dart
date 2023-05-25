@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'tabs/friendTab/friendTab.dart';
 import 'tabs/groupTab/groupTab.dart';
 
-class HomePageScreen extends StatelessWidget {
-  const HomePageScreen({Key? key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key});
 
   // This widget is the root of your application.
   @override

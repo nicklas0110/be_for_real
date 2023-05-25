@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../Alexs_Firebase_mappe/firebase_daily_picture.dart';
-import 'comments.dart';
+import 'commentsScreen.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = now.toIso8601String();
@@ -34,7 +34,7 @@ class _UserCardState extends State<UserCard> {
 
   Route _createRouteComments() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Comments(),
+      pageBuilder: (context, animation, secondaryAnimation) => CommentsScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;

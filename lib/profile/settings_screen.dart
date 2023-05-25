@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../LoginRegisterStartup/login_page.dart';
+import '../LoginRegisterStartup/login_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -89,7 +89,7 @@ class SettingsScreen extends StatelessWidget {
                   FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                        builder: (context) => const LoginPage()),
+                        builder: (context) => const LoginScreen()),
                         (route) => false,
                   );
                 },

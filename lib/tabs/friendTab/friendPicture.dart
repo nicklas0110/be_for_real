@@ -1,10 +1,10 @@
 import 'package:be_for_real/models/dailyPicture.dart';
-import 'package:be_for_real/home_page.dart';
+import 'package:be_for_real/home_screen.dart';
 import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:be_for_real/tabs/bothTab/comments.dart';
+import 'package:be_for_real/tabs/bothTab/commentsScreen.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
 import 'package:provider/provider.dart';
 
