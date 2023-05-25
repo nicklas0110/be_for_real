@@ -75,7 +75,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             child: FirestoreListView<Message>(
               query: chat.messages(widget.groups),
               controller: _scrollController,
-              reverse: true, // Display the messages in reverse order
+              reverse: false, // Display the messages in reverse order
               itemBuilder: (context, doc) {
                 final message = doc.data();
                 return Column(
