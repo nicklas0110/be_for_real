@@ -1,4 +1,4 @@
-import 'package:be_for_real/chat/models/groups.dart';
+import 'package:be_for_real/models/groups.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

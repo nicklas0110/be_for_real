@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:be_for_real/Alexs_Firebase_mappe/firebase.dart';
-import '../screens/add_friend_screen.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase_friends.dart';
+import '../add_friend_screen.dart';
 
 //This class is used for the button that sends a friendrequest
 class FriendRequestButton extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'models/sender.dart';
+import '../models/sender.dart';
 
 String senderName(Sender sender) {
   return sender.displayName.isNotEmpty ? sender.displayName : sender.email;

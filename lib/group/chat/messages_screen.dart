@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
-import '../models/groups.dart';
-import '../models/message.dart';
-import '../utils.dart';
+import '../../models/groups.dart';
+import '../../models/message.dart';
+import '../../UtilityHelpers/utils.dart';
 import '../widgets/add_member_button.dart';
 import '../widgets/delete_group_button.dart';
 

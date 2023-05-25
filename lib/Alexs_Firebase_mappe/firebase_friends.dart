@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,25 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/tabs/friendTab/friendPicture.dart';
-import '../chat/models/groups.dart';
+import '../models/groups.dart';
 
 //This is a firebase class for firebase code
 class Firebase {
-  Future<void> uploadImage(File imageFile) async {
-    final fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    final Reference reference =
-        FirebaseStorage.instance.ref().child('images/$fileName.jpg');
-    final UploadTask uploadTask = reference.putFile(imageFile);
-    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    if (kDebugMode) {
-      print('Image URL: $downloadUrl');
-    }
-  }
 
-  User? getCurrentUser() {
-    return FirebaseAuth.instance.currentUser;
-  }
   Future<void> addFriendByEmail(String currentUser, String friendEmail) async {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('register')
@@ -90,7 +77,7 @@ class Firebase {
   }
 
   void acceptFriendRequest(String friendUserId) async {
-    final currentUser = getCurrentUser();
+    final currentUser = FirebaseBasic().getCurrentUser();
     if (currentUser != null) {
       final userId = currentUser.uid;
 
@@ -156,7 +143,7 @@ class Firebase {
 
   // Function to decline a friend request
   void declineFriendRequest(String friendUserId) async {
-    final currentUser = getCurrentUser();
+    final currentUser = FirebaseBasic().getCurrentUser();
     if (currentUser != null) {
       final userId = currentUser.uid;
 
@@ -181,7 +168,7 @@ class Firebase {
   }
 
   Stream<QuerySnapshot> getFriendRequests() async* {
-    final currentUser = getCurrentUser();
+    final currentUser = FirebaseBasic().getCurrentUser();
     if (currentUser != null) {
       // Retrieve friend requests sent to the current user
       final userId = currentUser.uid;

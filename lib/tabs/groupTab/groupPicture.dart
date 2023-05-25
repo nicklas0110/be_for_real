@@ -1,4 +1,4 @@
-import 'package:be_for_real/chat/models/dailyPicture.dart';
+import 'package:be_for_real/models/dailyPicture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
@@ -35,7 +35,7 @@ class GroupPicture extends StatelessWidget {
         }
         return Column(
           children: [
-            for (final picture in snapshot.data!) UserCard(picture, dailyPicture)
+            for (final picture in snapshot.data!) UserCard(picture)
           ],
         );
       },

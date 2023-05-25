@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
-import '../../chat/models/groups.dart';
-import '../../chat/models/user.dart';
-import '../../Alexs_Firebase_mappe/firebase.dart';
+import '../../models/groups.dart';
+import '../../models/user.dart';
+import '../../Alexs_Firebase_mappe/firebase_friends.dart';
 
 String placeholderImageLink =
     'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';

@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:be_for_real/chat/models/dailyPicture.dart';
-import 'package:be_for_real/chat/screens/profile_screen.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
+import 'package:be_for_real/models/dailyPicture.dart';
+import 'package:be_for_real/profile/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -100,7 +101,7 @@ class FirebaseDailyPicture {
       // Delete group document
       final imageDocRef = FirebaseFirestore.instance
           .collection('userImages')
-          .doc(getUserEmail() as String?);
+          .doc(FirebaseBasic().getUserEmail() as String?);
       batch.delete(imageDocRef);
 
       // Delete subcollections
@@ -108,7 +109,7 @@ class FirebaseDailyPicture {
       for (final subcollection in subcollections) {
         final subcollectionRef = FirebaseFirestore.instance
             .collection('userImages')
-            .doc(getUserEmail() as String?)
+            .doc(FirebaseBasic().getUserEmail() as String?)
             .collection(subcollection);
         final docs = await subcollectionRef.get();
         for (final doc in docs.docs) {

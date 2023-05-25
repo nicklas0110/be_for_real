@@ -7,9 +7,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'Alexs_Firebase_mappe/firebase_chat_service.dart';
-import 'chat/models/dailyPicture.dart';
-import 'chat/screens/home_page.dart';
-import 'chat/screens/loginReg/pages/startup_screen.dart';
+import 'models/dailyPicture.dart';
+import 'home_page.dart';
+import 'LoginRegisterStartup/startup_screen.dart';
 import 'Alexs_Firebase_mappe/firebase_options.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
 

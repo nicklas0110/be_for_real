@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:be_for_real/Alexs_Firebase_mappe/firebase.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase_friends.dart';
+
+import '../Alexs_Firebase_mappe/firebase_basic.dart';
 
 class AddFriendScreen extends StatefulWidget {
   @override
@@ -9,6 +11,7 @@ class AddFriendScreen extends StatefulWidget {
 
 class _AddFriendScreenState extends State<AddFriendScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final FirebaseBasic _firebaseBasic = FirebaseBasic();
   final Firebase _firebase = Firebase();
 
   @override
@@ -35,7 +38,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 child: const Text('Add Friend'),
                 onPressed: () async {
                   final friendEmail = _emailController.text;
-                  final currentUser = await _firebase.getCurrentUser();
+                  final currentUser = await _firebaseBasic.getCurrentUser();
 
                   if (currentUser != null) {
                     // Add friend logic here

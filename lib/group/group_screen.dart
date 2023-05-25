@@ -1,14 +1,14 @@
-import 'package:be_for_real/chat/widgets/add_member_button.dart';
-import 'package:be_for_real/chat/widgets/friend_request_button.dart';
+import 'package:be_for_real/group/widgets/add_member_button.dart';
+import 'package:be_for_real/group/widgets/friend_request_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
+import '../Alexs_Firebase_mappe/firebase_chat_service.dart';
 import '../models/user.dart';
-import '../widgets/create_channel_button.dart';
+import 'widgets/create_channel_button.dart';
 import '../models/groups.dart';
-import '../widgets/friend_list_button.dart';
-import 'messages_screen.dart';
+import 'widgets/friend_list_button.dart';
+import 'chat/messages_screen.dart';
 
 class GroupScreen extends StatelessWidget {
    GroupScreen({super.key});

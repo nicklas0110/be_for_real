@@ -1,10 +1,10 @@
-import 'package:be_for_real/chat/screens/home_page.dart';
+import 'package:be_for_real/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 
- import '../themHelper/reg_login_theme_helper.dart';
+ import '../UtilityHelpers/reg_login_theme_helper.dart';
 import 'registration_page.dart';
 
 class LoginPage extends StatefulWidget{

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
-import '../models/user.dart';
+import '../../models/user.dart';
 
 //This class is the dialog for creating a group
 class CreateChannelDialog extends StatefulWidget {

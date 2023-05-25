@@ -1,4 +1,4 @@
-import 'package:be_for_real/chat/models/dailyPicture.dart';
+import 'package:be_for_real/models/dailyPicture.dart';
 import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +22,9 @@ bool haveUploadedCaption = true;
 String addedCaption = 'added caption';
 
 class UserCard extends StatefulWidget {
-  const UserCard(this.dailyPicture, this.firebaseDailyPicture, {Key? key})
+  const UserCard(this.dailyPicture, {Key? key})
       : super(key: key);
   final DailyPicture dailyPicture;
-  final FirebaseDailyPicture firebaseDailyPicture;
 
   @override
   State<UserCard> createState() => _UserCardState();
@@ -68,8 +67,6 @@ class _UserCardState extends State<UserCard> {
     final friendTimestamp = DateFormat.yMd()
         .add_Hm()
         .format(DateTime.parse(widget.dailyPicture.timestamp));
-    final firebaseDailyPicture =
-    widget.firebaseDailyPicture.getProfilePictureURLs();
 
     return SizedBox(
       height: 675,

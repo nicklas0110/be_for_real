@@ -1,10 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:be_for_real/chat/screens/settings.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
+import 'package:be_for_real/profile/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'home_page.dart';
+import '../home_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key});
@@ -26,13 +27,7 @@ class ProfileScreen extends StatelessWidget {
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<String?> getUserEmail() async {
-  final user = _auth.currentUser;
-  if (user != null) {
-    return user.email;
-  }
-  return null;
-}
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.title});
@@ -124,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage>
           ),
           const SizedBox(height: 10),
           FutureBuilder<String?>(
-            future: getUserEmail(),
+            future: FirebaseBasic().getUserEmail(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
