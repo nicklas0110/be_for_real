@@ -7,6 +7,7 @@ import '../chat/models/message.dart';
 import '../chat/models/sender.dart';
 import '../chat/models/user.dart';
 
+//This is the firebase for everything from the groupScreen and beyond
 String generateId() {
   return Random().nextInt(2 ^ 53).toString();
 }

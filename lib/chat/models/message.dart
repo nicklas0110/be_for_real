@@ -8,6 +8,7 @@ class MessageKeys {
   static const content = 'content';
 }
 
+// this class is telling what a message is containing when made
 class Message {
   final String id;
   final DateTime? timestamp;

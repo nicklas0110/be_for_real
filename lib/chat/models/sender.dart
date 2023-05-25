@@ -4,6 +4,7 @@ class SenderKeys {
   static const email = 'email';
 }
 
+//This class is telling what the sender object contains
 class Sender {
   final String uid;
   final String displayName;

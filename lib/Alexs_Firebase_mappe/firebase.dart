@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '/tabs/friendTab/friendPicture.dart';
 import '../chat/models/groups.dart';
 
+//This is a firebase class for firebase code
 class Firebase {
   Future<void> uploadImage(File imageFile) async {
     final fileName = DateTime.now().millisecondsSinceEpoch.toString();

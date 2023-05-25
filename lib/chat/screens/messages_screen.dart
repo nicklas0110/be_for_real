@@ -28,6 +28,7 @@ class MessagesScreen extends StatefulWidget {
 class _MessagesScreenState extends State<MessagesScreen> {
   final ScrollController _scrollController = ScrollController();
 
+  //This is where we set the controller for the scroll sequence of this screen
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final chat = Provider.of<ChatService>(context);
+    final chat =
+        Provider.of<ChatService>(context); //The provider for the chatService
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -65,17 +67,17 @@ class _MessagesScreenState extends State<MessagesScreen> {
           ],
         ),
         actions: [
-          DeleteGroupButton(groupId: widget.groups.id),
-          AddMemberButton(groups: widget.groups),
+          DeleteGroupButton(groupId: widget.groups.id), //Button to delete a group
+          AddMemberButton(groups: widget.groups),       //Button for adding a member to the specific group
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: FirestoreListView<Message>(
+            child: FirestoreListView<Message>(    //This is where we have the stack of messages
               query: chat.messages(widget.groups),
               controller: _scrollController,
-              reverse: false, // Display the messages in reverse order
+              reverse: false, // Display the messages in reverse order so the newest message allways is at the buttom
               itemBuilder: (context, doc) {
                 final message = doc.data();
                 return Column(
@@ -88,12 +90,14 @@ class _MessagesScreenState extends State<MessagesScreen> {
               },
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: messageInput(context)),
+          Align(
+              alignment: Alignment.bottomCenter, child: messageInput(context)),
         ],
       ),
     );
   }
 
+  //This method is for the bubble that the message is shown in
   Widget textBubble(Message message) {
     return SizedBox(
       width: double.infinity,
@@ -106,6 +110,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
     );
   }
 
+  //This is where we tell where the senders email should be according to the message
   Widget sender(Message message) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: widget.padding),
@@ -120,6 +125,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
     );
   }
 
+  //This is the messageInput field where you write your message in
   Widget messageInput(BuildContext context) {
     final user = Provider.of<User>(context);
     final chat = Provider.of<ChatService>(context);

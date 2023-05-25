@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'add_member_dialog.dart';
 
+//This is a widget class for adding a member to a group
 class AddMemberButton extends StatelessWidget {
   final Groups groups;
   const AddMemberButton({

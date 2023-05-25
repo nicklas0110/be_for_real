@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/friend_list_screen.dart';
 
+//This class is for the button that shows all the users that you are friends with
 class FriendListButton extends StatelessWidget {
   final String userId;
 

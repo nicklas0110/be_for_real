@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'create_channel_dialog.dart';
 
+//This class is for the button of creating a group
 class CreateChannelButton extends StatelessWidget {
   const CreateChannelButton({
     super.key,

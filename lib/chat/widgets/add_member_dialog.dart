@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 
+//This is the dialog class for adding a member to a group
 class AddMemberDialog extends StatefulWidget {
   final Groups groups;
   const AddMemberDialog({super.key, required this.groups});

@@ -4,6 +4,7 @@ class ChannelKeys {
   static const imageUrl = 'imageUrl';
 }
 
+// this class is telling what the group is containing when made
 class Groups {
   final String id;
   final String name;

@@ -13,8 +13,7 @@ import 'messages_screen.dart';
 class GroupScreen extends StatelessWidget {
    GroupScreen({super.key});
 
-
-
+   //This is where the groupScreen is built
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -41,6 +40,10 @@ class GroupScreen extends StatelessWidget {
     );
   }
 }
+
+/*This class is for setting up each individual group in a tile, and these tile are listed on the screen -
+with a profile-picture, the amount of members in the group and the name of the group
+*/
 
 class GroupTile extends StatelessWidget {
   final Groups group;

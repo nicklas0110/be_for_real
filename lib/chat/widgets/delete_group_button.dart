@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 
+//This class is for the button of deleting a group
 class DeleteGroupButton extends StatelessWidget {
   final String groupId;
 
