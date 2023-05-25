@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:be_for_real/chat/models/user.dart';
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,7 +23,7 @@ class CameraService {
       {required String uid,
       required Uint8List backBytes,
       required Uint8List frontBytes,
-      required String groupId}) async {
+      required String email}) async {
     String location = await getCurrentPlaceName();
     final templateUpload =
         FirebaseStorage.instance.ref('/Images').child(uid).child(formattedDate);
@@ -31,26 +32,20 @@ class CameraService {
 
     final front = await templateUpload.child('front').putData(frontBytes);
 
-    final ref = FirebaseFirestore.instance
-        .collection("dailyPicture")
-        .doc(groupId)
-        .collection("dailyPicture")
-        .doc(uid)
-        .collection("dailyNotification")
-        .doc(formattedDate);
+   final dailyImage = {
+      "front": await front.ref.getDownloadURL(),
+    "timestamp": formattedDate,
+    "location": location,
+    "back": await back.ref.getDownloadURL(),
+    "uid": uid,
+    };
 
-        await ref.set({});
-
-    ref.update({
-      "images": FieldValue.arrayUnion([
-        {
-          "front": await front.ref.getDownloadURL(),
-          "timestamp": formattedDate,
-          "location": location,
-          "back": await back.ref.getDownloadURL(),
-          "uid": uid,
-        }
-      ])
+    final userRef = await FirebaseFirestore.instance
+        .collection("userImages").doc(email)
+        .set({
+      "dailyImages": FieldValue.arrayUnion([dailyImage])
     });
+
+
   }
 }

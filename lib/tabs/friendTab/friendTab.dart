@@ -5,9 +5,6 @@ import 'package:be_for_real/tabs/friendTab/ownPicture.dart';
 class FriendTab extends StatelessWidget {
   FriendTab({Key? key}) : super(key: key);
 
-  final ownPicture = const OwnPicture();
-  final friendPicture = const FriendPicture();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,10 +12,10 @@ class FriendTab extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return ownPicture;
+              return OwnPicture();
             }
             if (index == 1) {
-              return friendPicture;
+              return FriendPicture();
             }
           }),
     );

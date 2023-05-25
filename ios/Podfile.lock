@@ -657,6 +657,11 @@ PODS:
   - Firebase/Storage (10.9.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.9.0)
+  - firebase_app_check (0.1.4-1):
+    - Firebase/CoreOnly (~> 10.9.0)
+    - firebase_core
+    - FirebaseAppCheck (~> 10.9.0-beta)
+    - Flutter
   - firebase_auth (4.6.1):
     - Firebase/Auth (= 10.9.0)
     - firebase_core
@@ -672,6 +677,10 @@ PODS:
     - Firebase/Storage (= 10.9.0)
     - firebase_core
     - Flutter
+  - FirebaseAppCheck (10.9.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - PromisesObjC (~> 2.1)
   - FirebaseAppCheckInterop (10.9.0)
   - FirebaseAuth (10.9.0):
     - FirebaseAppCheckInterop (~> 10.0)
@@ -867,6 +876,7 @@ DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - firebase_app_check (from `.symlinks/plugins/firebase_app_check/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -886,6 +896,7 @@ SPEC REPOS:
     - DKImagePickerController
     - DKPhotoGallery
     - Firebase
+    - FirebaseAppCheck
     - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -922,6 +933,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
+  firebase_app_check:
+    :path: ".symlinks/plugins/firebase_app_check/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -954,10 +967,12 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Firebase: bd152f0f3d278c4060c5c71359db08ebcfd5a3e2
+  firebase_app_check: 5d7b6b5b32bf17f999e214eaecbeca96d84d80b8
   firebase_auth: 202fb0b14e267d2a91d83b75d0ce064ef2063383
   firebase_core: fc68c0f9eec4e800b9418deff14a7e0a504016f3
   firebase_messaging: ffb4e7c95d4daca8cef4eca0283f0ddd2b365d40
   firebase_storage: 09fe224b1ae65ffb74241f2e3e89c8ebabbaa5cb
+  FirebaseAppCheck: ad3a99d0e14dd153eb54d11bdd7e702e396ee505
   FirebaseAppCheckInterop: e69dde5cd51b88ee1b4339d6766b691272256f9b
   FirebaseAuth: 21d5e902fcea44d0d961540fc4742966ae6118cc
   FirebaseAuthInterop: e53c08e60a02de17d1ab77c5032db8ae22d3a799

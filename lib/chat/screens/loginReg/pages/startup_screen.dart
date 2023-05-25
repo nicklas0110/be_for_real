@@ -13,26 +13,39 @@ class StartupScreen extends StatefulWidget {
 
 class _StartupScreenState extends State<StartupScreen> {
   bool _isVisible = false;
+  late Timer _timer;
 
   @override
-  initState() {
-    Timer(const Duration(milliseconds: 2000), () {
-      setState(() {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LoginPage()), (
-            route) => false);
-      });
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer(const Duration(milliseconds: 2000), () {
+      if (mounted) {
+        setState(() {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false,
+          );
+        });
+      }
     });
 
-    Timer(
-        const Duration(milliseconds: 10), () {
-      setState(() {
-        _isVisible =
-        true; // Now it is showing fade effect and navigating to Login page
-      });
-    }
-    );
-    super.initState();
+    Timer(const Duration(milliseconds: 10), () {
+      if (mounted) {
+        setState(() {
+          _isVisible = true;
+        });
+      }
+    });
   }
 
   @override
@@ -45,13 +58,13 @@ class _StartupScreenState extends State<StartupScreen> {
           height: 170.0,
           width: 170.0,
           decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(1.0),
-                )
-              ]
+            shape: BoxShape.circle,
+            color: Colors.black,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(1.0),
+              )
+            ],
           ),
           child: const Center(
             child: DecoratedBox(
