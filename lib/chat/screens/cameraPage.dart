@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:be_for_real/chat/screens/servies/cameraService.dart';
+import 'package:be_for_real/Alexs_Firebase_mappe/servies/cameraService.dart';
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

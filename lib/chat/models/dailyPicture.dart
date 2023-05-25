@@ -7,6 +7,7 @@ class DailyPicture {
   final String location;
   final String imageUrlFront;
   final String imageUrlBack;
+  final String email;
 
   DailyPicture(
     this.id,
@@ -15,6 +16,7 @@ class DailyPicture {
     this.location,
     this.imageUrlFront,
     this.imageUrlBack,
+    this.email,
   );
 
   DailyPicture.fromMap(this.id, Map<String, dynamic> data)
@@ -22,7 +24,8 @@ class DailyPicture {
         timestamp = data[DailyPictureKeys.timestamp],
         location = data[DailyPictureKeys.location],
         imageUrlFront = data[DailyPictureKeys.imageUrlFront],
-        imageUrlBack = data[DailyPictureKeys.imageUrlBack];
+        imageUrlBack = data[DailyPictureKeys.imageUrlBack],
+        email = data[DailyPictureKeys.email];
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,6 +34,7 @@ class DailyPicture {
       DailyPictureKeys.location: location,
       DailyPictureKeys.imageUrlFront: imageUrlFront,
       DailyPictureKeys.imageUrlBack: imageUrlBack,
+      DailyPictureKeys.email: email,
     };
   }
 
@@ -45,4 +49,5 @@ class DailyPictureKeys {
   static const location = 'location';
   static const imageUrlFront = 'front';
   static const imageUrlBack = 'back';
+  static const email = 'email';
 }

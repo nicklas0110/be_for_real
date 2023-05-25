@@ -79,7 +79,7 @@ class _FriendCardState extends State<FriendCard> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.dailyPicture.user),
+                      Text(widget.dailyPicture.email),
                       Text(
                         '${widget.dailyPicture.location} • $friendTimestamp',
                         style: TextStyle(

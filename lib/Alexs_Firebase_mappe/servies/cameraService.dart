@@ -7,9 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 
-import '../../../Alexs_Firebase_mappe/firebase.dart';
-import '../../../locationUtil.dart';
-import '../../../tabs/friendTab/friendPicture.dart';
+import '../firebase.dart';
+import '../../locationUtil.dart';
+import '../../tabs/friendTab/friendPicture.dart';
 
 class CameraService {
   Future<String> getCurrentPlaceName() async {
@@ -33,20 +33,20 @@ class CameraService {
 
     final front = await templateUpload.child('front').putData(frontBytes);
 
-   final dailyImage = {
+    final dailyImage = {
       "front": await front.ref.getDownloadURL(),
-    "timestamp": formattedDate,
-    "location": location,
-    "back": await back.ref.getDownloadURL(),
-    "uid": uid,
+      "timestamp": formattedDate,
+      "location": location,
+      "back": await back.ref.getDownloadURL(),
+      "uid": uid,
+      "email": email,
     };
 
     final userRef = await FirebaseFirestore.instance
-        .collection("userImages").doc(email)
+        .collection("userImages")
+        .doc(email)
         .set({
       "dailyImages": FieldValue.arrayUnion([dailyImage])
     });
-
-
   }
 }
