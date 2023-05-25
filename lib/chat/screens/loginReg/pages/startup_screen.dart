@@ -39,7 +39,7 @@ class _StartupScreenState extends State<StartupScreen> {
       }
     });
 
-    Timer(const Duration(milliseconds: 10), () {
+    Timer(const Duration(milliseconds: 1000), () {
       if (mounted) {
         setState(() {
           _isVisible = true;
@@ -59,7 +59,6 @@ class _StartupScreenState extends State<StartupScreen> {
           width: 170.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.black,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(1.0),
