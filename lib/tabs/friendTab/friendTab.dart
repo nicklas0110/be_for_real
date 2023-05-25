@@ -1,7 +1,6 @@
-import 'package:be_for_real/tabs/friendTab/groupPicture.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
-import 'package:be_for_real/tabs/friendTab/ownPicture.dart';
+import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
 
 class FriendTab extends StatelessWidget {
 

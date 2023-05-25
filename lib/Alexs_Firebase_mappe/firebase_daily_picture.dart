@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:be_for_real/chat/models/dailyPicture.dart';
+import 'package:be_for_real/chat/screens/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseDailyPicture {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final uid = FirebaseAuth.instance.currentUser?.uid;
 
   Future<List<DailyPicture>> getPicturesGroups(String email) async {
     final groups = await _firestore
@@ -34,7 +36,9 @@ class FirebaseDailyPicture {
 
   Future<List<DailyPicture>> getPicturesFriends(String email) async {
     final friends = await _firestore
-        .collection("friendsRegister").doc(FirebaseAuth.instance.currentUser?.uid).collection('friends')
+        .collection("friendsRegister")
+        .doc(uid)
+        .collection('friends')
         .get();
 
     final emails = friends.docs
@@ -58,4 +62,62 @@ class FirebaseDailyPicture {
     return pictures;
   }
 
+  Future<List<DailyPicture>> getPicturesOwn(String email) async {
+    final userImages = await _firestore
+        .collection("userImages")
+        .doc(email) // Use your own document ID instead of relying on currentUser?.uid
+        .get();
+
+    final userImagesData = userImages.data();
+    if (userImagesData == null || !userImagesData.containsKey('dailyImages')) {
+      return []; // Return an empty list if the document doesn't exist or doesn't contain 'dailyImages'
+    }
+
+    final dailyImages = userImagesData['dailyImages'] as List<dynamic>;
+    final pictures = dailyImages.map((e) => DailyPicture.fromMap(email, e)).toList();
+
+    return pictures;
+  }
+
+
+  Future<List<String>> getProfilePictureURLs() async {
+    final friends = await _firestore
+        .collection("friendsRegister")
+        .doc(uid)
+        .collection('friends')
+        .get();
+
+    final photoUrls = friends.docs.map((friend) {
+      final data = friend.data();
+      return data['photoUrl'] as String;
+    }).toList();
+
+    return photoUrls;
+  }
+
+  Future<void> deleteDailyPics(String email) async {
+      final batch = FirebaseFirestore.instance.batch();
+      // Delete group document
+      final imageDocRef = FirebaseFirestore.instance
+          .collection('userImages')
+          .doc(getUserEmail() as String?);
+      batch.delete(imageDocRef);
+
+      // Delete subcollections
+      final subcollections = ['back', 'front'];
+      for (final subcollection in subcollections) {
+        final subcollectionRef = FirebaseFirestore.instance
+            .collection('userImages')
+            .doc(getUserEmail() as String?)
+            .collection(subcollection);
+        final docs = await subcollectionRef.get();
+        for (final doc in docs.docs) {
+          batch.delete(doc.reference);
+        }
+      }
+
+      // Commit the batched writes
+      await batch.commit();
+
+  }
 }

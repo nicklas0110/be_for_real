@@ -1,14 +1,14 @@
 import 'package:be_for_real/chat/models/dailyPicture.dart';
 import 'package:be_for_real/chat/screens/home_page.dart';
-import 'package:be_for_real/tabs/friendTab/ownPicture.dart';
+import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:be_for_real/tabs/friendTab/comments.dart';
+import 'package:be_for_real/tabs/bothTab/comments.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
 import 'package:provider/provider.dart';
 
-import 'friendCard.dart';
+import '../bothTab/userCard.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = now.toIso8601String();
@@ -39,7 +39,7 @@ class FriendPicture extends StatelessWidget {
         }
         return Column(
           children: [
-            for (final picture in snapshot.data!) FriendCard(picture)
+            for (final picture in snapshot.data!) UserCard(picture, dailyPicture)
           ],
         );
       },

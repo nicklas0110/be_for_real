@@ -1,8 +1,9 @@
 import 'package:be_for_real/chat/models/dailyPicture.dart';
+import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import '../../Alexs_Firebase_mappe/firebase_daily_picture.dart';
 import 'comments.dart';
 
 DateTime now = DateTime.now();
@@ -17,16 +18,20 @@ String friendUsername = 'username';
 String friendPicDateTime = 'time';
 String friendPicLocation = 'location';
 
+bool haveUploadedCaption = true;
+String addedCaption = 'added caption';
 
-class FriendCard extends StatefulWidget {
-  const FriendCard(this.dailyPicture, {Key? key}) : super(key: key);
-final DailyPicture dailyPicture;
+class UserCard extends StatefulWidget {
+  const UserCard(this.dailyPicture, this.firebaseDailyPicture, {Key? key})
+      : super(key: key);
+  final DailyPicture dailyPicture;
+  final FirebaseDailyPicture firebaseDailyPicture;
 
   @override
-  State<FriendCard> createState() => _FriendCardState();
+  State<UserCard> createState() => _UserCardState();
 }
 
-class _FriendCardState extends State<FriendCard> {
+class _UserCardState extends State<UserCard> {
 
   Route _createRouteComments() {
     return PageRouteBuilder(
@@ -47,14 +52,27 @@ class _FriendCardState extends State<FriendCard> {
     );
   }
 
+  String captionUploaded() {
+    if (haveUploadedCaption) {
+      return addedCaption;
+    } else {
+      return 'Add a caption';
+    }
+  }
+
   double _xOffset = 5;
   double _yOffset = 5;
 
   @override
   Widget build(BuildContext context) {
-    final friendTimestamp = DateFormat.yMd().add_Hm().format(DateTime.parse(widget.dailyPicture.timestamp));
+    final friendTimestamp = DateFormat.yMd()
+        .add_Hm()
+        .format(DateTime.parse(widget.dailyPicture.timestamp));
+    final firebaseDailyPicture =
+    widget.firebaseDailyPicture.getProfilePictureURLs();
+
     return SizedBox(
-      height: 663,
+      height: 675,
       child: Column(
         children: [
           Flexible(
@@ -69,7 +87,7 @@ class _FriendCardState extends State<FriendCard> {
                       borderRadius: BorderRadius.circular(50),
                       child: SizedBox(
                         child: FadeInImage(
-                          image: NetworkImage(friendPicProfilePic),
+                          image: NetworkImage(userPic),
                           fit: BoxFit.cover,
                           placeholder: const AssetImage("assets/Grey.png"),
                         ),
@@ -107,7 +125,8 @@ class _FriendCardState extends State<FriendCard> {
                     borderRadius: BorderRadius.circular(10),
                     child: SizedBox(
                       child: FadeInImage(
-                        image: NetworkImage(widget.dailyPicture.getImageUrl(false)),
+                        image: NetworkImage(
+                            widget.dailyPicture.getImageUrl(false)),
                         fit: BoxFit.cover,
                         placeholder: const AssetImage("assets/Grey.png"),
                       ),
@@ -139,7 +158,8 @@ class _FriendCardState extends State<FriendCard> {
                           borderRadius: BorderRadius.circular(10),
                           child: SizedBox(
                             child: FadeInImage(
-                              image: NetworkImage(widget.dailyPicture.getImageUrl(true)),
+                              image: NetworkImage(
+                                  widget.dailyPicture.getImageUrl(true)),
                               fit: BoxFit.cover,
                               placeholder: const AssetImage("assets/Grey.png"),
                             ),
@@ -155,16 +175,33 @@ class _FriendCardState extends State<FriendCard> {
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 10, right: 2, top: 6, bottom: 36),
+              padding: const EdgeInsets.only(left: 10, right: 2, top: 6, bottom: 36),
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(_createRouteComments());
                 },
-                child: Text(
-                  'add a comment...',
-                  style: TextStyle(
-                    color: Colors.grey[400],
+                child: Align(
+                  alignment: Alignment.centerLeft, // Align text to the left
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start (left)
+                    children: [
+                      Visibility(
+                        visible: haveUploadedCaption,
+                        child: Text(
+                          'caption',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'add a comment...',
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

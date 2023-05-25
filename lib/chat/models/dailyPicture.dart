@@ -8,16 +8,19 @@ class DailyPicture {
   final String imageUrlFront;
   final String imageUrlBack;
   final String email;
+  final String caption;
+  final List<String> comments;
 
   DailyPicture(
-    this.id,
-    this.user,
-    this.timestamp,
-    this.location,
-    this.imageUrlFront,
-    this.imageUrlBack,
-    this.email,
-  );
+      this.id,
+      this.user,
+      this.timestamp,
+      this.location,
+      this.imageUrlFront,
+      this.imageUrlBack,
+      this.email,
+      this.caption,
+      this.comments);
 
   DailyPicture.fromMap(this.id, Map<String, dynamic> data)
       : user = data[DailyPictureKeys.user],
@@ -25,7 +28,9 @@ class DailyPicture {
         location = data[DailyPictureKeys.location],
         imageUrlFront = data[DailyPictureKeys.imageUrlFront],
         imageUrlBack = data[DailyPictureKeys.imageUrlBack],
-        email = data[DailyPictureKeys.email];
+        email = data[DailyPictureKeys.email],
+        caption = data[DailyPictureKeys.caption],
+        comments = List<String>.from(data[DailyPictureKeys.comments]);
 
   Map<String, dynamic> toMap() {
     return {
@@ -35,6 +40,8 @@ class DailyPicture {
       DailyPictureKeys.imageUrlFront: imageUrlFront,
       DailyPictureKeys.imageUrlBack: imageUrlBack,
       DailyPictureKeys.email: email,
+      DailyPictureKeys.caption: caption,
+      DailyPictureKeys.comments: comments,
     };
   }
 
@@ -50,4 +57,6 @@ class DailyPictureKeys {
   static const imageUrlFront = 'front';
   static const imageUrlBack = 'back';
   static const email = 'email';
+  static const caption = 'caption';
+  static const comments = 'comments';
 }

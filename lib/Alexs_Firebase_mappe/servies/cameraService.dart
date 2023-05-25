@@ -12,6 +12,9 @@ import '../../locationUtil.dart';
 import '../../tabs/friendTab/friendPicture.dart';
 
 class CameraService {
+  String caption = "";
+  List<String> comments = [];
+
   Future<String> getCurrentPlaceName() async {
     final position = await determinePosition();
     List<Placemark> placemarks =
@@ -24,7 +27,7 @@ class CameraService {
       {required String uid,
       required Uint8List backBytes,
       required Uint8List frontBytes,
-      required String email}) async {
+      required String email,}) async {
     String location = await getCurrentPlaceName();
     final templateUpload =
         FirebaseStorage.instance.ref('/Images').child(uid).child(formattedDate);
@@ -40,6 +43,8 @@ class CameraService {
       "back": await back.ref.getDownloadURL(),
       "uid": uid,
       "email": email,
+      "caption": caption,
+      "comments": comments
     };
 
     final userRef = await FirebaseFirestore.instance

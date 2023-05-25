@@ -36,7 +36,7 @@ class GroupSelect extends StatelessWidget {
               child: FadeInImage(
                 image: imageProvider,
                 fit: BoxFit.cover,
-                placeholder: const AssetImage("assets/Placeholder.png"),
+                placeholder: const AssetImage("assets/Grey.png"),
               ),
             ),
           ),
@@ -52,7 +52,7 @@ class GroupSelect extends StatelessWidget {
         const Align(
           alignment: Alignment.center,
           child: Text(
-            'Groups',
+            'Active groups',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
