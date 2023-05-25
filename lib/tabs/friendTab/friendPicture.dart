@@ -116,6 +116,7 @@ class _FriendPictureState extends State<FriendPicture> {
               children: [
                 Container(
                   height: 550,
+                  width: 450,
                   decoration: BoxDecoration(
                     color: Colors.blueGrey,
                     borderRadius: BorderRadius.circular(10),
