@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import '../../locationUtil.dart';
 import 'home_page.dart';
 
@@ -80,6 +81,7 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateTime.now().toIso8601String();
+    final user = Provider.of<User?>(context);
 
     if (_controller == null || waiting) {
       return Center(child: CircularProgressIndicator());
@@ -102,7 +104,6 @@ class _CameraPageState extends State<CameraPage> {
                 alignment: AlignmentDirectional.bottomCenter,
                 child: FloatingActionButton(
                   onPressed: () async {
-                    final groupId = "FHVqOkUoW6hdqOOVyQUf";
 
                     final back = await _controller!.takePicture();
                     setState(() {
@@ -127,7 +128,7 @@ class _CameraPageState extends State<CameraPage> {
                         uid: getUid(),
                         backBytes: byte1,
                         frontBytes: byte2,
-                        groupId: groupId);
+                        email: user!.email!);
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Column(children: [

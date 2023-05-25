@@ -128,7 +128,7 @@ class OwnPicture extends StatelessWidget {
   }
 
   Widget buildCardOwnPic(BuildContext context, int index) {
-    String image = haveUploadedPicture ? userPic : 'https://cdn.discordapp.com/attachments/526767373449953285/1110514623267995649/plus_sign_white.png';
+    String image = haveUploadedPicture ? userPic : 'assets/plus_sign_white.png';
 
     return GestureDetector(
       onTap: () {
@@ -149,7 +149,7 @@ class OwnPicture extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           child: SizedBox(
             child: FadeInImage(
-              image: NetworkImage(image),
+              image: AssetImage(image),
               fit: BoxFit.cover,
               placeholder: const AssetImage("assets/Grey.png"),
             ),
