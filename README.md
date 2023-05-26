@@ -3,13 +3,6 @@
 ## 📲 : Mobile App
 This mobile application that can send a daily picture of yourself and the world around you to a social network of friends/groups you choose yourself. In the group/circle of friends, you must also be able to write to each other. The time to take the picture must happen at a random time of day.
 
-## Features
-- Notification
-- Gruppe chats 
-- Location
-- Front and Back camera.
-
-
 ## Running on your IDE 
 
 Clone or download the project
