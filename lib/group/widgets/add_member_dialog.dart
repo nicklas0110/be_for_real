@@ -1,7 +1,5 @@
 import 'package:be_for_real/models/groups.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../Alexs_Firebase_mappe/firebase_chat_service.dart';
 
@@ -45,7 +43,7 @@ class _AddMemberDialog extends State<AddMemberDialog> {
             if (!_formKey.currentState!.validate()) return;{
               chat.addMember(widget.groups, _email.value.text);
               Navigator.of(context).pop();
-            };
+            }
           },
         ),
       ],

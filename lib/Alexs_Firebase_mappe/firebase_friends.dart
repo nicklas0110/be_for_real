@@ -1,16 +1,8 @@
-import 'dart:io';
 
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '/tabs/friendTab/friendPicture.dart';
-import '../models/groups.dart';
 
 //This is a firebase class for firebase code
 class Firebase {
@@ -24,7 +16,6 @@ class Firebase {
 
     if (querySnapshot.size > 0) {
       final userDoc = querySnapshot.docs[0];
-      final userData = userDoc.data();
 
       // Retrieve the friend's user ID
       final friendUserId = userDoc.id;
@@ -101,7 +92,7 @@ class Firebase {
             .doc(friendUserId)
             .get();
 
-        final friendDataMap = friendData?.data() ?? {};
+        final friendDataMap = friendData.data() ?? {};
 
         final currentUserName = friendDataMap['name'];
 
@@ -124,7 +115,7 @@ class Firebase {
             .doc(userId)
             .get();
 
-        final currentUserDataMap = currentUserData?.data() ?? {}; // Provide an empty map if currentUserData is null
+        final currentUserDataMap = currentUserData.data() ?? {}; // Provide an empty map if currentUserData is null
 
         friendFriendsCollection.doc(userId).set(currentUserDataMap);
       }

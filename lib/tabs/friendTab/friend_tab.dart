@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
-import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
+import 'package:be_for_real/tabs/friendTab/friend_picture.dart';
+import 'package:be_for_real/tabs/bothTab/own_picture.dart';
 
 class FriendTab extends StatelessWidget {
 
-  FriendTab( {Key? key}) : super(key: key);
+  const FriendTab( {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,12 @@ class FriendTab extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return OwnPicture();
+              return const OwnPicture();
             }
             if (index == 1) {
-                return FriendPicture();
+                return const FriendPicture();
             }
+            return null;
           }),
     );
   }

@@ -1,8 +1,6 @@
-import 'dart:io';
 
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
-import 'package:be_for_real/models/dailyPicture.dart';
-import 'package:be_for_real/profile/profile_screen.dart';
+import 'package:be_for_real/models/user_picture.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,7 +8,7 @@ class FirebaseDailyPicture {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final uid = FirebaseAuth.instance.currentUser?.uid;
 
-  Future<List<DailyPicture>> getPicturesGroups(String email) async {
+  Future<List<UserPicture>> getPicturesGroups(String email) async {
     final groups = await _firestore
         .collection("groups")
         .where("members", arrayContains: email)
@@ -29,13 +27,13 @@ class FirebaseDailyPicture {
 
     final pictures = userImages.docs.expand((doc) {
       final list = doc.data()['dailyImages'] as List<dynamic>;
-      return list.map((e) => DailyPicture.fromMap(doc.id, e));
+      return list.map((e) => UserPicture.fromMap(doc.id, e));
     }).toList();
 
     return pictures;
   }
 
-  Future<List<DailyPicture>> getPicturesFriends(String email) async {
+  Future<List<UserPicture>> getPicturesFriends(String email) async {
     final friends = await _firestore
         .collection("friendsRegister")
         .doc(uid)
@@ -57,13 +55,13 @@ class FirebaseDailyPicture {
 
     final pictures = userImages.docs.expand((doc) {
       final list = doc.data()['dailyImages'] as List<dynamic>;
-      return list.map((e) => DailyPicture.fromMap(doc.id, e));
+      return list.map((e) => UserPicture.fromMap(doc.id, e));
     }).toList();
 
     return pictures;
   }
 
-  Future<List<DailyPicture>> getPicturesOwn(String email) async {
+  Future<List<UserPicture>> getPicturesOwn(String email) async {
     final userImages = await _firestore
         .collection("userImages")
         .doc(email) // Use your own document ID instead of relying on currentUser?.uid
@@ -75,7 +73,7 @@ class FirebaseDailyPicture {
     }
 
     final dailyImages = userImagesData['dailyImages'] as List<dynamic>;
-    final pictures = dailyImages.map((e) => DailyPicture.fromMap(email, e)).toList();
+    final pictures = dailyImages.map((e) => UserPicture.fromMap(email, e)).toList();
 
     return pictures;
   }

@@ -1,4 +1,3 @@
-import 'package:be_for_real/group/widgets/add_member_button.dart';
 import 'package:be_for_real/group/widgets/friend_request_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,22 +10,21 @@ import 'widgets/friend_list_button.dart';
 import 'chat/messages_screen.dart';
 
 class GroupScreen extends StatelessWidget {
-   GroupScreen({super.key});
+   const GroupScreen({super.key});
 
    //This is where the groupScreen is built
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     final chat = Provider.of<ChatService>(context);
-    if (user == null) return Container();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text('Groups'),
         actions: [
-          CreateChannelButton(),
+          const CreateChannelButton(),
           FriendRequestButton(),
-          FriendListButton(userId: '',),
+          const FriendListButton(userId: '',),
         ],
       ),
       body: StreamBuilder(

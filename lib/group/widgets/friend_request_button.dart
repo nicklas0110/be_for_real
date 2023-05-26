@@ -7,9 +7,11 @@ import '../add_friend_screen.dart';
 class FriendRequestButton extends StatelessWidget {
   final firebase = Firebase();
 
+  FriendRequestButton({super.key});
+
   Route _createRouteAddFriend() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>  AddFriendScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) =>  const AddFriendScreen(),
 
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
@@ -36,7 +38,7 @@ class FriendRequestButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(_createRouteAddFriend());
       },
-      icon: Icon(Icons.person_add),
+      icon: const Icon(Icons.person_add),
     );
   }
 

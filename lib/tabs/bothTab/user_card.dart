@@ -1,10 +1,8 @@
-import 'package:be_for_real/models/dailyPicture.dart';
-import 'package:be_for_real/tabs/bothTab/ownPicture.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:be_for_real/models/user_picture.dart';
+import 'package:be_for_real/tabs/bothTab/own_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../Alexs_Firebase_mappe/firebase_daily_picture.dart';
-import 'commentsScreen.dart';
+import 'comments_screen.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = now.toIso8601String();
@@ -24,7 +22,7 @@ String addedCaption = 'added caption';
 class UserCard extends StatefulWidget {
   const UserCard(this.dailyPicture, {Key? key})
       : super(key: key);
-  final DailyPicture dailyPicture;
+  final UserPicture dailyPicture;
 
   @override
   State<UserCard> createState() => _UserCardState();
@@ -184,7 +182,7 @@ class _UserCardState extends State<UserCard> {
                     children: [
                       Visibility(
                         visible: haveUploadedCaption,
-                        child: Text(
+                        child: const Text(
                           'caption',
                           style: TextStyle(
                             fontSize: 16,

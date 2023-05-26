@@ -12,10 +12,10 @@ class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  RegistrationScreenState createState() => RegistrationScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen>
+class RegistrationScreenState extends State<RegistrationScreen>
     with SingleTickerProviderStateMixin {
   bool checkedValue = false;
   bool checkboxValue = false;

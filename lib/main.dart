@@ -7,7 +7,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'Alexs_Firebase_mappe/firebase_chat_service.dart';
-import 'models/dailyPicture.dart';
 import 'home_screen.dart';
 import 'LoginRegisterStartup/startup_screen.dart';
 import 'Alexs_Firebase_mappe/firebase_options.dart';
@@ -91,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider<ChatService>(create: (context) => ChatService()),
         Provider<FirebaseDailyPicture>(create: (context) => FirebaseDailyPicture()),
-        Provider<HomeScreen>(create: (context) => HomeScreen()),
+        Provider<HomeScreen>(create: (context) => const HomeScreen()),
         StreamProvider<User?>(
           create: (context) => FirebaseAuth.instance.authStateChanges(),
           initialData: null,

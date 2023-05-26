@@ -1,9 +1,9 @@
-import 'package:be_for_real/UtilityHelpers/locationUtil.dart';
+import 'package:be_for_real/UtilityHelpers/location_util.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:be_for_real/tabs/bothTab/camera_screen.dart';
-import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
+import 'package:be_for_real/tabs/friendTab/friend_picture.dart';
 
 String userPic = 'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
 String ownPicDateTime = 'time';
@@ -111,7 +111,7 @@ class OwnPicture extends StatelessWidget {
     );
   }
 
-  String ImageUploaded() {
+  String imageUploaded() {
     if (haveUploadedPicture) {
       return userPic;
     } else {
@@ -119,7 +119,7 @@ class OwnPicture extends StatelessWidget {
     }
   }
 
-  String CaptionUploaded() {
+  String captionUploaded() {
     if (haveUploadedCaption) {
       return addedCaption;
     } else {
@@ -168,6 +168,7 @@ class OwnPicture extends StatelessWidget {
     return "${place.locality}, ${place.country}";
   }
 
+  @override
   Widget build(BuildContext context) {
     String caption = haveUploadedCaption ? addedCaption : 'Add a caption';
     return Column(

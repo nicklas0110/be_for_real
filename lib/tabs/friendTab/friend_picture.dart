@@ -1,10 +1,10 @@
-import 'package:be_for_real/models/dailyPicture.dart';
+import 'package:be_for_real/models/user_picture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_daily_picture.dart';
 import 'package:provider/provider.dart';
 
-import '../bothTab/userCard.dart';
+import '../bothTab/user_card.dart';
 
 DateTime now = DateTime.now();
 String formattedDate = now.toIso8601String();
@@ -18,20 +18,19 @@ String friendUsername = 'username';
 String friendPicDateTime = 'time';
 String friendPicLocation = 'location';
 
-class GroupPicture extends StatelessWidget {
-  const GroupPicture({Key? key}) : super(key: key);
+class FriendPicture extends StatelessWidget {
+  const FriendPicture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final dailyPicture = Provider.of<FirebaseDailyPicture>(context);
     final user = FirebaseAuth.instance.currentUser;
 
-    return FutureBuilder<List<DailyPicture>>(
-      future: dailyPicture.getPicturesGroups(user!.email!),
+    return FutureBuilder<List<UserPicture>>(
+      future: dailyPicture.getPicturesFriends(user!.email!),
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
         if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         return Column(
           children: [

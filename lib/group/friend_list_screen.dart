@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class FriendListScreen extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
-  FirebaseAuth auth = FirebaseAuth.instance;
+  FriendListScreen({super.key});
 
   String getUid() {
     User? user = auth.currentUser;
@@ -20,7 +21,7 @@ class FriendListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Friend List'),
+        title: const Text('Friend List'),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _firestore
@@ -36,7 +37,7 @@ class FriendListScreen extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -47,9 +48,9 @@ class FriendListScreen extends StatelessWidget {
             itemCount: friends.length,
             itemBuilder: (context, index) {
               final friend = friends[index].data();
-              final friendName = friend?['name'] ?? '';
-              final friendEmail = friend?['email'] ?? '';
-              final friendImageUrl = friend?['photoUrl'] ?? '';
+              final friendName = friend['name'] ?? '';
+              final friendEmail = friend['email'] ?? '';
+              final friendImageUrl = friend['photoUrl'] ?? '';
 
               return ListTile(
                 leading: Container(

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CommentsScreen extends StatefulWidget {
+  const CommentsScreen({super.key});
+
   @override
-  _CommentsScreenState createState() => _CommentsScreenState();
+  CommentsScreenState createState() => CommentsScreenState();
 }
 
-class _CommentsScreenState extends State<CommentsScreen> {
+class CommentsScreenState extends State<CommentsScreen> {
   List<String> comments = [];
 
   TextEditingController commentController = TextEditingController();

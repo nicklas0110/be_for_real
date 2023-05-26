@@ -1,16 +1,10 @@
-import 'dart:io';
 
 import 'package:be_for_real/Alexs_Firebase_mappe/cameraService.dart';
 import 'package:camera/camera.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import '../../UtilityHelpers/locationUtil.dart';
 import '../../home_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: MyHomePage(
         title: 'Camera',
@@ -80,11 +74,10 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateTime.now().toIso8601String();
     final user = Provider.of<User?>(context);
 
     if (_controller == null || waiting) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
       appBar: AppBar(
@@ -99,7 +92,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     scale: 0.95, // Adjust the scale factor as needed
                     child: CameraPreview(_controller!))),
             Transform.translate(
-              offset: Offset(0, -50),
+              offset: const Offset(0, -50),
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: FloatingActionButton(

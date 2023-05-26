@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +17,10 @@ class CreateChannelDialog extends StatefulWidget {
 }
 
 class _CreateChannelDialogState extends State<CreateChannelDialog> {
-  final _firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   XFile? photo;
   bool isLoading = false;
-  final _userEmailRegister = TextEditingController();
-  final _userNameRegister = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController();
   String _imageUrl = ''; // Define imageUrl variable
@@ -223,7 +219,7 @@ class _CreateChannelDialogState extends State<CreateChannelDialog> {
             ),
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
 
         GestureDetector(
           onTap: () async {

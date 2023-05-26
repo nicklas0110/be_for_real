@@ -5,11 +5,13 @@ import 'package:be_for_real/Alexs_Firebase_mappe/firebase_friends.dart';
 import '../Alexs_Firebase_mappe/firebase_basic.dart';
 
 class AddFriendScreen extends StatefulWidget {
+  const AddFriendScreen({super.key});
+
   @override
-  _AddFriendScreenState createState() => _AddFriendScreenState();
+  AddFriendScreenState createState() => AddFriendScreenState();
 }
 
-class _AddFriendScreenState extends State<AddFriendScreen> {
+class AddFriendScreenState extends State<AddFriendScreen> {
   final TextEditingController _emailController = TextEditingController();
   final FirebaseBasic _firebaseBasic = FirebaseBasic();
   final Firebase _firebase = Firebase();
@@ -38,7 +40,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 child: const Text('Add Friend'),
                 onPressed: () async {
                   final friendEmail = _emailController.text;
-                  final currentUser = await _firebaseBasic.getCurrentUser();
+                  final currentUser = _firebaseBasic.getCurrentUser();
 
                   if (currentUser != null) {
                     // Add friend logic here
@@ -64,7 +66,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
                 stream: _firebase.getFriendRequests(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {

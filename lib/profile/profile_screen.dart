@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../home_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.title});
+  const ProfilePage({super.key, required this.title});
 
   final String title;
 

@@ -22,10 +22,10 @@ class MessagesScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MessagesScreenState createState() => _MessagesScreenState();
+  MessagesScreenState createState() => MessagesScreenState();
 }
 
-class _MessagesScreenState extends State<MessagesScreen> {
+class MessagesScreenState extends State<MessagesScreen> {
   final ScrollController _scrollController = ScrollController();
 
   //This is where we set the controller for the scroll sequence of this screen

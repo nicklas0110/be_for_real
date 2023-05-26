@@ -1,11 +1,11 @@
 import 'package:be_for_real/profile/profile_screen.dart';
 import 'package:be_for_real/group/group_screen.dart';
 import 'package:flutter/material.dart';
-import 'tabs/friendTab/friendTab.dart';
-import 'tabs/groupTab/groupTab.dart';
+import 'tabs/friendTab/friend_tab.dart';
+import 'tabs/groupTab/group_tab.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key});
+  const HomeScreen({super.key});
 
   // This widget is the root of your application.
   @override
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       darkTheme: ThemeData.from(
           colorScheme: const ColorScheme.dark(background: Colors.black)),
       themeMode: ThemeMode.dark,
-      home: MyHomePage(
+      home: const MyHomePage(
         title: 'BeForReal',
         friendTab: 'Friends',
         groupTab: 'Groups',
@@ -31,8 +31,7 @@ MaterialColor blackMaterialColor = MaterialColor(0xFF000000, {
 });
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({
-    Key? key,
+  const MyHomePage({super.key,
     required this.title,
     required this.friendTab,
     required this.groupTab,
@@ -62,25 +61,6 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {
       groupOrFriendTab = _tabController.index == 1; // Set to true when in friend tab, false otherwise
     });
-  }
-
-  Route _createRouteFriends() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => GroupScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(-1.0, 0.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
   }
 
   Route _createRouteProfile() {

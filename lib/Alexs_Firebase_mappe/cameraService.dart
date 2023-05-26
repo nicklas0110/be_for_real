@@ -1,15 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:be_for_real/models/user.dart';
-import 'package:be_for_real/profile/profile_screen.dart';
-import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 
-import 'firebase_friends.dart';
-import '../UtilityHelpers/locationUtil.dart';
-import '../tabs/friendTab/friendPicture.dart';
+import '../UtilityHelpers/location_util.dart';
+import '../tabs/friendTab/friend_picture.dart';
 
 class CameraService {
   String caption = "";

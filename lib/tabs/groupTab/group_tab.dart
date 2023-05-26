@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'groupPicture.dart';
-import 'groupSelect.dart';
-import '../bothTab/ownPicture.dart';
+import 'group_picture.dart';
+import 'group_select.dart';
+import '../bothTab/own_picture.dart';
 
 class GroupTab extends StatelessWidget {
-  GroupTab({Key? key}) : super(key: key);
+  const GroupTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +13,16 @@ class GroupTab extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return OwnPicture();
+              return const OwnPicture();
             }
 
             if (index == 1) {
-              return GroupSelect();
+              return const GroupSelect();
             }
             if (index == 2) {
-              return GroupPicture();
+              return const GroupPicture();
             }
+            return null;
           }),
     );
   }
