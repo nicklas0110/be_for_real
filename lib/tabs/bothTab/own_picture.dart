@@ -155,6 +155,7 @@ class OwnPicture extends StatelessWidget {
         children: [
           Container(
             width: 120,
+            height: 6969,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.black,
@@ -180,25 +181,25 @@ class OwnPicture extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 4,
-            left: 4,
+          Padding(
+            padding: EdgeInsets.fromLTRB(4, 4, 0, 0), // Adjust the values as needed
             child: Container(
+              width: 41, // Adjust the width as needed
+              height: 56, // Adjust the height as needed
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
                 border: Border.all(
                   color: Colors.black,
-                  width: 2,
+                  width: 1,
                 ),
               ),
-              child: SizedBox(
-                height: 50,
-                width: 35,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
                 child: FutureBuilder(
                   future: imageUploaded(dailyPicture),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData)
-                      return Image.asset('assets/plus_sign_white.png');
+                      return Container();
                     return Image.network(
                       snapshot.data!.first,
                       fit: BoxFit.cover,
@@ -208,6 +209,8 @@ class OwnPicture extends StatelessWidget {
               ),
             ),
           ),
+
+
           Positioned(
             top: 4,
             right: 4,
