@@ -3,7 +3,8 @@
 ## 📲 : Mobile App
 This mobile application that can send a daily picture of yourself and the world around you to a social network of friends/groups you choose yourself. In the group/circle of friends, you must also be able to write to each other. The time to take the picture must happen at a random time of day.
 
-## Running on your IDE 
+
+## 💻 Running on your IDE 
 
 Clone or download the project
 
@@ -20,7 +21,7 @@ flutter pub get
 - Friend System
 
 
-## :computer: Technologies
+📚
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
