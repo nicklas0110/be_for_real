@@ -29,6 +29,9 @@ class GroupPicture extends StatelessWidget {
     return FutureBuilder<List<UserPicture>>(
       future: dailyPicture.getPicturesGroups(user!.email!),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }

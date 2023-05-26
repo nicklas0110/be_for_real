@@ -1,4 +1,3 @@
-
 import 'package:be_for_real/Alexs_Firebase_mappe/firebase_basic.dart';
 import 'package:be_for_real/models/user_picture.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +15,7 @@ class FirebaseDailyPicture {
 
     final emails = groups.docs
         .expand((group) => group.data()['members'] as List<dynamic>)
-        .toList();
+        .toSet();
 
     if (emails.isEmpty) return [];
 
@@ -40,13 +39,10 @@ class FirebaseDailyPicture {
         .collection('friends')
         .get();
 
-    final emails = friends.docs
-        .map((friend)
-    {
-      final data =friend.data();
+    final emails = friends.docs.map((friend) {
+      final data = friend.data();
       return data['email'] as String;
-    })
-        .toList();
+    }).map((e) => e.toLowerCase()).toSet();
 
     final userImages = await _firestore
         .collection("userImages")
@@ -64,7 +60,8 @@ class FirebaseDailyPicture {
   Future<List<UserPicture>> getPicturesOwn(String email) async {
     final userImages = await _firestore
         .collection("userImages")
-        .doc(email) // Use your own document ID instead of relying on currentUser?.uid
+        .doc(
+            email) // Use your own document ID instead of relying on currentUser?.uid
         .get();
 
     final userImagesData = userImages.data();
@@ -73,11 +70,11 @@ class FirebaseDailyPicture {
     }
 
     final dailyImages = userImagesData['dailyImages'] as List<dynamic>;
-    final pictures = dailyImages.map((e) => UserPicture.fromMap(email, e)).toList();
+    final pictures =
+        dailyImages.map((e) => UserPicture.fromMap(email, e)).toList();
 
     return pictures;
   }
-
 
   Future<List<String>> getProfilePictureURLs() async {
     final friends = await _firestore
@@ -95,28 +92,27 @@ class FirebaseDailyPicture {
   }
 
   Future<void> deleteDailyPics(String email) async {
-      final batch = FirebaseFirestore.instance.batch();
-      // Delete group document
-      final imageDocRef = FirebaseFirestore.instance
+    final batch = FirebaseFirestore.instance.batch();
+    // Delete group document
+    final imageDocRef = FirebaseFirestore.instance
+        .collection('userImages')
+        .doc(FirebaseBasic().getUserEmail() as String?);
+    batch.delete(imageDocRef);
+
+    // Delete subcollections
+    final subcollections = ['back', 'front'];
+    for (final subcollection in subcollections) {
+      final subcollectionRef = FirebaseFirestore.instance
           .collection('userImages')
-          .doc(FirebaseBasic().getUserEmail() as String?);
-      batch.delete(imageDocRef);
-
-      // Delete subcollections
-      final subcollections = ['back', 'front'];
-      for (final subcollection in subcollections) {
-        final subcollectionRef = FirebaseFirestore.instance
-            .collection('userImages')
-            .doc(FirebaseBasic().getUserEmail() as String?)
-            .collection(subcollection);
-        final docs = await subcollectionRef.get();
-        for (final doc in docs.docs) {
-          batch.delete(doc.reference);
-        }
+          .doc(FirebaseBasic().getUserEmail() as String?)
+          .collection(subcollection);
+      final docs = await subcollectionRef.get();
+      for (final doc in docs.docs) {
+        batch.delete(doc.reference);
       }
+    }
 
-      // Commit the batched writes
-      await batch.commit();
-
+    // Commit the batched writes
+    await batch.commit();
   }
 }
