@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:be_for_real/tabs/bothTab/camera_screen.dart';
 import 'package:be_for_real/tabs/friendTab/friend_picture.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../../Alexs_Firebase_mappe/firebase_daily_picture.dart';
 
@@ -71,7 +72,7 @@ class OwnPicture extends StatelessWidget {
                   maxLines: 4,
                   decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+                    EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
                     border: OutlineInputBorder(),
                     hintText: 'Caption',
                   ),
@@ -96,7 +97,8 @@ class OwnPicture extends StatelessWidget {
 
   Route _createRouteCamera() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const CameraScreen(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+      const CameraScreen(
         title: 'Camera',
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -105,7 +107,7 @@ class OwnPicture extends StatelessWidget {
         const curve = Curves.ease;
 
         var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -115,58 +117,122 @@ class OwnPicture extends StatelessWidget {
     );
   }
 
-  Future<List<String>?> imageUploaded(FirebaseDailyPicture firebaseDailyPicture) async{
+  Future<List<String>?> imageUploaded(
+      FirebaseDailyPicture firebaseDailyPicture) async {
     try {
-      final userpic = (await firebaseDailyPicture.getPicturesOwn(FirebaseAuth.instance.currentUser!.email!)).first;
+      final userpic = (await firebaseDailyPicture.getPicturesOwn(
+          FirebaseAuth.instance.currentUser!.email!)).first;
       return [userpic.imageUrlFront, userpic.imageUrlBack];
-    } catch(error) {
-      final placeholder = ['514623267995649/plus_sign_white.png?width=994&height=1192', 'https://media.discordapp.net/attachments/526767373449953285/1110514623267995649/plus_sign_white.png?width=994&height=1192'];
+    } catch (error) {
+      final placeholder = [
+        '514623267995649/plus_sign_white.png?width=994&height=1192',
+        'https://media.discordapp.net/attachments/526767373449953285/1110514623267995649/plus_sign_white.png?width=994&height=1192'
+      ];
       return null;
-  }
+    }
   }
 
-  Widget buildCardOwnPic(BuildContext context, int index){
-  final dailyPicture = Provider.of<FirebaseDailyPicture>(context);
+  Future<List<String>?> imageUploadedData(
+      FirebaseDailyPicture firebaseDailyPicture) async {
+    try {
+      final userpicData = (await firebaseDailyPicture.getPicturesOwn(
+          FirebaseAuth.instance.currentUser!.email!)).first;
+      return [userpicData.location, userpicData.timestamp];
+    } catch (error) {
+      return null;
+    }
+  }
+
+  Widget buildCardOwnPic(BuildContext context, int index) {
+    final dailyPicture = Provider.of<FirebaseDailyPicture>(context);
 
     return GestureDetector(
       onTap: () {
         alertPopUp(context);
         Navigator.of(context).push(_createRouteCamera());
       },
-      child: Container(
-        width: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.black,
-          border: Border.all(
-            color: Colors.blueGrey,
-            width: 2,
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: SizedBox(
-            child: FutureBuilder(
-              future:imageUploaded(dailyPicture) ,
-              builder:(context, snapshot) {
-                if (!snapshot.hasData) return Image.asset('assets/plus_sign_white.png');
-                return Image.network(
-                snapshot.data!.first,
-                  fit: BoxFit.cover,
-              );
-              },
+      child: Stack(
+        children: [
+          Container(
+            width: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.black,
+              border: Border.all(
+                color: Colors.blueGrey,
+                width: 2,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: SizedBox(
+                child: FutureBuilder(
+                  future: imageUploaded(dailyPicture),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData)
+                      return Image.asset('assets/plus_sign_white.png');
+                    return Image.network(
+                      snapshot.data!.last,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
             ),
           ),
-        ),
+          Positioned(
+            top: 4,
+            left: 4,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
+                ),
+              ),
+              child: SizedBox(
+                height: 50,
+                width: 35,
+                child: FutureBuilder(
+                  future: imageUploaded(dailyPicture),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData)
+                      return Image.asset('assets/plus_sign_white.png');
+                    return Image.network(
+                      snapshot.data!.first,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 4,
+            right: 4,
+            child: InkWell(
+              onTap: () {
+                // Perform delete operation here
+              },
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
 
+
+
   getCurrentPlaceName() async {
     final position = await determinePosition();
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+    await placemarkFromCoordinates(position.latitude, position.longitude);
     final place = placemarks.first;
     return "${place.locality}, ${place.country}";
   }
@@ -174,6 +240,8 @@ class OwnPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String caption = haveUploadedCaption ? addedCaption : 'Add a caption';
+    final dailyPicture = Provider.of<FirebaseDailyPicture>(context);
+
     return Column(
       children: [
         SizedBox(
@@ -213,22 +281,14 @@ class OwnPicture extends StatelessWidget {
                     ),
                   ),
                   FutureBuilder(
-                    future: getCurrentPlaceName(),
+                    future: imageUploadedData(dailyPicture),
                     builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return const Text(
-                            "Please enable location service on your device",
-                            style: TextStyle(color: Colors.red));
-                      }
-                      if (snapshot.hasData == false) {
-                        return Text(
-                          'Getting location...',
-                          style: TextStyle(color: Colors.grey[400]),
-                        );
-                      }
+                      if (!snapshot.hasData) return Text("");
+                      final friendTimestamp = DateFormat.yMd()
+                          .add_Hm()
+                          .format(DateTime.parse(snapshot.data!.last));
                       return Text(
-                        '${snapshot.data.toString()} • $formattedDate🕒',
-                        style: TextStyle(color: Colors.grey[400]),
+                        '${snapshot.data!.first} • ${friendTimestamp}'
                       );
                     },
                   ),
