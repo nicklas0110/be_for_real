@@ -1,5 +1,4 @@
 import 'package:be_for_real/chat/models/groups.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'add_member_dialog.dart';
