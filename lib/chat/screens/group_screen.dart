@@ -1,4 +1,3 @@
-import 'package:be_for_real/chat/widgets/add_member_button.dart';
 import 'package:be_for_real/chat/widgets/friend_request_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
