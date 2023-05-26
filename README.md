@@ -25,7 +25,6 @@ flutter pub get
 - Take Picture
 - Chat
 - Friend System
-- 
 
 
 ## :computer: Technologies
@@ -38,6 +37,7 @@ flutter pub get
 ## :pencil2: Authors
 
 * [@Mostafa Heidari](https://github.com/MostafaHeidari/)
-* [@Nicklas](https://github.com/nicklas0110/)
-* [@Anders](https://github.com/AndersJakobsen/)
+* [@Frederik Reigstad](https://github.com/FrederikReigstad)
+* [@Nicklas Jørgensen](https://github.com/nicklas0110/)
+* [@Anders Jakobsen](https://github.com/AndersJakobsen/)
 * [@Mikkel](https://github.com/Roatze)
