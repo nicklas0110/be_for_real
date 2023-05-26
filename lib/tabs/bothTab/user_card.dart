@@ -7,16 +7,10 @@ import 'comments_screen.dart';
 DateTime now = DateTime.now();
 String formattedDate = now.toIso8601String();
 String placeholderImageLink =
-    'https://media.discordapp.net/attachments/526767373449953285/1101056394544807976/image.png?width=764&height=760';
+    'https://media.discordapp.net/attachments/526767373449953285/1111590482569597019/ProfilePic.png?width=1024&height=1024';
 String friendPicProfilePic = placeholderImageLink;
-String friendPicFront = placeholderImageLink;
-String friendPicBack = placeholderImageLink;
 
-String friendUsername = 'username';
-String friendPicDateTime = 'time';
-String friendPicLocation = 'location';
-
-bool haveUploadedCaption = true;
+bool haveUploadedCaption = false;
 String addedCaption = 'added caption';
 
 class UserCard extends StatefulWidget {
@@ -82,7 +76,7 @@ class _UserCardState extends State<UserCard> {
                       borderRadius: BorderRadius.circular(50),
                       child: SizedBox(
                         child: FadeInImage(
-                          image: NetworkImage(userPic),
+                          image: NetworkImage(friendPicProfilePic),
                           fit: BoxFit.cover,
                           placeholder: const AssetImage("assets/Grey.png"),
                         ),
@@ -182,8 +176,8 @@ class _UserCardState extends State<UserCard> {
                     children: [
                       Visibility(
                         visible: haveUploadedCaption,
-                        child: const Text(
-                          'caption',
+                        child: Text(
+                          captionUploaded(),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -202,6 +196,7 @@ class _UserCardState extends State<UserCard> {
               ),
             ),
           ),
+
         ],
       ),
     );
