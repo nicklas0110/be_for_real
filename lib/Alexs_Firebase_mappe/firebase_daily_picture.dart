@@ -44,6 +44,8 @@ class FirebaseDailyPicture {
       return data['email'] as String;
     }).map((e) => e.toLowerCase()).toSet();
 
+    if (emails.isEmpty) return [];
+
     final userImages = await _firestore
         .collection("userImages")
         .where(FieldPath.documentId, whereIn: emails)

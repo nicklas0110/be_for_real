@@ -35,6 +35,8 @@ class FriendPicture extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
+        if (snapshot.data!.isEmpty) return Text("You need to have some friendly friend");
+
         return Column(
           children: [
             for (final picture in snapshot.data!) UserCard(picture)
