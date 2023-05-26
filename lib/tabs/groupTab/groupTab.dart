@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../friendTab/friendPicture.dart';
 import '../friendTab/groupPicture.dart';
 import 'groupSelect.dart';
 import '../friendTab/ownPicture.dart';

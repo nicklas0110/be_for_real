@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:be_for_real/chat/models/dailyPicture.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,3 +1,4 @@
+import 'package:be_for_real/tabs/friendTab/groupPicture.dart';
 import 'package:flutter/material.dart';
 import 'package:be_for_real/tabs/friendTab/friendPicture.dart';
 import 'package:be_for_real/tabs/friendTab/ownPicture.dart';

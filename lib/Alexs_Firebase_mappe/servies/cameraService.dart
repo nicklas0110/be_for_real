@@ -1,9 +1,13 @@
 import 'dart:typed_data';
 
+import 'package:be_for_real/chat/models/user.dart';
+import 'package:be_for_real/chat/screens/profile_screen.dart';
+import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geocoding/geocoding.dart';
 
+import '../firebase.dart';
 import '../../locationUtil.dart';
 import '../../tabs/friendTab/friendPicture.dart';
 
