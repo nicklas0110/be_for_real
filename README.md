@@ -33,4 +33,4 @@ flutter pub get
 * [@Frederik Reigstad](https://github.com/FrederikReigstad)
 * [@Nicklas Jørgensen](https://github.com/nicklas0110/)
 * [@Anders Jakobsen](https://github.com/AndersJakobsen/)
-* [@Mikkel](https://github.com/Roatze)
+* [@Mikkel Husum](https://github.com/Roatze)
