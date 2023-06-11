@@ -3,7 +3,6 @@ import 'package:be_for_real/Alexs_Firebase_mappe/cameraService.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import '../../home_screen.dart';
 
@@ -50,14 +49,6 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-  getLocationPermitions() async {
-// You can request multiple permissions at once.
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.location,
-    ].request();
-    print(statuses[Permission.location]);
-  }
-
   @override
   void initState() {
     availableCameras().then((cameras) async {
@@ -67,7 +58,6 @@ class _CameraScreenState extends State<CameraScreen> {
       await _controller?.initialize();
       setState(() {});
     });
-    getLocationPermitions();
 
     super.initState();
   }

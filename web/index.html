@@ -40,6 +40,25 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  // Import other Firebase features you need
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCrtQ4HNKYG56qHE8TzU8VMSba8ynl0lRo",
+    authDomain: "be-for-real.firebaseapp.com",
+    projectId: "be-for-real",
+    storageBucket: "be-for-real.appspot.com",
+    messagingSenderId: "113731870223",
+    appId: "1:113731870223:web:27d457121001b22b39cd7a"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+
+
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
@@ -55,19 +74,6 @@
       });
     });
   </script>
-
-<script>
-  const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  };
-
-  firebase.initializeApp(firebaseConfig)
-</script>
 
 </body>
 </html>
